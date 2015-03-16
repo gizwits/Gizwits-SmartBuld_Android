@@ -28,43 +28,45 @@ package com.gizwits.framework.config;
 public class JsonKeys {
 
 	/** 产品名. */
-	public final static String PRODUCT_NAME = "智能云空调";
+	public final static String PRODUCT_NAME = "机智云智能热水器";
 
 	/** 实体字段名，代表对应的项目. */
 	public final static String KEY_ACTION = "entity0";
 
 	/** 开关. */
-	public final static String ON_OFF = "switch";
+	public final static String ON_OFF = "Switch";
 
-	/** 定时开机. */
-	public final static String TIME_ON = "on_timing";
+	/** 目标温度 30 - 75. */
+	public final static String SET_TEMP = "Set_Temp";
+	
+	/** 当前温度 0 - 99. */
+	public final static String ROOM_TEMP = "Room_Temp";
+	
+	/** 模式切换 0、智能模式 1、节能模式 2、速热模式 3、加热模式 4、保温模式 5、安全模式. */
+	public final static String MODE = "Mode";
+	
+	
+	/** 倒计时预约. */
+	public final static String COUNT_DOWN_RESERVE = "CountDown_Reserve";
+	
+	/** 定时预约. */
+	public final static String TIME_RESERVE = "Time_Reserve";
+	
+	/** 预约开关. */
+	public final static String RESERVE_ON_OFF = "Reserve_OnOff";
+	
+	
 
-	/** 定时关机. */
-	public final static String TIME_OFF = "off_timing";
-	/**
-	 * 模式 0.制冷, 1.送风, 2.除湿, 3.自动
-	 */
-	public final static String MODE = "mode";
 
-	/** 设定温度 16 - 30. */
-	public final static String SET_TEMP = "set_temp";
-	/**
-	 * 风速 0.低风, 1.中风, 2.高风
-	 */
-	public final static String FAN_SPEED = "fan_speed";
+	/** 干烧故障. */
+	public final static String FAULT_BURNING = "Fault_burning";
 
-	/** 摆风. */
-	public final static String FAN_SHAKE = "fan_swing";
+	/** 传感器开路故障. */
+	public final static String FAULT_SENSOR_OPEN = "Fault_SensorOpen";
 
-	/** 室内温度 -10 - 35. */
-	public final static String ROOM_TEMP = "room_temp";
-
-	/** 停机报警. */
-	public final static String ALARM_SHUTDOWM = "alert_shutdown";
-
-	/** 水满报警. */
-	public final static String ALARM_FULL = "alert_full";
-
-	/** 室温故障. */
-	public final static String FAULT_ROOMTEMP = "fault_roomtemp";
+	/** 传感器短路故障. */
+	public final static String FAULT_SENSOR_SHORT = "Fault_SensorShort";
+	
+	/** 超温故障. */
+	public final static String FAULT_OVER_TEMP = "Fault_OverTemp";
 }

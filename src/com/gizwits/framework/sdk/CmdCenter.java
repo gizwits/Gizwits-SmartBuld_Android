@@ -379,18 +379,18 @@ public class CmdCenter {
 		cWrite(xpgWifiDevice, JsonKeys.ON_OFF, isOn);
 		cGetStatus(xpgWifiDevice);
 	}
-
+	
 	/**
-	 * C set shake.
+	 * C set temp.
 	 *
 	 * @param xpgWifiDevice the xpg wifi device
-	 * @param isOn the is on
+	 * @param templature the templature
 	 */
-	public void cSetShake(XPGWifiDevice xpgWifiDevice, boolean isOn) {
-		cWrite(xpgWifiDevice, JsonKeys.FAN_SHAKE, isOn);
+	public void cSetTemp(XPGWifiDevice xpgWifiDevice, int templature) {
+		cWrite(xpgWifiDevice, JsonKeys.SET_TEMP, templature);
 		cGetStatus(xpgWifiDevice);
 	}
-
+	
 	/**
 	 * C mode.
 	 *
@@ -401,48 +401,37 @@ public class CmdCenter {
 		cWrite(xpgWifiDevice, JsonKeys.MODE, mode);
 		cGetStatus(xpgWifiDevice);
 	}
-
+	
 	/**
-	 * C fan speed.
+	 * C cCountDown.
 	 *
 	 * @param xpgWifiDevice the xpg wifi device
-	 * @param fanSpeed the fan speed
+	 * @param countDown the countDown
 	 */
-	public void cFanSpeed(XPGWifiDevice xpgWifiDevice, int fanSpeed) {
-		cWrite(xpgWifiDevice, JsonKeys.FAN_SPEED, fanSpeed);
+	public void cCountDown(XPGWifiDevice xpgWifiDevice, int countDown) {
+		cWrite(xpgWifiDevice, JsonKeys.COUNT_DOWN_RESERVE, countDown);
 		cGetStatus(xpgWifiDevice);
 	}
-
+	
 	/**
-	 * C time on.
+	 * C cTimerSwitch.
 	 *
 	 * @param xpgWifiDevice the xpg wifi device
-	 * @param time the time
+	 * @param isOn the isOn
 	 */
-	public void cTimeOn(XPGWifiDevice xpgWifiDevice, int time) {
-		cWrite(xpgWifiDevice, JsonKeys.TIME_ON, time);
+	public void cTimerSwitch(XPGWifiDevice xpgWifiDevice, boolean isOn) {
+		cWrite(xpgWifiDevice, JsonKeys.RESERVE_ON_OFF, isOn);
 		cGetStatus(xpgWifiDevice);
 	}
-
+	
 	/**
-	 * C time off.
+	 * C cCountDown.
 	 *
 	 * @param xpgWifiDevice the xpg wifi device
-	 * @param time the time
+	 * @param timer the timer
 	 */
-	public void cTimeOff(XPGWifiDevice xpgWifiDevice, int time) {
-		cWrite(xpgWifiDevice, JsonKeys.TIME_OFF, time);
-		cGetStatus(xpgWifiDevice);
-	}
-
-	/**
-	 * C set temp.
-	 *
-	 * @param xpgWifiDevice the xpg wifi device
-	 * @param templature the templature
-	 */
-	public void cSetTemp(XPGWifiDevice xpgWifiDevice, int templature) {
-		cWrite(xpgWifiDevice, JsonKeys.SET_TEMP, templature);
+	public void cTimer(XPGWifiDevice xpgWifiDevice, int timer) {
+		cWrite(xpgWifiDevice, JsonKeys.TIME_RESERVE, timer);
 		cGetStatus(xpgWifiDevice);
 	}
 

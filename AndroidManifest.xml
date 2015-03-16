@@ -69,6 +69,7 @@
             android:launchMode="singleTask" />
         <activity android:name="com.gizwits.heater.activity.control.AlarmListActicity" />
         <activity android:name="com.gizwits.heater.activity.control.CurveActivity" />
+         <activity android:name="com.gizwits.heater.activity.control.ModeSelectedActivity" />
     </application>
 
 </manifest>

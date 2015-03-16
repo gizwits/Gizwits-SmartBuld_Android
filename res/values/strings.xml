@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">智能云空调</string>
+    <string name="app_name">机智云智能热水器</string>
     <string name="wifi_first">请先连上Wi-Fi网络</string>
     <string name="wifi_name">Wi-Fi名称</string>
     <string name="tip_exit">再按一次退出程序</string>
@@ -73,7 +73,7 @@
     <string name="main_control_temp_curve">温度曲线</string>
     <string name="main_control_celsius">摄氏</string>
     <string name="main_control_refrigeration">制冷</string>
-    <string name="main_control_indoor_temp">室内温度</string>
+    <string name="main_control_actual_temp">当前温度</string>
     <string name="main_control_degree">°</string>
     <string name="main_control_set_temp">设定温度</string>
     <string name="main_control_low_wind">低风</string>
@@ -123,4 +123,18 @@
 	
 	<string name="reset_by_phone">通过手机重置密码</string>
 	<string name="reset_by_email">通过邮箱重置密码</string>
+	
+	<string name="temp_now">当前温度</string>
+	<string name="temp_set">设定温度</string>
+	
+	<string name="heater_is_heating">热水器加热中</string>
+	<string name="heater_is_keeping_warm">热水器保温中</string>
+	
+	<string name="mode">模式</string>
+	<string name="pattern_intelligence">智能模式</string>
+	<string name="pattern_energy">节能模式</string>
+	<string name="power_fullpower">速热模式</string>
+	<string name="pattern_heating">加热模式</string>
+	<string name="pattern_temperature">保温模式</string>
+	<string name="pattern_safe">安全模式</string>
 </resources>

@@ -38,14 +38,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
@@ -60,11 +55,8 @@ import com.gizwits.framework.activity.device.DeviceManageListActivity;
 import com.gizwits.framework.activity.help.AboutActivity;
 import com.gizwits.framework.activity.help.HelpActivity;
 import com.gizwits.framework.adapter.MenuDeviceAdapter;
-import com.gizwits.framework.config.JsonKeys;
 import com.gizwits.framework.entity.DeviceAlarm;
 import com.gizwits.framework.utils.DialogManager;
-import com.gizwits.framework.utils.StringUtils;
-import com.gizwits.framework.utils.DialogManager.OnTimingChosenListener;
 import com.gizwits.framework.widget.CircularSeekBar;
 import com.gizwits.framework.widget.SlidingMenu;
 import com.xpg.common.system.IntentUtils;
@@ -80,8 +72,7 @@ import com.xtremeprog.xpgconnect.XPGWifiDevice;
  * @author Lien
  */
 public class MainControlActivity extends BaseActivity implements
-		OnClickListener, OnCheckedChangeListener,
-		CompoundButton.OnCheckedChangeListener {
+		OnClickListener{
 
 	/** The tag. */
 	private final String TAG = "MainControlActivity";
@@ -110,9 +101,6 @@ public class MainControlActivity extends BaseActivity implements
 	// /** The ll footer. */
 	// private LinearLayout llFooter;
 
-	/** The ll bottom. */
-	private LinearLayout llBottom;
-
 	/** The iv menu. */
 	private ImageView ivMenu;
 
@@ -124,24 +112,18 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** The iv back. */
 	private ImageView ivBack;
-
+	
+	/** The tv HeaterTips. */
+	private TextView tvHeaterTips;
+	
 	/** The tv alarm tips count. */
 	private TextView tvAlarmTipsCount;
 
-	/** The tv time off. */
-	private TextView tvTimeOff;
-
-	/** The tv advanture. */
-	private TextView tvAdvanture;
-
-	/** The tv curve. */
-	private TextView tvCurve;
-
-	/** The ctv unit. */
-	private CheckedTextView ctvUnit;
-
 	/** The tv mode. */
 	private TextView tvMode;
+	
+	/** The tv timer. */
+	private TextView tvTimer;
 
 	/** The tv inner temperature. */
 	private TextView tvInnerTemperature;
@@ -170,26 +152,26 @@ public class MainControlActivity extends BaseActivity implements
 	/** The tv power on str. */
 	private TextView tvPowerOnStr;
 
-	/** The ib left arrow. */
-	private ImageButton ibLeftArrow;
+//	/** The ib left arrow. */
+//	private ImageButton ibLeftArrow;
+//
+//	/** The ib right arrow. */
+//	private ImageButton ibRightArrow;
 
-	/** The ib right arrow. */
-	private ImageButton ibRightArrow;
-
-	/** The rg wing. */
-	private RadioGroup rgWing;
-
-	/** The rb wind low. */
-	private RadioButton rbWindLow;
-
-	/** The rb wind min. */
-	private RadioButton rbWindMin;
-
-	/** The rb wind high. */
-	private RadioButton rbWindHigh;
-
-	/** The cb wind shake. */
-	private CheckBox cbWindShake;
+//	/** The rg wing. */
+//	private RadioGroup rgWing;
+//
+//	/** The rb wind low. */
+//	private RadioButton rbWindLow;
+//
+//	/** The rb wind min. */
+//	private RadioButton rbWindMin;
+//
+//	/** The rb wind high. */
+//	private RadioButton rbWindHigh;
+//
+//	/** The cb wind shake. */
+//	private CheckBox cbWindShake;
 
 	/** The is show. */
 	private boolean isShow;
@@ -198,7 +180,7 @@ public class MainControlActivity extends BaseActivity implements
 	private int modePos;
 
 	/** The height. */
-	private int height;
+//	private int height;
 
 	/** The device data map. */
 	private ConcurrentHashMap<String, Object> deviceDataMap;
@@ -305,33 +287,33 @@ public class MainControlActivity extends BaseActivity implements
 					e.printStackTrace();
 				}
 			case UPDATE_UI:
-				if (statuMap != null && statuMap.size() > 0) {
-					setListenNull(true);
-					updateTemperatureUnit(isCentigrade);
-					updatePowerSwitch((Boolean) statuMap.get(JsonKeys.ON_OFF));
-					updateModeState((String) statuMap.get(JsonKeys.MODE));
-					String setTemp = (String) statuMap.get(JsonKeys.SET_TEMP);
-					if (!StringUtils.isEmpty(setTemp)) {
-						ubdateSeekBar(Short.parseShort(setTemp));
-					}
-					String roomTemp = (String) statuMap.get(JsonKeys.ROOM_TEMP);
-					if (!StringUtils.isEmpty(roomTemp)) {
-						updateInnerTemp(Short.parseShort(roomTemp));
-					}
-
-					String timeOn = (String) statuMap.get(JsonKeys.TIME_ON);
-					if (!StringUtils.isEmpty(timeOn)) {
-						updateOnTime(Integer.parseInt(timeOn));
-					}
-					String timeOff = (String) statuMap.get(JsonKeys.TIME_OFF);
-					if (!StringUtils.isEmpty(timeOff)) {
-						updateOffTime(Integer.parseInt(timeOff));
-					}
-					updateFanSpeed((String) statuMap.get(JsonKeys.FAN_SPEED));
-					updateShakeSwitch((Boolean) statuMap
-							.get(JsonKeys.FAN_SHAKE));
-					setListenNull(false);
-				}
+//				if (statuMap != null && statuMap.size() > 0) {
+//					setListenNull(true);
+//					updateTemperatureUnit(isCentigrade);
+//					updatePowerSwitch((Boolean) statuMap.get(JsonKeys.ON_OFF));
+//					updateModeState((String) statuMap.get(JsonKeys.MODE));
+//					String setTemp = (String) statuMap.get(JsonKeys.SET_TEMP);
+//					if (!StringUtils.isEmpty(setTemp)) {
+//						ubdateSeekBar(Short.parseShort(setTemp));
+//					}
+//					String roomTemp = (String) statuMap.get(JsonKeys.ROOM_TEMP);
+//					if (!StringUtils.isEmpty(roomTemp)) {
+//						updateInnerTemp(Short.parseShort(roomTemp));
+//					}
+//
+//					String timeOn = (String) statuMap.get(JsonKeys.TIME_ON);
+//					if (!StringUtils.isEmpty(timeOn)) {
+//						updateOnTime(Integer.parseInt(timeOn));
+//					}
+//					String timeOff = (String) statuMap.get(JsonKeys.TIME_OFF);
+//					if (!StringUtils.isEmpty(timeOff)) {
+//						updateOffTime(Integer.parseInt(timeOff));
+//					}
+//					updateFanSpeed((String) statuMap.get(JsonKeys.FAN_SPEED));
+//					updateShakeSwitch((Boolean) statuMap
+//							.get(JsonKeys.FAN_SHAKE));
+//					setListenNull(false);
+//				}
 				break;
 			case ALARM:
 				// 是否需要弹dialog判断
@@ -471,7 +453,6 @@ public class MainControlActivity extends BaseActivity implements
 		statuMap = new ConcurrentHashMap<String, Object>();
 		alarmList = new ArrayList<DeviceAlarm>();
 		alarmShowList = new ArrayList<String>();
-		height = llBottom.getHeight();
 	}
 
 	/**
@@ -484,30 +465,20 @@ public class MainControlActivity extends BaseActivity implements
 		rlAlarmTips = (RelativeLayout) findViewById(R.id.rlAlarmTips);
 		rlPowerOff = (RelativeLayout) findViewById(R.id.rlPowerOff);
 		// llFooter = (LinearLayout) findViewById(R.id.llFooter);
-		llBottom = (LinearLayout) findViewById(R.id.llBottom);
 		ivMenu = (ImageView) findViewById(R.id.ivMenu);
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
+		tvHeaterTips=(TextView) findViewById(R.id.tvHeaterTips);
 		ivPower = (ImageView) findViewById(R.id.ivPower);
 		ivBack = (ImageView) findViewById(R.id.ivBack);
 		tvAlarmTipsCount = (TextView) findViewById(R.id.tvAlarmTipsCount);
-		tvTimeOff = (TextView) findViewById(R.id.tvTimeOff);
-		tvAdvanture = (TextView) findViewById(R.id.tvAdvanture);
-		tvCurve = (TextView) findViewById(R.id.tvCurve);
-		ctvUnit = (CheckedTextView) findViewById(R.id.tvUnit);
 		tvMode = (TextView) findViewById(R.id.tvMode);
+		tvTimer = (TextView) findViewById(R.id.tvTimer);
 		tvInnerTemperature = (TextView) findViewById(R.id.tvInnerTemperature);
 		tvInnerUnit = (TextView) findViewById(R.id.tvInnerUnit);
 		tvSettingTemerature = (TextView) findViewById(R.id.tvSettingTemerature);
 		tvSettingUnit = (TextView) findViewById(R.id.tvSettingUnit);
 		tvPowerOn = (TextView) findViewById(R.id.tvPowerOn);
 		tvPowerOnStr = (TextView) findViewById(R.id.tvPowerOnStr);
-		ibLeftArrow = (ImageButton) findViewById(R.id.ibLeftArrow);
-		ibRightArrow = (ImageButton) findViewById(R.id.ibRightArrow);
-		rgWing = (RadioGroup) findViewById(R.id.rgWing);
-		rbWindLow = (RadioButton) findViewById(R.id.rbWindLow);
-		rbWindMin = (RadioButton) findViewById(R.id.rbWindMin);
-		rbWindHigh = (RadioButton) findViewById(R.id.rbWindHigh);
-		cbWindShake = (CheckBox) findViewById(R.id.cbWindShake);
 		sclContent = (ScrollView) findViewById(R.id.sclContent);
 		seekBar = (CircularSeekBar) findViewById(R.id.csbSeekbar);
 		seekBar.postInvalidateDelayed(2000);
@@ -526,7 +497,7 @@ public class MainControlActivity extends BaseActivity implements
 			@Override
 			public void onProgressContinueChange(CircularSeekBar view,
 					int newProgress) {
-				temperatureC = (short) (newProgress * 14 / 100.00 + 16);
+				temperatureC = (short) (newProgress * 45 / 100.00 + 30);
 				temperatureF = (short) getCelToFah(temperatureC);
 				tvSettingTemerature.setText((isCentigrade ? temperatureC
 						: temperatureF) + "");
@@ -557,30 +528,22 @@ public class MainControlActivity extends BaseActivity implements
 	 * Inits the events.
 	 */
 	private void initEvents() {
-		ibLeftArrow.setOnClickListener(this);
-		ibRightArrow.setOnClickListener(this);
-
 		tvPowerOn.setOnClickListener(this);
 		ivPower.setOnClickListener(this);
+		tvMode.setOnClickListener(this);
+		tvTimer.setOnClickListener(this);
 		sclContent.setOnTouchListener(new OnTouchListener() {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				llBottom.setVisibility(View.GONE);
 				isShow = false;
 				return false;
 			}
 		});
-		tvTimeOff.setOnClickListener(this);
-		tvAdvanture.setOnClickListener(this);
 		tvPowerOnStr.setOnClickListener(this);
 		ivMenu.setOnClickListener(this);
 		rlAlarmTips.setOnClickListener(this);
 		tvTitle.setOnClickListener(this);
-		ctvUnit.setOnClickListener(this);
-		cbWindShake.setOnCheckedChangeListener(this);
-		rgWing.setOnCheckedChangeListener(this);
-		tvCurve.setOnClickListener(this);
 		ivBack.setOnClickListener(this);
 
 		lvDevice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -613,8 +576,8 @@ public class MainControlActivity extends BaseActivity implements
 	 * @Description: TODO
 	 */
 	private void setListenNull(boolean on) {
-		cbWindShake.setOnCheckedChangeListener(on ? null : this);
-		rgWing.setOnCheckedChangeListener(on ? null : this);
+//		cbWindShake.setOnCheckedChangeListener(on ? null : this);
+//		rgWing.setOnCheckedChangeListener(on ? null : this);
 	}
 
 	/*
@@ -624,25 +587,25 @@ public class MainControlActivity extends BaseActivity implements
 	 * android.widget.RadioGroup.OnCheckedChangeListener#onCheckedChanged(android
 	 * .widget.RadioGroup, int)
 	 */
-	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		switch (checkedId) {
-		// 设置低风
-		case R.id.rbWindLow:
-			mCenter.cFanSpeed(mXpgWifiDevice, 0);
-			break;
-		// 设置中风
-		case R.id.rbWindMin:
-			mCenter.cFanSpeed(mXpgWifiDevice, 1);
-			break;
-		// 设置高风
-		case R.id.rbWindHigh:
-			mCenter.cFanSpeed(mXpgWifiDevice, 2);
-			break;
+//	@Override
+//	public void onCheckedChanged(RadioGroup group, int checkedId) {
+//		switch (checkedId) {
+//		// 设置低风
+//		case R.id.rbWindLow:
+//			mCenter.cFanSpeed(mXpgWifiDevice, 0);
+//			break;
+//		// 设置中风
+//		case R.id.rbWindMin:
+//			mCenter.cFanSpeed(mXpgWifiDevice, 1);
+//			break;
+//		// 设置高风
+//		case R.id.rbWindHigh:
+//			mCenter.cFanSpeed(mXpgWifiDevice, 2);
+//			break;
+//
+//		}
 
-		}
-
-	}
+//	}
 
 	/*
 	 * (non-Javadoc)
@@ -651,16 +614,16 @@ public class MainControlActivity extends BaseActivity implements
 	 * android.widget.CompoundButton.OnCheckedChangeListener#onCheckedChanged
 	 * (android.widget.CompoundButton, boolean)
 	 */
-	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		switch (buttonView.getId()) {
-		case R.id.cbWindShake:// 摆风
-			mCenter.cSetShake(mXpgWifiDevice, cbWindShake.isChecked());
-			break;
-		default:
-			break;
-		}
-	}
+//	@Override
+//	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//		switch (buttonView.getId()) {
+//		case R.id.cbWindShake:// 摆风
+//			mCenter.cSetShake(mXpgWifiDevice, cbWindShake.isChecked());
+//			break;
+//		default:
+//			break;
+//		}
+//	}
 
 	/**
 	 * 更新温度单位.
@@ -674,10 +637,8 @@ public class MainControlActivity extends BaseActivity implements
 				: innerTemperatureF) + "");
 		tvSettingTemerature.setText((centigrade ? temperatureC : temperatureF)
 				+ "");
-		ctvUnit.setText(centigrade ? "摄氏" : "华氏");
 		tvInnerUnit.setText(centigrade ? "℃" : "℉");
 		tvSettingUnit.setText(centigrade ? "℃" : "℉");
-		ctvUnit.setChecked(centigrade);
 	}
 
 	/**
@@ -737,54 +698,59 @@ public class MainControlActivity extends BaseActivity implements
 		case R.id.ivPower:
 			mPowerOffDialog.show();
 			break;
-		case R.id.ibLeftArrow:
-			modePos--;
-			if (modePos < 0)
-				modePos = 4;
-			sendModeReq(modePos);
-			updateModeState(modePos + "");
+		case R.id.tvTimer:
 			break;
-		case R.id.ibRightArrow:
-			modePos++;
-			if (modePos > 4)
-				modePos = 0;
-			sendModeReq(modePos);
-			updateModeState(modePos + "");
+		case R.id.tvMode:
+			startActivity(new Intent(MainControlActivity.this,ModeSelectedActivity.class));
 			break;
-		case R.id.tvAdvanture:
-			llBottom.setVisibility(isShow ? View.GONE : View.VISIBLE);
-			sclContent.scrollBy(0, isShow ? -height : height);
-			isShow = !isShow;
-			break;
-		case R.id.tvTimeOff:
-			DialogManager.getWheelTimingDialog(this,
-					new OnTimingChosenListener() {
-
-						@Override
-						public void timingChosen(int time) {
-							// 设置定时开机时间
-							mCenter.cTimeOff(mXpgWifiDevice, time);
-							timingOff = time;
-							tvTimeOff.setText(timingOff > 0 ? timingOff
-									+ "小时后关机" : "定时关机");
-
-						}
-					}, " 定时关机", timingOff == 0 ? 24 : timingOff - 1).show();
-			break;
+//		case R.id.ibLeftArrow:
+//			modePos--;
+//			if (modePos < 0)
+//				modePos = 4;
+//			sendModeReq(modePos);
+//			updateModeState(modePos + "");
+//			break;
+//		case R.id.ibRightArrow:
+//			modePos++;
+//			if (modePos > 4)
+//				modePos = 0;
+//			sendModeReq(modePos);
+//			updateModeState(modePos + "");
+//			break;
+//		case R.id.tvAdvanture:
+//			llBottom.setVisibility(isShow ? View.GONE : View.VISIBLE);
+//			sclContent.scrollBy(0, isShow ? -height : height);
+//			isShow = !isShow;
+//			break;
+//		case R.id.tvTimeOff:
+//			DialogManager.getWheelTimingDialog(this,
+//					new OnTimingChosenListener() {
+//
+//						@Override
+//						public void timingChosen(int time) {
+//							// 设置定时开机时间
+//							mCenter.cTimeOff(mXpgWifiDevice, time);
+//							timingOff = time;
+//							tvTimeOff.setText(timingOff > 0 ? timingOff
+//									+ "小时后关机" : "定时关机");
+//
+//						}
+//					}, " 定时关机", timingOff == 0 ? 24 : timingOff - 1).show();
+//			break;
 		case R.id.tvPowerOnStr:
-			DialogManager.getWheelTimingDialog(this,
-					new OnTimingChosenListener() {
-
-						@Override
-						public void timingChosen(int time) {
-							// 设置定时开机时间
-							mCenter.cTimeOn(mXpgWifiDevice, time);
-							timingOn = time;
-							tvPowerOnStr.setText(timingOn > 0 ? timingOn
-									+ "小时后开机" : "定时开机");
-
-						}
-					}, " 定时开机", timingOn == 0 ? 24 : timingOn - 1).show();
+//			DialogManager.getWheelTimingDialog(this,
+//					new OnTimingChosenListener() {
+//
+//						@Override
+//						public void timingChosen(int time) {
+//							// 设置定时开机时间
+//							mCenter.cTimeOn(mXpgWifiDevice, time);
+//							timingOn = time;
+//							tvPowerOnStr.setText(timingOn > 0 ? timingOn
+//									+ "小时后开机" : "定时开机");
+//
+//						}
+//					}, " 定时开机", timingOn == 0 ? 24 : timingOn - 1).show();
 			break;
 		case R.id.rlAlarmTips:
 		case R.id.tvTitle:
@@ -795,16 +761,16 @@ public class MainControlActivity extends BaseActivity implements
 				startActivity(intent);
 			}
 			break;
-		case R.id.tvUnit:
-			isCentigrade = !isCentigrade;
-			updateTemperatureUnit(isCentigrade);
-			llBottom.setVisibility(View.GONE);
-			isShow = false;
-			break;
-		case R.id.tvCurve:
-			IntentUtils.getInstance().startActivity(MainControlActivity.this,
-					CurveActivity.class);
-			break;
+//		case R.id.tvUnit:
+//			isCentigrade = !isCentigrade;
+//			updateTemperatureUnit(isCentigrade);
+//			llBottom.setVisibility(View.GONE);
+//			isShow = false;
+//			break;
+//		case R.id.tvCurve:
+//			IntentUtils.getInstance().startActivity(MainControlActivity.this,
+//					CurveActivity.class);
+//			break;
 		}
 	}
 
@@ -916,15 +882,15 @@ public class MainControlActivity extends BaseActivity implements
 	private void updateFanSpeed(String speedStr) {
 		int speed = Integer.parseInt(speedStr);
 		switch (speed) {
-		case 0:
-			rbWindLow.setChecked(true);
-			break;
-		case 1:
-			rbWindMin.setChecked(true);
-			break;
-		case 2:
-			rbWindHigh.setChecked(true);
-			break;
+//		case 0:
+//			rbWindLow.setChecked(true);
+//			break;
+//		case 1:
+//			rbWindMin.setChecked(true);
+//			break;
+//		case 2:
+//			rbWindHigh.setChecked(true);
+//			break;
 		}
 	}
 
@@ -935,7 +901,7 @@ public class MainControlActivity extends BaseActivity implements
 	 *            the timing off
 	 */
 	private void updateOffTime(int timingOff) {
-		tvTimeOff.setText(timingOff > 0 ? timingOff + "小时后关机" : "定时关机");
+//		tvTimeOff.setText(timingOff > 0 ? timingOff + "小时后关机" : "定时关机");
 	}
 
 	/**
@@ -981,7 +947,6 @@ public class MainControlActivity extends BaseActivity implements
 	 */
 	public void updatePowerSwitch(boolean isOn) {// 开机页面和主页面切换
 		if (!isOn) {
-			llBottom.setVisibility(View.GONE);
 			isShow = false;
 		}
 		rlPowerOff.setVisibility(isOn ? View.GONE : View.VISIBLE);
@@ -995,7 +960,7 @@ public class MainControlActivity extends BaseActivity implements
 	 *            the is on
 	 */
 	public void updateShakeSwitch(boolean isOn) {
-		cbWindShake.setChecked(isOn);
+//		cbWindShake.setChecked(isOn);
 	}
 
 	/**
