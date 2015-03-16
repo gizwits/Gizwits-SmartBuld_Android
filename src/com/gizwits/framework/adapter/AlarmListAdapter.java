@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.gizwits.aircondition.R;
+import com.gizwits.heater.R;
 import com.gizwits.framework.entity.DeviceAlarm;
 
 // TODO: Auto-generated Javadoc

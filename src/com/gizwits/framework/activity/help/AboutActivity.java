@@ -22,7 +22,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
-import com.gizwits.aircondition.R;
+import com.gizwits.heater.R;
 import com.gizwits.framework.activity.BaseActivity;
 
 // TODO: Auto-generated Javadoc

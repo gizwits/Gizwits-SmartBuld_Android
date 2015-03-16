@@ -37,7 +37,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.gizwits.aircondition.R;
+import com.gizwits.heater.R;
 import com.gizwits.framework.activity.BaseActivity;
 import com.xpg.common.useful.NetworkUtils;
 import com.xpg.common.useful.StringUtils;

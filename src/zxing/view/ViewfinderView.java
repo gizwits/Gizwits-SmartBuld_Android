@@ -29,7 +29,7 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.gizwits.aircondition.R;
+import com.gizwits.heater.R;
 import com.google.zxing.ResultPoint;
 
 /**

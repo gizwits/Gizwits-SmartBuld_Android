@@ -33,8 +33,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.gizwits.aircondition.R;
-import com.gizwits.aircondition.activity.control.MainControlActivity;
+import com.gizwits.heater.R;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.account.LoginActivity;
 import com.gizwits.framework.activity.onboarding.BindingDeviceActivity;
@@ -44,6 +43,7 @@ import com.gizwits.framework.utils.DialogManager;
 import com.gizwits.framework.utils.Historys;
 import com.gizwits.framework.widget.RefreshableListView;
 import com.gizwits.framework.widget.RefreshableListView.OnRefreshListener;
+import com.gizwits.heater.activity.control.MainControlActivity;
 import com.xpg.common.system.IntentUtils;
 import com.xpg.ui.utils.ToastUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
