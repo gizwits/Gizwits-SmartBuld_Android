@@ -30,16 +30,16 @@ import android.widget.TextView;
 
 import com.gizwits.heater.R;
 import com.gizwits.framework.widget.ArrayWheelAdapter;
+import com.gizwits.framework.widget.NumericWheelAdapter;
 import com.gizwits.framework.widget.WheelView;
 
 // TODO: Auto-generated Javadoc
 /**
- *  
- * ClassName: Class DialogManager. <br/> 
- * 对话框管理
- * <br/>
- * date: 2015-1-27 14:47:29 <br/> 
- *
+ * 
+ * ClassName: Class DialogManager. <br/>
+ * 对话框管理 <br/>
+ * date: 2015-1-27 14:47:29 <br/>
+ * 
  * @author Lien
  */
 public class DialogManager {
@@ -60,13 +60,14 @@ public class DialogManager {
 		dialog.setContentView(contentView);
 		return dialog;
 	}
-	
 
 	/**
 	 * 注销对话框.
-	 *
-	 * @param ctx the ctx
-	 * @param r            右按钮监听器
+	 * 
+	 * @param ctx
+	 *            the ctx
+	 * @param r
+	 *            右按钮监听器
 	 * @return the logout dialog
 	 */
 	public static Dialog getLogoutDialog(final Activity ctx, OnClickListener r) {
@@ -91,12 +92,14 @@ public class DialogManager {
 		dialog.setContentView(v);
 		return dialog;
 	}
-	
+
 	/**
 	 * 删除对话框.
-	 *
-	 * @param ctx the ctx
-	 * @param r            右按钮监听器
+	 * 
+	 * @param ctx
+	 *            the ctx
+	 * @param r
+	 *            右按钮监听器
 	 * @return the unbind dialog
 	 */
 	public static Dialog getUnbindDialog(final Activity ctx, OnClickListener r) {
@@ -121,7 +124,7 @@ public class DialogManager {
 		dialog.setContentView(v);
 		return dialog;
 	}
-	
+
 	/**
 	 * 确定关机对话框
 	 * 
@@ -157,10 +160,13 @@ public class DialogManager {
 
 	/**
 	 * 设备故障无法使用,拨打客服热线 对话框.
-	 *
-	 * @param ctx the ctx
-	 * @param contentStr            对话框内容
-	 * @param r            右按钮监听器
+	 * 
+	 * @param ctx
+	 *            the ctx
+	 * @param contentStr
+	 *            对话框内容
+	 * @param r
+	 *            右按钮监听器
 	 * @return the device errir dialog
 	 */
 	public static Dialog getDeviceErrirDialog(final Activity ctx,
@@ -192,50 +198,35 @@ public class DialogManager {
 	}
 
 	/**
-	 * 定时开关机对话框.
-	 *
-	 * @param ctx the ctx
-	 * @param l the l
-	 * @param titleStr the title str
-	 * @param index the index
+	 * 定时对话框.
+	 * 
+	 * @param ctx
+	 *            the ctx
+	 * @param l
+	 *            the l
+	 * @param titleStr
+	 *            the title str
+	 * @param index
+	 *            the index
 	 * @return the wheel timing dialog
 	 */
-	public static Dialog getWheelTimingDialog(final Activity ctx,
-			final OnTimingChosenListener l, String titleStr, int index) {
-		
+	public static Dialog get2WheelTimingDialog(final Activity ctx,
+			final On2TimingChosenListener l, String titleStr, int indexOne,
+			int indexTwo,String labelOne,String labelTwo) {
+
 		DisplayMetrics metric = new DisplayMetrics();
 		ctx.getWindowManager().getDefaultDisplay().getMetrics(metric);
-		int width = metric.widthPixels; 
-		
-		
-		String[] hours = { "  1", "  2", "  3", "  4", "  5", "  6", "  7", "  8", "  9", "  10",
-				"  11", "  12", "  13", "  14", "  15", "  16", "  17", "  18", "  19", "  20",
-				"  21", "  22", "  23", "  24", "关闭" };
-		final int[] hour = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-				16, 17, 18, 19, 20, 21, 22, 23, 24, 0 };
+		int width = metric.widthPixels;
+
 		final Dialog dialog = new Dialog(ctx, R.style.noBackgroundDialog) {
 		};
 		LayoutInflater layoutInflater = LayoutInflater.from(ctx);
 		View v = layoutInflater.inflate(
-				R.layout.dialog_choose_timing_conditioner, null);
-		TextView title = (TextView) v.findViewById(R.id.wifiSSID_tv);
+				R.layout.dialog_2choose_timing_conditioner, null);
+		TextView title = (TextView) v.findViewById(R.id.tvTitle);
 		title.setText(titleStr);
 		Button confi_btn = (Button) v.findViewById(R.id.confi_btn);
 		Button cancel_btn = (Button) v.findViewById(R.id.cancel_btn);
-		final WheelView wheelveiew = (WheelView) v
-				.findViewById(R.id.wheel_view_timing);
-		
-		if(width<=540){
-			wheelveiew.setTEXT_SIZE(30);
-			wheelveiew.setADDITIONAL_ITEM_HEIGHT(60);
-			wheelveiew.setADDITIONAL_ITEMS_SPACE(5);
-		}
-		
-		wheelveiew.setAdapter(new ArrayWheelAdapter<String>(hours));
-		wheelveiew.setCyclic(true);
-		wheelveiew.setLabel("小时");
-		// 初始化时显示的数据
-		wheelveiew.setCurrentItem(index);
 		cancel_btn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -243,12 +234,41 @@ public class DialogManager {
 				dismissDialog(ctx, dialog);
 			}
 		});
+
+		final WheelView wheelveiew = (WheelView) v
+				.findViewById(R.id.wheel_view_timing);
+		final WheelView wheelveiewMin = (WheelView) v
+				.findViewById(R.id.wheel_view_timing_min);
+
+		if (width <= 540) {
+			wheelveiew.setTEXT_SIZE(30);
+			wheelveiew.setADDITIONAL_ITEM_HEIGHT(60);
+			wheelveiew.setADDITIONAL_ITEMS_SPACE(5);
+
+			wheelveiewMin.setTEXT_SIZE(30);
+			wheelveiewMin.setADDITIONAL_ITEM_HEIGHT(60);
+			wheelveiewMin.setADDITIONAL_ITEMS_SPACE(5);
+		}
+
+		wheelveiew.setAdapter(new NumericWheelAdapter(0, 23));
+		wheelveiew.setCyclic(true);
+		wheelveiew.setLabel(labelOne);
+		// 初始化时显示的数据
+		wheelveiew.setCurrentItem(indexOne);
+
+		wheelveiewMin.setAdapter(new NumericWheelAdapter(0, 59, "%02d"));
+		wheelveiewMin.setCyclic(true);
+		wheelveiewMin.setLabel(labelTwo);
+		// 初始化时显示的数据
+		wheelveiewMin.setCurrentItem(indexTwo);
+
 		confi_btn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				int index = wheelveiew.getCurrentItem();
-				l.timingChosen(hour[index]);
+				int indexHour = wheelveiew.getCurrentItem();
+				int indexMin = wheelveiewMin.getCurrentItem();
+				l.timingChosen(indexHour, indexMin);
 				dismissDialog(ctx, dialog);
 			}
 		});
@@ -262,9 +282,11 @@ public class DialogManager {
 
 	/**
 	 * Show dialog.
-	 *
-	 * @param ctx the ctx
-	 * @param dialog the dialog
+	 * 
+	 * @param ctx
+	 *            the ctx
+	 * @param dialog
+	 *            the dialog
 	 */
 	public static void showDialog(Context ctx, Dialog dialog) {
 		if (dialog != null && !dialog.isShowing() && ctx != null
@@ -275,9 +297,11 @@ public class DialogManager {
 
 	/**
 	 * 隐藏dialog，加了context生命判断，避免窗口句柄泄漏.
-	 *
-	 * @param ctx            dialog依赖的activity
-	 * @param dialog            欲隐藏的dialog
+	 * 
+	 * @param ctx
+	 *            dialog依赖的activity
+	 * @param dialog
+	 *            欲隐藏的dialog
 	 */
 	public static void dismissDialog(Activity ctx, Dialog dialog) {
 		if (dialog != null && dialog.isShowing() && ctx != null
@@ -287,17 +311,22 @@ public class DialogManager {
 
 	/**
 	 * wheel view dialog.
-	 *
+	 * 
 	 * @see OnTimingChosenEvent
 	 */
 
-	public interface OnTimingChosenListener {
-		
+	public interface On2TimingChosenListener {
+
 		/**
-		 * Timing chosen.
-		 *
-		 * @param time the time
+		 * Timing hour chosen.
+		 * 
+		 * @param HourTime
+		 *            the hour time
+		 * 
+		 * @param HourTime
+		 *            the hour time
 		 */
-		public void timingChosen(int time);
+		public void timingChosen(int HourTime, int MinTime);
+
 	}
 }

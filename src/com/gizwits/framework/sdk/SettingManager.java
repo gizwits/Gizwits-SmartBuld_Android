@@ -61,9 +61,6 @@ public class SettingManager {
 	/** The uid. */
 	private final String UID = "uid";
 
-	/** The unit. */
-	private final String UNIT = "unit";
-
 	/** The filter. */
 	static String filter = "=====";
 
@@ -179,21 +176,4 @@ public class SettingManager {
 		return spf.getString(UID, "");
 	}
 
-	/**
-	 * Sets the unit.
-	 *
-	 * @param isC the new unit
-	 */
-	public void setUnit(boolean isC) {
-		spf.edit().putBoolean(UNIT, isC).commit();
-	}
-
-	/**
-	 * Gets the unit.
-	 *
-	 * @return the unit
-	 */
-	public boolean getUnit() {
-		return spf.getBoolean(UNIT, true);
-	}
 }

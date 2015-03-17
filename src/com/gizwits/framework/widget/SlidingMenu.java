@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.HorizontalScrollView;
@@ -36,6 +37,8 @@ public class SlidingMenu extends HorizontalScrollView {
 	private boolean once;
 
 	private ViewGroup mMenu;
+	
+	private boolean isLock;
 
 	public SlidingMenu(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
@@ -70,6 +73,7 @@ public class SlidingMenu extends HorizontalScrollView {
 				mContent.getLayoutParams().width = mScreenWidth;
 			}
 		}
+		closeMenu();
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
 	}
@@ -86,6 +90,9 @@ public class SlidingMenu extends HorizontalScrollView {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
+		if(!isOpen)
+			return true;
+		
 		int action = ev.getAction();
 		switch (action) {
 		// Up时，进行判断，如果显示区域大于菜单宽度一半则完全显示，否则隐藏
@@ -107,8 +114,11 @@ public class SlidingMenu extends HorizontalScrollView {
 	 * 打开菜单
 	 */
 	public void openMenu() {
+		Log.e("openMenu", "first");
 		if (isOpen)
 			return;
+		
+		Log.e("openMenu", "second");
 		this.smoothScrollTo(0, 0);
 		isOpen = true;
 	}
@@ -127,6 +137,7 @@ public class SlidingMenu extends HorizontalScrollView {
 	 * 切换菜单状态
 	 */
 	public void toggle() {
+		Log.e("isOpen", isOpen+"");
 		if (isOpen) {
 			closeMenu();
 		} else {

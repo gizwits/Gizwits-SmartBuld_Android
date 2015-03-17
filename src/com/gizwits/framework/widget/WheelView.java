@@ -61,10 +61,10 @@ public class WheelView extends View {
     private static final int MIN_DELTA_FOR_SCROLLING = 1;
 
     /** Current value & label text color. */
-    private static final int VALUE_TEXT_COLOR = 0xF0000000;
+    private static final int VALUE_TEXT_COLOR = 0xff298eee;//0xF0000000;
 
     /** Items text color. */
-    private static final int ITEMS_TEXT_COLOR = 0xFF000000;
+    private static final int ITEMS_TEXT_COLOR = 0xff979797;//0xFF000000;
 
     /**  Top and bottom shadows colors. */
 //	private static final int[] SHADOWS_COLORS = new int[] { 0xFF111111,
@@ -746,18 +746,18 @@ public class WheelView extends View {
 //		drawShadows(canvas);
     }
 
-//	/**
-//	 * Draws shadows on top and bottom of control
-//	 * @param canvas the canvas for drawing
-//	 */
-//	private void drawShadows(Canvas canvas) {
+	/**
+	 * Draws shadows on top and bottom of control
+	 * @param canvas the canvas for drawing
+	 */
+	private void drawShadows(Canvas canvas) {
 //		topShadow.setBounds(0, 0, getWidth(), getHeight() / visibleItems);
 //		topShadow.draw(canvas);
 //
 //		bottomShadow.setBounds(0, getHeight() - getHeight() / visibleItems,
 //				getWidth(), getHeight());
 //		bottomShadow.draw(canvas);
-//	}
+	}
 
     /**
  * Draws value and label layout.

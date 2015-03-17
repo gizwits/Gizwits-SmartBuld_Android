@@ -23,6 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -181,6 +182,12 @@ public class BaseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		/**
+		 * 设置为竖屏
+		 */
+		if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		}
 		setmanager = new SettingManager(getApplicationContext());
 		mCenter = CmdCenter.getInstance(getApplicationContext());
 		// 每次返回activity都要注册一次sdk监听器，保证sdk状态能正确回调

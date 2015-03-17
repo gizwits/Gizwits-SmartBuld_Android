@@ -18,6 +18,7 @@
 package com.gizwits.heater.activity.control;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,11 +39,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -55,8 +53,10 @@ import com.gizwits.framework.activity.device.DeviceManageListActivity;
 import com.gizwits.framework.activity.help.AboutActivity;
 import com.gizwits.framework.activity.help.HelpActivity;
 import com.gizwits.framework.adapter.MenuDeviceAdapter;
+import com.gizwits.framework.config.JsonKeys;
 import com.gizwits.framework.entity.DeviceAlarm;
 import com.gizwits.framework.utils.DialogManager;
+import com.gizwits.framework.utils.StringUtils;
 import com.gizwits.framework.widget.CircularSeekBar;
 import com.gizwits.framework.widget.SlidingMenu;
 import com.xpg.common.system.IntentUtils;
@@ -125,17 +125,11 @@ public class MainControlActivity extends BaseActivity implements
 	/** The tv timer. */
 	private TextView tvTimer;
 
-	/** The tv inner temperature. */
-	private TextView tvInnerTemperature;
-
-	/** The tv inner unit. */
-	private TextView tvInnerUnit;
+	/** The tv current temperature. */
+	private TextView tvCurrentTemperature;
 
 	/** The tv setting temerature. */
 	private TextView tvSettingTemerature;
-
-	/** The tv setting unit. */
-	private TextView tvSettingUnit;
 
 	/** The m adapter. */
 	private MenuDeviceAdapter mAdapter;
@@ -152,32 +146,8 @@ public class MainControlActivity extends BaseActivity implements
 	/** The tv power on str. */
 	private TextView tvPowerOnStr;
 
-//	/** The ib left arrow. */
-//	private ImageButton ibLeftArrow;
-//
-//	/** The ib right arrow. */
-//	private ImageButton ibRightArrow;
-
-//	/** The rg wing. */
-//	private RadioGroup rgWing;
-//
-//	/** The rb wind low. */
-//	private RadioButton rbWindLow;
-//
-//	/** The rb wind min. */
-//	private RadioButton rbWindMin;
-//
-//	/** The rb wind high. */
-//	private RadioButton rbWindHigh;
-//
-//	/** The cb wind shake. */
-//	private CheckBox cbWindShake;
-
 	/** The is show. */
 	private boolean isShow;
-
-	/** The mode pos. */
-	private int modePos;
 
 	/** The height. */
 //	private int height;
@@ -193,9 +163,6 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** The alarm list has shown. */
 	private ArrayList<String> alarmShowList;
-
-	/** The timing off. */
-	private int timingOn, timingOff;
 
 	/** The m fault dialog. */
 	private Dialog mFaultDialog;
@@ -287,33 +254,31 @@ public class MainControlActivity extends BaseActivity implements
 					e.printStackTrace();
 				}
 			case UPDATE_UI:
-//				if (statuMap != null && statuMap.size() > 0) {
-//					setListenNull(true);
-//					updateTemperatureUnit(isCentigrade);
-//					updatePowerSwitch((Boolean) statuMap.get(JsonKeys.ON_OFF));
-//					updateModeState((String) statuMap.get(JsonKeys.MODE));
-//					String setTemp = (String) statuMap.get(JsonKeys.SET_TEMP);
-//					if (!StringUtils.isEmpty(setTemp)) {
-//						ubdateSeekBar(Short.parseShort(setTemp));
-//					}
-//					String roomTemp = (String) statuMap.get(JsonKeys.ROOM_TEMP);
-//					if (!StringUtils.isEmpty(roomTemp)) {
-//						updateInnerTemp(Short.parseShort(roomTemp));
-//					}
-//
-//					String timeOn = (String) statuMap.get(JsonKeys.TIME_ON);
-//					if (!StringUtils.isEmpty(timeOn)) {
-//						updateOnTime(Integer.parseInt(timeOn));
-//					}
-//					String timeOff = (String) statuMap.get(JsonKeys.TIME_OFF);
-//					if (!StringUtils.isEmpty(timeOff)) {
-//						updateOffTime(Integer.parseInt(timeOff));
-//					}
-//					updateFanSpeed((String) statuMap.get(JsonKeys.FAN_SPEED));
-//					updateShakeSwitch((Boolean) statuMap
-//							.get(JsonKeys.FAN_SHAKE));
-//					setListenNull(false);
-//				}
+				if(mView.isOpen())
+					break;
+				
+				if (statuMap != null && statuMap.size() > 0) {
+					//更新当前温度
+					String curTemp = (String) statuMap.get(JsonKeys.ROOM_TEMP);
+					if (!StringUtils.isEmpty(curTemp)) {
+						updateCurrentTemp(Short.parseShort(curTemp));
+					}
+					//更新设定温度
+					String setTemp = (String) statuMap.get(JsonKeys.SET_TEMP);
+					if (!StringUtils.isEmpty(setTemp)) {
+						updateSettingTemp(Short.parseShort(setTemp));
+					}
+					//更新模式状态
+					String mode= (String) statuMap.get(JsonKeys.MODE);
+					if (!StringUtils.isEmpty(mode)) {
+						updateMode(Short.parseShort(mode));
+					}
+					//更新定时模式
+					String countDown= (String) statuMap.get(JsonKeys.COUNT_DOWN_RESERVE);
+					if (!StringUtils.isEmpty(countDown)) {
+						updateTiming((Boolean) statuMap.get(JsonKeys.RESERVE_ON_OFF), Integer.parseInt(countDown));
+					}
+				}
 				break;
 			case ALARM:
 				// 是否需要弹dialog判断
@@ -385,27 +350,21 @@ public class MainControlActivity extends BaseActivity implements
 		}
 	};
 
-	// 0.制冷, 1.送风, 2.除湿, 3.自动,4.制热
+	// 0.智能模式, 1.节能模式, 2.速热模式, 3.加热模式,4.保温模式,5.安全模式
 	/** The mode images. */
-	private int[] modeImages = { R.drawable.icon_model_cool,
-			R.drawable.icon_model_wind, R.drawable.icon_model_water,
-			R.drawable.icon_model_auto, R.drawable.icon_model_hot };
-
-	// 0.制冷, 1.送风, 2.除湿, 3.自动,4.制热
-	/** The mode req. */
-	private short[] modeReq = { 0, 1, 2, 3, 4 };
-
-	/** The mode strs. */
-	private String[] modeStrs = { "制冷", "送风", "除湿", "自动", "制热" };
-
+	private int[] modeImages = {R.drawable.home_tab_intelligence_icon,R.drawable.home_tab_energy_icon,
+			R.drawable.home_tab_fullpower,
+			R.drawable.home_tab_heating_icon,R.drawable.home_tab_temperature_icon,R.drawable.home_tab_safe_icon};
+	/** The mode str res. */
+	private int[] modeStrs = {R.string.pattern_intelligence,R.string.pattern_energy,
+			R.string.power_fullpower,R.string.pattern_heating,R.string.pattern_temperature,
+			R.string.pattern_safe};
+	
 	/** 设定温度 */
-	short temperatureC, temperatureF;
+	private int SettingTemp;
 
 	/** 当前温度 */
-	short innerTemperatureC, innerTemperatureF;
-
-	/** 摄氏度标志位 */
-	private boolean isCentigrade = true;
+	private int CurrentTemp;
 
 	/*
 	 * (non-Javadoc)
@@ -441,7 +400,6 @@ public class MainControlActivity extends BaseActivity implements
 		mAdapter.notifyDataSetChanged();
 		
 		mXpgWifiDevice.setListener(deviceListener);
-		isCentigrade = setmanager.getUnit();
 		alarmShowList.clear();
 		handler.sendEmptyMessage(handler_key.GET_STATUE.ordinal());
 	}
@@ -461,10 +419,8 @@ public class MainControlActivity extends BaseActivity implements
 	private void initViews() {
 		mView = (SlidingMenu) findViewById(R.id.main_layout);
 		rlControlMainPage = (RelativeLayout) findViewById(R.id.rlControlMainPage);
-		// rlHeader = (RelativeLayout) findViewById(R.id.rlHeader);
 		rlAlarmTips = (RelativeLayout) findViewById(R.id.rlAlarmTips);
 		rlPowerOff = (RelativeLayout) findViewById(R.id.rlPowerOff);
-		// llFooter = (LinearLayout) findViewById(R.id.llFooter);
 		ivMenu = (ImageView) findViewById(R.id.ivMenu);
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
 		tvHeaterTips=(TextView) findViewById(R.id.tvHeaterTips);
@@ -473,10 +429,8 @@ public class MainControlActivity extends BaseActivity implements
 		tvAlarmTipsCount = (TextView) findViewById(R.id.tvAlarmTipsCount);
 		tvMode = (TextView) findViewById(R.id.tvMode);
 		tvTimer = (TextView) findViewById(R.id.tvTimer);
-		tvInnerTemperature = (TextView) findViewById(R.id.tvInnerTemperature);
-		tvInnerUnit = (TextView) findViewById(R.id.tvInnerUnit);
+		tvCurrentTemperature = (TextView) findViewById(R.id.tvCurrentTemperature);
 		tvSettingTemerature = (TextView) findViewById(R.id.tvSettingTemerature);
-		tvSettingUnit = (TextView) findViewById(R.id.tvSettingUnit);
 		tvPowerOn = (TextView) findViewById(R.id.tvPowerOn);
 		tvPowerOnStr = (TextView) findViewById(R.id.tvPowerOnStr);
 		sclContent = (ScrollView) findViewById(R.id.sclContent);
@@ -490,18 +444,17 @@ public class MainControlActivity extends BaseActivity implements
 		seekBar.setSeekBarChangeListener(new CircularSeekBar.OnSeekChangeListener() {
 			@Override
 			public void onProgressChange(CircularSeekBar view, int newProgress) {
-				mCenter.cSetTemp(mXpgWifiDevice, temperatureC);
+				mCenter.cSetTemp(mXpgWifiDevice, SettingTemp);
+				updateHeaterTips();
 			}
 		});
 		seekBar.setSeekContinueChangeListener(new CircularSeekBar.OnSeekContinueChangeListener() {
 			@Override
 			public void onProgressContinueChange(CircularSeekBar view,
 					int newProgress) {
-				temperatureC = (short) (newProgress * 45 / 100.00 + 30);
-				temperatureF = (short) getCelToFah(temperatureC);
-				tvSettingTemerature.setText((isCentigrade ? temperatureC
-						: temperatureF) + "");
-				tvSettingUnit.setText(isCentigrade ? "℃" : "℉");
+				SettingTemp = (short) (newProgress * 45 / 100.00 + 30);
+				tvSettingTemerature.setText(SettingTemp
+						+ "");
 			}
 		});
 		mPowerOffDialog = DialogManager.getPowerOffDialog(this,
@@ -583,106 +536,6 @@ public class MainControlActivity extends BaseActivity implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * android.widget.RadioGroup.OnCheckedChangeListener#onCheckedChanged(android
-	 * .widget.RadioGroup, int)
-	 */
-//	@Override
-//	public void onCheckedChanged(RadioGroup group, int checkedId) {
-//		switch (checkedId) {
-//		// 设置低风
-//		case R.id.rbWindLow:
-//			mCenter.cFanSpeed(mXpgWifiDevice, 0);
-//			break;
-//		// 设置中风
-//		case R.id.rbWindMin:
-//			mCenter.cFanSpeed(mXpgWifiDevice, 1);
-//			break;
-//		// 设置高风
-//		case R.id.rbWindHigh:
-//			mCenter.cFanSpeed(mXpgWifiDevice, 2);
-//			break;
-//
-//		}
-
-//	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * android.widget.CompoundButton.OnCheckedChangeListener#onCheckedChanged
-	 * (android.widget.CompoundButton, boolean)
-	 */
-//	@Override
-//	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//		switch (buttonView.getId()) {
-//		case R.id.cbWindShake:// 摆风
-//			mCenter.cSetShake(mXpgWifiDevice, cbWindShake.isChecked());
-//			break;
-//		default:
-//			break;
-//		}
-//	}
-
-	/**
-	 * 更新温度单位.
-	 * 
-	 * @param centigrade
-	 *            the centigrade
-	 */
-	private void updateTemperatureUnit(boolean centigrade) {
-		setmanager.setUnit(centigrade);
-		tvInnerTemperature.setText((centigrade ? innerTemperatureC
-				: innerTemperatureF) + "");
-		tvSettingTemerature.setText((centigrade ? temperatureC : temperatureF)
-				+ "");
-		tvInnerUnit.setText(centigrade ? "℃" : "℉");
-		tvSettingUnit.setText(centigrade ? "℃" : "℉");
-	}
-
-	/**
-	 * 更新环状进度.
-	 * 
-	 * @param temperature
-	 *            the temperature
-	 */
-	private void ubdateSeekBar(short temperature) {
-		if (temperatureC == temperature) {
-			return;
-		}
-		temperatureC = temperature;
-		int progress = (int) ((temperatureC - 16) * 100.00 / 14);
-		// seekBar.setSeekContinueChangeListener(null);
-		if (seekBar != null) {
-			seekBar.setMProgress(progress);
-			seekBar.postInvalidateDelayed(1000);
-		}
-		temperatureF = (short) getCelToFah(temperatureC);
-		tvSettingTemerature
-				.setText((isCentigrade ? temperatureC : temperatureF) + "");
-
-	}
-
-	/**
-	 * 更新当前温度
-	 * 
-	 * @param temperature
-	 *            the temperature
-	 */
-	private void updateInnerTemp(short temperature) {
-		if (innerTemperatureC == temperature) {
-			return;
-		}
-		innerTemperatureC = temperature;
-		innerTemperatureF = (short) getCelToFah(innerTemperatureC);
-		tvInnerTemperature.setText((isCentigrade ? innerTemperatureC
-				: innerTemperatureF) + "");
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
 	 */
 	@Override
@@ -699,58 +552,12 @@ public class MainControlActivity extends BaseActivity implements
 			mPowerOffDialog.show();
 			break;
 		case R.id.tvTimer:
+			startActivity(new Intent(MainControlActivity.this,TimerSelectedActivity.class));
 			break;
 		case R.id.tvMode:
 			startActivity(new Intent(MainControlActivity.this,ModeSelectedActivity.class));
 			break;
-//		case R.id.ibLeftArrow:
-//			modePos--;
-//			if (modePos < 0)
-//				modePos = 4;
-//			sendModeReq(modePos);
-//			updateModeState(modePos + "");
-//			break;
-//		case R.id.ibRightArrow:
-//			modePos++;
-//			if (modePos > 4)
-//				modePos = 0;
-//			sendModeReq(modePos);
-//			updateModeState(modePos + "");
-//			break;
-//		case R.id.tvAdvanture:
-//			llBottom.setVisibility(isShow ? View.GONE : View.VISIBLE);
-//			sclContent.scrollBy(0, isShow ? -height : height);
-//			isShow = !isShow;
-//			break;
-//		case R.id.tvTimeOff:
-//			DialogManager.getWheelTimingDialog(this,
-//					new OnTimingChosenListener() {
-//
-//						@Override
-//						public void timingChosen(int time) {
-//							// 设置定时开机时间
-//							mCenter.cTimeOff(mXpgWifiDevice, time);
-//							timingOff = time;
-//							tvTimeOff.setText(timingOff > 0 ? timingOff
-//									+ "小时后关机" : "定时关机");
-//
-//						}
-//					}, " 定时关机", timingOff == 0 ? 24 : timingOff - 1).show();
-//			break;
 		case R.id.tvPowerOnStr:
-//			DialogManager.getWheelTimingDialog(this,
-//					new OnTimingChosenListener() {
-//
-//						@Override
-//						public void timingChosen(int time) {
-//							// 设置定时开机时间
-//							mCenter.cTimeOn(mXpgWifiDevice, time);
-//							timingOn = time;
-//							tvPowerOnStr.setText(timingOn > 0 ? timingOn
-//									+ "小时后开机" : "定时开机");
-//
-//						}
-//					}, " 定时开机", timingOn == 0 ? 24 : timingOn - 1).show();
 			break;
 		case R.id.rlAlarmTips:
 		case R.id.tvTitle:
@@ -761,16 +568,6 @@ public class MainControlActivity extends BaseActivity implements
 				startActivity(intent);
 			}
 			break;
-//		case R.id.tvUnit:
-//			isCentigrade = !isCentigrade;
-//			updateTemperatureUnit(isCentigrade);
-//			llBottom.setVisibility(View.GONE);
-//			isShow = false;
-//			break;
-//		case R.id.tvCurve:
-//			IntentUtils.getInstance().startActivity(MainControlActivity.this,
-//					CurveActivity.class);
-//			break;
 		}
 	}
 
@@ -855,73 +652,60 @@ public class MainControlActivity extends BaseActivity implements
 				mCenter.cDisconnect(theDevice);
 		}
 	}
-
+	
+	private void updateTiming(boolean timer,int countDown ){
+		if(timer||countDown>0){
+			tvTimer.setText(R.string.appointment_already);
+		}else{
+			tvTimer.setText(R.string.appointment_water);
+		}
+	}
+	
+	private void updateCurrentTemp(short temp){
+		CurrentTemp=temp;
+		tvCurrentTemperature.setText(""+temp);
+		
+		updateHeaterTips();
+	}
+	
+	private void updateSettingTemp(short temp){
+		SettingTemp=temp;
+		tvSettingTemerature.setText(""+temp);
+		
+		int progress = (int) ((temp - 30) * 100.00 / 45);
+		if (seekBar != null) {
+			seekBar.setMProgress(progress);
+			seekBar.postInvalidateDelayed(1000);
+		}
+		
+		updateHeaterTips();
+	}
+	
+	private void updateHeaterTips(){
+		if(SettingTemp-CurrentTemp>5){
+			tvHeaterTips.setText(R.string.heater_is_heating);
+		}else{
+			tvHeaterTips.setText(R.string.heater_is_keeping_warm);
+		}
+	}
+	
 	/**
 	 * 转换模式更新UI.
 	 * 
-	 * @param pos
-	 *            the pos
-	 * @when pos = 0 制冷
-	 * @when pos = 1送风
-	 * @when pos = 2 除湿
-	 * @when pos = 3 自动
+	 * @param num
+	 *            the num
+	 * @when num = 0 智能模式
+	 * @when num = 1 节能模式
+	 * @when num = 2 速热模式
+	 * @when num = 3 加热模式
+	 * @when num = 4 保温模式
+	 * @when num = 3 加热模式
+	 * 
 	 */
-	private void updateModeState(String pos) {
-		modePos = Integer.parseInt(pos);
-		tvMode.setCompoundDrawablesWithIntrinsicBounds(0, modeImages[modePos],
+	private void updateMode(int num){
+		tvMode.setCompoundDrawablesWithIntrinsicBounds(0, modeImages[num],
 				0, 0);
-		tvMode.setText(modeStrs[modePos]);
-	}
-
-	/**
-	 * 更新风速状态
-	 * 
-	 * @param speedStr
-	 *            the speed str
-	 */
-	private void updateFanSpeed(String speedStr) {
-		int speed = Integer.parseInt(speedStr);
-		switch (speed) {
-//		case 0:
-//			rbWindLow.setChecked(true);
-//			break;
-//		case 1:
-//			rbWindMin.setChecked(true);
-//			break;
-//		case 2:
-//			rbWindHigh.setChecked(true);
-//			break;
-		}
-	}
-
-	/**
-	 * 更新定时关机信息
-	 * 
-	 * @param timingOff
-	 *            the timing off
-	 */
-	private void updateOffTime(int timingOff) {
-//		tvTimeOff.setText(timingOff > 0 ? timingOff + "小时后关机" : "定时关机");
-	}
-
-	/**
-	 * 更新定时开机信息
-	 * 
-	 * @param timingOn
-	 *            the timing on
-	 */
-	private void updateOnTime(int timingOn) {
-		tvPowerOnStr.setText(timingOn > 0 ? timingOn + "小时后开机" : "定时开机");
-	}
-
-	/**
-	 * 发送命令.
-	 * 
-	 * @param pos
-	 *            the pos
-	 */
-	private void sendModeReq(int pos) {
-		mCenter.cMode(mXpgWifiDevice, modeReq[pos]);
+		tvMode.setText(modeStrs[num]);
 	}
 
 	/**
@@ -951,45 +735,6 @@ public class MainControlActivity extends BaseActivity implements
 		}
 		rlPowerOff.setVisibility(isOn ? View.GONE : View.VISIBLE);
 		rlControlMainPage.setVisibility(isOn ? View.VISIBLE : View.GONE);
-	}
-
-	/**
-	 * 更新摆风状态信息
-	 * 
-	 * @param isOn
-	 *            the is on
-	 */
-	public void updateShakeSwitch(boolean isOn) {
-//		cbWindShake.setChecked(isOn);
-	}
-
-	/**
-	 * 摄氏转华氏温度.
-	 * 
-	 * @author Administrator
-	 * @param cel
-	 *            the cel
-	 * @return int
-	 * @Title: getCelToFah
-	 * @Description: TODO
-	 */
-	public static int getCelToFah(int cel) {
-
-		return (int) (cel * 9 / 5.0 + 32);
-	}
-
-	/**
-	 * 华氏转摄氏温度.
-	 * 
-	 * @author Administrator
-	 * @param fah
-	 *            the fah
-	 * @return int
-	 * @Title: getFahToCel
-	 * @Description: TODO
-	 */
-	public static int getFahToCel(int fah) {
-		return (int) ((5 / 9.0) * (fah - 32));
 	}
 
 	/*

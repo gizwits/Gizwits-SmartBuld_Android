@@ -137,4 +137,13 @@
 	<string name="pattern_heating">加热模式</string>
 	<string name="pattern_temperature">保温模式</string>
 	<string name="pattern_safe">安全模式</string>
+	
+	<string name="appointment_water">预约用水</string>
+	<string name="appointment_already">已预约</string>
+	<string name="appointment_count_down">倒计时预约</string>
+	<string name="appointment_count_down_label1">小时</string>
+	<string name="appointment_count_down_label2">分钟后</string>
+	<string name="appointment_timer">定时预约</string>
+	<string name="appointment_timer_label1">时</string>
+	<string name="appointment_timer_label2">分</string>
 </resources>

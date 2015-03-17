@@ -18,6 +18,8 @@ import com.gizwits.heater.R;
 public class ModeSelectedActivity extends BaseActivity implements OnItemClickListener{
 
 	private ListView lvMode;
+	
+	// 0.智能模式, 1.节能模式, 2.速热模式, 3.加热模式,4.保温模式,5.安全模式
 	private int[] ivResources={R.drawable.pattern_intelligence_icon,R.drawable.pattern_energy_icon,
 			R.drawable.power_fullpower,
 			R.drawable.pattern_heating_icon,R.drawable.pattern_temperature_icon,R.drawable.pattern_safe_icon};

@@ -117,7 +117,7 @@
                                 android:layout_centerInParent="true"
                                 android:drawableTop="@drawable/home_tab_alarm_icon"
                                 android:gravity="center"
-                                android:text="@string/main_control_timing_shutdown"
+                                android:text="@string/appointment_water"
                                 android:textColor="#ffffff"
                                 android:textSize="12sp" />
                         </RelativeLayout>
@@ -208,7 +208,7 @@
                                         android:textSize="12sp" />
 
                                     <TextView
-                                        android:id="@+id/tvInnerTemperature"
+                                        android:id="@+id/tvCurrentTemperature"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="16"
