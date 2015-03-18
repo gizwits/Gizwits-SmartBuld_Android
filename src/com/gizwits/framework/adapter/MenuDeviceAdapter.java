@@ -115,7 +115,7 @@ public class MenuDeviceAdapter extends ArrayAdapter<XPGWifiDevice>{
 
 		if (device.isOnline())
 			holder.deviceName_tv.setTextColor(ctx.getResources().getColor(
-					R.color.text_blue));
+					R.color.text_green_blue));
 		else
 			holder.deviceName_tv.setTextColor(ctx.getResources().getColor(
 					R.color.text_gray));

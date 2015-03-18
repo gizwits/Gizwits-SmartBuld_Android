@@ -87,12 +87,6 @@ public class MainControlActivity extends BaseActivity implements
 	/** The m view. */
 	private SlidingMenu mView;
 
-	// /** The rl control main page. */
-	private RelativeLayout rlControlMainPage;
-	//
-	// /** The rl header. */
-	// private RelativeLayout rlHeader;
-
 	/** The rl alarm tips. */
 	private RelativeLayout rlAlarmTips;
 
@@ -395,6 +389,7 @@ public class MainControlActivity extends BaseActivity implements
 	@Override
 	public void onResume() {
 		super.onResume();
+		Log.e("isOpen", mView.isOpen()+"");
 		if (mView.isOpen()) {
 			initBindList();
 			mAdapter.setChoosedPos(-1);
@@ -426,7 +421,6 @@ public class MainControlActivity extends BaseActivity implements
 	private void initViews() {
 		mView = (SlidingMenu) findViewById(R.id.main_layout);
 		llFooter = (LinearLayout) findViewById(R.id.llFooter);
-		rlControlMainPage = (RelativeLayout) findViewById(R.id.rlControlMainPage);
 		rlAlarmTips = (RelativeLayout) findViewById(R.id.rlAlarmTips);
 		rlPowerOff = (RelativeLayout) findViewById(R.id.rlPowerOff);
 		ivMenu = (ImageView) findViewById(R.id.ivMenu);
@@ -541,6 +535,11 @@ public class MainControlActivity extends BaseActivity implements
 	 */
 	@Override
 	public void onClick(View v) {
+		if(mView.isOpen()){
+			mView.toggle();
+			return;
+		}
+		
 		switch (v.getId()) {
 		case R.id.ivMenu:
 			mView.toggle();
@@ -549,12 +548,10 @@ public class MainControlActivity extends BaseActivity implements
 			mPowerOffDialog.show();
 			break;
 		case R.id.rlTimer:
-		case R.id.tvTimer:
 			startActivity(new Intent(MainControlActivity.this,
 					TimerSelectedActivity.class));
 			break;
 		case R.id.rlMode:
-		case R.id.tvMode:
 			startActivity(new Intent(MainControlActivity.this,
 					ModeSelectedActivity.class));
 			break;

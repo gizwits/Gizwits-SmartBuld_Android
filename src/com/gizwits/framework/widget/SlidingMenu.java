@@ -8,14 +8,12 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
-public class SlidingMenu extends HorizontalScrollView implements OnClickListener {
+public class SlidingMenu extends HorizontalScrollView    {
 	/**
 	 * 屏幕宽度
 	 */
@@ -70,7 +68,6 @@ public class SlidingMenu extends HorizontalScrollView implements OnClickListener
 			for (int i = 1; i < wrapper.getChildCount(); i++) {
 				ViewGroup mContent = (ViewGroup) wrapper.getChildAt(i);
 				mContent.getLayoutParams().width = mScreenWidth;
-				mContent.setOnClickListener(this);
 			}
 		}
 		closeMenu();
@@ -114,11 +111,9 @@ public class SlidingMenu extends HorizontalScrollView implements OnClickListener
 	 * 打开菜单
 	 */
 	public void openMenu() {
-		Log.e("openMenu", "first");
 		if (isOpen)
 			return;
 		
-		Log.e("openMenu", "second");
 		this.smoothScrollTo(0, 0);
 		isOpen = true;
 	}
@@ -154,7 +149,7 @@ public class SlidingMenu extends HorizontalScrollView implements OnClickListener
 	}
 
 	public boolean isOpen() {
-		return isOpen;
+		return this.isOpen;
 	}
 
 	/**
@@ -169,14 +164,6 @@ public class SlidingMenu extends HorizontalScrollView implements OnClickListener
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		wm.getDefaultDisplay().getMetrics(outMetrics);
 		return outMetrics.widthPixels;
-	}
-
-	@Override
-	public void onClick(View v) {
-		if(isOpen){
-			closeMenu();
-		}
-			
 	}
 
 }

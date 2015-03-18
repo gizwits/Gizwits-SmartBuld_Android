@@ -146,6 +146,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_above="@+id/llFooter"
+                    android:onClick="onClick"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/water_heating_home_bg" >
 
