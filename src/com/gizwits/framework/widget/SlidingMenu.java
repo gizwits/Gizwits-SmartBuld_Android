@@ -11,10 +11,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 
-public class SlidingMenu extends HorizontalScrollView {
+public class SlidingMenu extends HorizontalScrollView implements OnClickListener {
 	/**
 	 * 屏幕宽度
 	 */
@@ -38,8 +39,6 @@ public class SlidingMenu extends HorizontalScrollView {
 
 	private ViewGroup mMenu;
 	
-	private boolean isLock;
-
 	public SlidingMenu(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 
@@ -71,6 +70,7 @@ public class SlidingMenu extends HorizontalScrollView {
 			for (int i = 1; i < wrapper.getChildCount(); i++) {
 				ViewGroup mContent = (ViewGroup) wrapper.getChildAt(i);
 				mContent.getLayoutParams().width = mScreenWidth;
+				mContent.setOnClickListener(this);
 			}
 		}
 		closeMenu();
@@ -169,6 +169,14 @@ public class SlidingMenu extends HorizontalScrollView {
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		wm.getDefaultDisplay().getMetrics(outMetrics);
 		return outMetrics.widthPixels;
+	}
+
+	@Override
+	public void onClick(View v) {
+		if(isOpen){
+			closeMenu();
+		}
+			
 	}
 
 }

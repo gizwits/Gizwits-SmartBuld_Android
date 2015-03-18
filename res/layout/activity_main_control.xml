@@ -87,6 +87,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rlPowerOn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rlHeader" >
@@ -96,50 +97,48 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:orientation="vertical" >
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <RelativeLayout
+                        android:id="@+id/rlTimer"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal" >
+                        android:layout_weight="1"
+                        android:background="@drawable/water_heating_bottom_style2"
+                        android:onClick="onClick" >
 
-                        <RelativeLayout
-                            android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/tvTimer"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/water_heating_bottom_style2" >
+                            android:layout_centerInParent="true"
+                            android:drawableTop="@drawable/home_tab_alarm_icon"
+                            android:gravity="center"
+                            android:text="@string/appointment_water"
+                            android:textColor="#ffffff"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
 
-                            <TextView
-                                android:id="@+id/tvTimer"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:drawableTop="@drawable/home_tab_alarm_icon"
-                                android:gravity="center"
-                                android:text="@string/appointment_water"
-                                android:textColor="#ffffff"
-                                android:textSize="12sp" />
-                        </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rlMode"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/water_heating_bottom_style3"
+                        android:onClick="onClick" >
 
-                        <RelativeLayout
-                            android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/tvMode"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@drawable/water_heating_bottom_style3" >
-
-                            <TextView
-                                android:id="@+id/tvMode"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:drawableTop="@drawable/home_tab_heating_icon"
-                                android:gravity="center"
-                                android:text="@string/main_control_advanced_features"
-                                android:textColor="#ffffff"
-                                android:textSize="12sp" />
-                        </RelativeLayout>
-                    </LinearLayout>
+                            android:layout_centerInParent="true"
+                            android:drawableTop="@drawable/home_tab_heating_icon"
+                            android:gravity="center"
+                            android:text="@string/main_control_advanced_features"
+                            android:textColor="#ffffff"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <ScrollView
@@ -171,8 +170,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:gravity="center"
-                                android:textColor="@color/white"
-                                android:text="@string/heater_is_heating" />
+                                android:text="@string/heater_is_heating"
+                                android:textColor="@color/white" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -258,66 +257,36 @@
                     </LinearLayout>
                 </ScrollView>
             </RelativeLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlPowerOff"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#0f6cea"
-            android:visibility="gone" >
 
             <RelativeLayout
+                android:id="@+id/rlPowerOff"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentTop="true" >
+                android:layout_height="match_parent"
+                android:background="@color/transparent_half"
+                android:onClick="onClick"
+                android:visibility="gone" >
 
-                <ImageView
-                    android:id="@+id/ivBack"
+                <RelativeLayout
+                    android:id="@id/rlPowerOn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:src="@drawable/return_icon" />
+                    android:layout_centerInParent="true" >
 
-                <TextView
-                    android:id="@+id/tvTitleOff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="@string/main_control_title"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/shutdown" />
+
+                    <TextView
+                        android:id="@+id/tvTempCurrentTips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:paddingTop="25dp"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+                </RelativeLayout>
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tvPowerOn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:drawablePadding="10dp"
-                android:drawableTop="@drawable/power_big"
-                android:gravity="center"
-                android:text="@string/main_control_turn_on"
-                android:textColor="#ffffff"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/tvPowerOnStr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                android:drawableLeft="@drawable/start_time"
-                android:drawablePadding="5dp"
-                android:gravity="center"
-                android:text="@string/main_control_timing_turn_on"
-                android:textColor="#ffffff"
-                android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
 

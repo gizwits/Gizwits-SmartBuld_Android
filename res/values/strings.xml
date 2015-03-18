@@ -67,7 +67,7 @@
     <string name="login_forget_password">忘记密码?</string>
     <string name="login">登陆</string>
     <string name="register">注册</string>
-    <string name="main_control_title">移动空调</string>
+    <string name="main_control_title">热水器</string>
     <string name="main_control_timing_shutdown">定时关机</string>
     <string name="main_control_advanced_features">高级功能</string>
     <string name="main_control_temp_curve">温度曲线</string>

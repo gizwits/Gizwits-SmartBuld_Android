@@ -425,13 +425,29 @@ public class CmdCenter {
 	}
 	
 	/**
-	 * C cCountDown.
+	 * C cTimer.
 	 *
 	 * @param xpgWifiDevice the xpg wifi device
 	 * @param timer the timer
 	 */
 	public void cTimer(XPGWifiDevice xpgWifiDevice, int timer) {
 		cWrite(xpgWifiDevice, JsonKeys.TIME_RESERVE, timer);
+		cGetStatus(xpgWifiDevice);
+	}
+	
+	public void cTimer2(XPGWifiDevice xpgWifiDevice, int timer){
+		try {
+			final JSONObject jsonsend = new JSONObject();
+			JSONObject jsonparam = new JSONObject();
+			jsonsend.put("cmd", 1);
+			jsonparam.put(JsonKeys.RESERVE_ON_OFF, true);
+			jsonparam.put(JsonKeys.TIME_RESERVE, timer);
+			jsonsend.put(JsonKeys.KEY_ACTION, jsonparam);
+			Log.i("sendjson", jsonsend.toString());
+			xpgWifiDevice.write(jsonsend.toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		cGetStatus(xpgWifiDevice);
 	}
 
