@@ -247,8 +247,13 @@ public class TimerSelectedActivity extends BaseActivity implements
 			isLock = true;
 			handler.removeMessages(handler_key.UNLOCK.ordinal());
 
-			setCountDown(HourTime * 60 + MinTime);
-			mCenter.cCountDown(mXpgWifiDevice, HourTime * 60 + MinTime);
+			if(HourTime==24){
+				setCountDown(1440);
+				mCenter.cCountDown(mXpgWifiDevice, 1440);
+			}else{
+				setCountDown(HourTime * 60 + MinTime);
+				mCenter.cCountDown(mXpgWifiDevice, HourTime * 60 + MinTime);
+			}
 
 			handler.sendEmptyMessageDelayed(handler_key.UNLOCK.ordinal(),
 					Lock_Time);
@@ -263,7 +268,7 @@ public class TimerSelectedActivity extends BaseActivity implements
 			isLock = true;
 			handler.removeMessages(handler_key.UNLOCK.ordinal());
 
-			setTimer(tbTiming.isSelected(), HourTime * 60 + MinTime);
+			setTimer(true, HourTime * 60 + MinTime);
 			mCenter.cTimer2(mXpgWifiDevice, HourTime * 60 + MinTime);
 
 			handler.sendEmptyMessageDelayed(handler_key.UNLOCK.ordinal(),

@@ -17,24 +17,25 @@
  */
 package com.gizwits.framework.widget;
 
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.graphics.Xfermode;
+import android.support.v4.util.LruCache;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ScrollView;
 
 import com.gizwits.heater.R;
 import com.xpg.common.device.DensityUtils;
+import com.xpg.ui.utils.BitmapUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -48,15 +49,13 @@ public class CircularSeekBar extends View {
 
 	/** The context. */
 	private Context mContext;
-
+	
 	/** The listener to listen for changes. */
 	private OnSeekChangeListener mListener;
 
 	/** The color of the progress ring. */
-	private Paint circleColor;
+	private Paint circlPaint;
 
-	/** The progress circle ring background. */
-	private Paint circleRing;
 
 	/** The angle of progress. */
 	private int angle = 0;
@@ -197,26 +196,12 @@ public class CircularSeekBar extends View {
 			}
 		};
 
-		circleColor = new Paint();
-		circleRing = new Paint();
-
-		circleColor.setColor(Color.GREEN); // Set default
-		// progress
-		// color to holo
-		// blue.
-		// black
-		circleRing.setColor(Color.WHITE);// Set default background color to Gray
-
-		circleColor.setAntiAlias(true);
-		circleRing.setAntiAlias(true);
-
-		circleColor.setStrokeWidth(15);
-		circleRing.setStrokeWidth(15);
-
-		circleRing.setStyle(Style.STROKE);
-
-		circleColor.setStyle(Style.STROKE);
-
+		circlPaint = new Paint();
+		circlPaint.setAntiAlias(true);
+		circlPaint.setStyle(Style.STROKE);
+		circlPaint.setFilterBitmap(true);
+		circlPaint.setStyle(Paint.Style.FILL);
+		
 	}
 
 	/**
@@ -317,11 +302,11 @@ public class CircularSeekBar extends View {
 		markPointX = startPointX;// Initial locatino of the marker X coordinate
 		markPointY = startPointY;// Initial locatino of the marker Y coordinate
 
-		rect.set(left, top, right, bottom); // assign size to rect
-
 		int progressMarkWidth = progressMark.getWidth();
-		RectfCircle.set(left - progressMarkWidth / 2, top - progressMarkWidth / 2,
-				right + progressMarkWidth / 2, bottom + progressMarkWidth / 2);
+		rect.set(left, top, right, bottom); // assign size to rect
+		RectfCircle.set(left - progressMarkWidth / 2, top - progressMarkWidth
+				/ 2, right + progressMarkWidth / 2, bottom + progressMarkWidth
+				/ 2);
 	}
 
 	/*
@@ -331,12 +316,10 @@ public class CircularSeekBar extends View {
 	 */
 	@Override
 	protected void onDraw(Canvas canvas) {
-		canvas.drawBitmap(CircleBg1, null, RectfCircle, null);// 白色背景
-		canvas.drawBitmap(CircleBg2, null, RectfCircle, null);
+		canvas.drawBitmap(CircleBg1, null, RectfCircle, circlPaint);// 白色背景
+		canvas.drawBitmap(CircleBg2, null, RectfCircle, circlPaint);
 
-		// canvas.drawCircle(cx, cy, outerRadius, circleRing);
-//		 canvas.drawArc(rect, startAngle, angle, false, circleColor);
-		drawProgressCircle(canvas,startAngle,angle);
+		drawProgressCircle(canvas);
 		if (SHOW_SEEKBAR) {
 			setInitMarkToXY(getAngle());
 			dx = getXFromAngle();
@@ -345,35 +328,27 @@ public class CircularSeekBar extends View {
 		}
 		super.onDraw(canvas);
 	}
-	
+
 	/**
 	 * 画进度内环
 	 * 
 	 * @param int template 温度
 	 * */
-	private void drawProgressCircle(Canvas canvas, int start,int end) {
-		int sc=canvas.saveLayer(RectfCircle, null,
+	private void drawProgressCircle(Canvas canvas) {
+		int sc = canvas.saveLayer(0, 0, width, height, null,
 				Canvas.MATRIX_SAVE_FLAG | Canvas.CLIP_SAVE_FLAG
-				| Canvas.HAS_ALPHA_LAYER_SAVE_FLAG
-				| Canvas.FULL_COLOR_LAYER_SAVE_FLAG
-				| Canvas.CLIP_TO_LAYER_SAVE_FLAG);
-//		int sc = canvas.saveLayer(0, 0, width, height, null,
-//				Canvas.MATRIX_SAVE_FLAG | Canvas.CLIP_SAVE_FLAG
-//						| Canvas.HAS_ALPHA_LAYER_SAVE_FLAG
-//						| Canvas.FULL_COLOR_LAYER_SAVE_FLAG
-//						| Canvas.CLIP_TO_LAYER_SAVE_FLAG);
-		canvas.drawBitmap(CircleBg3, null, RectfCircle, null);
+						| Canvas.HAS_ALPHA_LAYER_SAVE_FLAG
+						| Canvas.FULL_COLOR_LAYER_SAVE_FLAG
+						| Canvas.CLIP_TO_LAYER_SAVE_FLAG);
+		canvas.drawBitmap(CircleBg3, null, RectfCircle, circlPaint);
 
 		Xfermode xfermode = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
-		Paint circlePaint=new Paint();
-//		circlePaint.setAntiAlias(true);
-//		circlePaint.setStyle(Paint.Style.STROKE);
-//		circlePaint.setStrokeWidth(15);
-		circlePaint.setXfermode(xfermode);
+		Paint circlePaint2 = new Paint();
+		circlePaint2.setAntiAlias(true);
+		circlePaint2.setXfermode(xfermode);
 
-		canvas.drawArc(RectfCircle,start, end, false,
-				circlePaint);
-		circlePaint.setXfermode(null);
+		canvas.drawArc(RectfCircle, startAngle + angle, 360 - angle, true, circlePaint2);
+		circlePaint2.setXfermode(null);
 		canvas.restoreToCount(sc);
 	}
 
@@ -617,7 +592,14 @@ public class CircularSeekBar extends View {
 	 * @Description: TODO
 	 */
 	public void setMProgress(int progress) {
-		myLock = lockX.UnLock;
+		if (progress >= 0 && progress <= 25) {
+			myLock = lockX.LockLeft;
+		} else if (progress >= 75) {
+			myLock = lockX.LockRight;
+		} else {
+			myLock = lockX.UnLock;
+		}
+
 		int newPercent = (progress * 100) / this.maxProgress;
 		int newAngle = (newPercent * 360) / 100;
 		this.setAngle(newAngle);
@@ -641,26 +623,6 @@ public class CircularSeekBar extends View {
 	 */
 	public void setProgressPercent(int progressPercent) {
 		this.progressPercent = progressPercent;
-	}
-
-	/**
-	 * Sets the ring background color.
-	 * 
-	 * @param color
-	 *            the new ring background color
-	 */
-	public void setRingBackgroundColor(int color) {
-		circleRing.setColor(color);
-	}
-
-	/**
-	 * Sets the progress color.
-	 * 
-	 * @param color
-	 *            the new progress color
-	 */
-	public void setProgressColor(int color) {
-		circleColor.setColor(color);
 	}
 
 	/**
@@ -837,19 +799,6 @@ public class CircularSeekBar extends View {
 		postInvalidate();
 	}
 
-	/** The m scroll view. */
-	private ScrollView mScrollView;
-
-	/**
-	 * Sets the scroll view in parent.
-	 * 
-	 * @param sv
-	 *            the new scroll view in parent
-	 */
-	public void setScrollViewInParent(ScrollView sv) {
-		mScrollView = sv;
-	}
-
 	/**
 	 * Sets the parent scroll able.
 	 * 
@@ -857,12 +806,7 @@ public class CircularSeekBar extends View {
 	 *            the new parent scroll able
 	 */
 	private void setParentScrollAble(boolean b) {
-		if (mScrollView == null)
-			return;
-		// if (mLay.getChildCount() != 0) {
-		mScrollView.requestDisallowInterceptTouchEvent(!b);//
-		// } else {
-		// mScrollView.requestDisallowInterceptTouchEvent(false);
-		// }
+		getParent().requestDisallowInterceptTouchEvent(!b);//
 	}
+	
 }

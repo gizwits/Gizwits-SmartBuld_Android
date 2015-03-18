@@ -82,7 +82,7 @@ public class MainControlActivity extends BaseActivity implements
 	private CircularSeekBar seekBar;
 
 	/** The scl content. */
-	private ScrollView sclContent;
+	private RelativeLayout rlContent;
 
 	/** The m view. */
 	private SlidingMenu mView;
@@ -440,13 +440,12 @@ public class MainControlActivity extends BaseActivity implements
 		tvSettingTemerature = (TextView) findViewById(R.id.tvSettingTemerature);
 		tvTempCurrentTips=(TextView) findViewById(R.id.tvTempCurrentTips);
 		rlPowerOn = (RelativeLayout) findViewById(R.id.rlPowerOn);
-		sclContent = (ScrollView) findViewById(R.id.sclContent);
+		rlContent = (RelativeLayout) findViewById(R.id.rlContent);
 		seekBar = (CircularSeekBar) findViewById(R.id.csbSeekbar);
 		seekBar.postInvalidateDelayed(2000);
 		seekBar.setMaxProgress(100);
 		seekBar.setProgress(30);
 		seekBar.setMProgress(0);
-		seekBar.setScrollViewInParent(sclContent);
 		seekBar.postInvalidateDelayed(100);
 		seekBar.setSeekBarChangeListener(new CircularSeekBar.OnSeekChangeListener() {
 			@Override
@@ -489,7 +488,7 @@ public class MainControlActivity extends BaseActivity implements
 	private void initEvents() {
 		rlPowerOn.setOnClickListener(this);
 		ivPower.setOnClickListener(this);
-		sclContent.setOnTouchListener(new OnTouchListener() {
+		rlContent.setOnTouchListener(new OnTouchListener() {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -715,8 +714,10 @@ public class MainControlActivity extends BaseActivity implements
 	private void updateHeaterTips() {
 		if (SettingTemp - CurrentTemp > 5) {
 			tvHeaterTips.setText(R.string.heater_is_heating);
-		} else {
+		} else if(SettingTemp - CurrentTemp <= 5&&SettingTemp - CurrentTemp>=0){
 			tvHeaterTips.setText(R.string.heater_is_keeping_warm);
+		}else{
+			tvHeaterTips.setText("");
 		}
 	}
 
