@@ -157,6 +157,8 @@ public class WheelView extends View {
     /** The scroller. */
     private Scroller scroller;
     
+    private boolean isScrolable=true;
+    
     /** The last scroll y. */
     private int lastScrollY;
 
@@ -828,6 +830,9 @@ public class WheelView extends View {
             return true;
         }
 
+        if(!isScrolable)
+        	return true;
+        
         if (!gestureDetector.onTouchEvent(event) && event.getAction() == MotionEvent.ACTION_UP) {
             justify();
         }
@@ -1052,6 +1057,14 @@ public class WheelView extends View {
 	 */
 	public void setADDITIONAL_ITEMS_SPACE(int aDDITIONAL_ITEMS_SPACE) {
 		ADDITIONAL_ITEMS_SPACE = aDDITIONAL_ITEMS_SPACE;
+	}
+
+	public boolean isScrolable() {
+		return isScrolable;
+	}
+
+	public void setScrolable(boolean isScrolable) {
+		this.isScrolable = isScrolable;
 	}
     
     

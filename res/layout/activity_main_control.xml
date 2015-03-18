@@ -204,7 +204,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="@string/main_control_actual_temp"
                                         android:textColor="@color/white"
-                                        android:textSize="12sp" />
+                                        android:textSize="16sp" />
 
                                     <TextView
                                         android:id="@+id/tvCurrentTemperature"
@@ -212,7 +212,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="16"
                                         android:textColor="@color/white"
-                                        android:textSize="16sp" />
+                                        android:textSize="22sp" />
 
                                     <TextView
                                         android:id="@+id/tvInnerUnit"
@@ -220,7 +220,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="@string/main_control_degree"
                                         android:textColor="@color/white"
-                                        android:textSize="16sp" />
+                                        android:textSize="22sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -235,7 +235,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="30"
                                         android:textColor="@color/white"
-                                        android:textSize="94sp" />
+                                        android:textSize="100sp" />
 
                                     <TextView
                                         android:id="@+id/tvSettingUnit"
@@ -251,7 +251,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/main_control_set_temp"
                                     android:textColor="@color/white"
-                                    android:textSize="16sp" />
+                                    android:textSize="18sp" />
                             </LinearLayout>
                         </RelativeLayout>
                     </LinearLayout>
@@ -263,11 +263,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/transparent_half"
-                android:onClick="onClick"
                 android:visibility="gone" >
 
                 <RelativeLayout
-                    android:id="@id/rlPowerOn"
+                    android:id="@+id/rlPowerButton"
+                    android:onClick="onClick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true" >

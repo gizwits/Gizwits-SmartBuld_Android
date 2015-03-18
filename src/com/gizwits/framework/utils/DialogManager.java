@@ -31,6 +31,7 @@ import android.widget.TextView;
 import com.gizwits.heater.R;
 import com.gizwits.framework.widget.ArrayWheelAdapter;
 import com.gizwits.framework.widget.NumericWheelAdapter;
+import com.gizwits.framework.widget.OnWheelChangedListener;
 import com.gizwits.framework.widget.WheelView;
 
 // TODO: Auto-generated Javadoc
@@ -212,7 +213,7 @@ public class DialogManager {
 	 */
 	public static Dialog get2WheelTimingDialog(final Activity ctx,
 			final On2TimingChosenListener l, String titleStr, int indexOne,
-			int indexTwo,String labelOne,String labelTwo) {
+			int indexTwo, String labelOne, String labelTwo, boolean isCountDown) {
 
 		DisplayMetrics metric = new DisplayMetrics();
 		ctx.getWindowManager().getDefaultDisplay().getMetrics(metric);
@@ -250,17 +251,42 @@ public class DialogManager {
 			wheelveiewMin.setADDITIONAL_ITEMS_SPACE(5);
 		}
 
-		wheelveiew.setAdapter(new NumericWheelAdapter(0, 23));
-		wheelveiew.setCyclic(true);
-		wheelveiew.setLabel(labelOne);
-		// 初始化时显示的数据
-		wheelveiew.setCurrentItem(indexOne);
-
-		wheelveiewMin.setAdapter(new NumericWheelAdapter(0, 59, "%02d"));
+		final NumericWheelAdapter mAdatperOne=new NumericWheelAdapter(0, 59, "%02d");
+		final ArrayWheelAdapter<String> mAdatperTwo=new ArrayWheelAdapter<String>(new String[]{"","","00","",""},5);
+		
+		wheelveiewMin.setAdapter(mAdatperOne);
 		wheelveiewMin.setCyclic(true);
 		wheelveiewMin.setLabel(labelTwo);
 		// 初始化时显示的数据
 		wheelveiewMin.setCurrentItem(indexTwo);
+		
+		if (isCountDown) {
+			wheelveiew.setAdapter(new NumericWheelAdapter(0, 24));
+			wheelveiew.addChangingListener(new OnWheelChangedListener(){
+
+				@Override
+				public void onChanged(WheelView wheel, int oldValue,
+						int newValue) {
+					if(newValue==24){
+						wheelveiewMin.setAdapter(mAdatperTwo);
+						wheelveiewMin.setScrolable(false);
+						wheelveiewMin.setCurrentItem(2);
+					}else{
+						if(wheelveiewMin.getAdapter()!=mAdatperOne){
+						wheelveiewMin.setAdapter(mAdatperOne);
+						wheelveiewMin.setCurrentItem(0);
+						wheelveiewMin.setScrolable(true);
+						}
+					}
+				}
+				});
+		} else {
+			wheelveiew.setAdapter(new NumericWheelAdapter(0, 23));
+		}
+		wheelveiew.setCyclic(true);
+		wheelveiew.setLabel(labelOne);
+		// 初始化时显示的数据
+		wheelveiew.setCurrentItem(indexOne);
 
 		confi_btn.setOnClickListener(new View.OnClickListener() {
 

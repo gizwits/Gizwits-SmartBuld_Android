@@ -12,8 +12,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -165,7 +163,7 @@ public class TimerSelectedActivity extends BaseActivity implements
 							getResources().getString(
 									R.string.appointment_timer_label1),
 							getResources().getString(
-									R.string.appointment_timer_label2)).show();
+									R.string.appointment_timer_label2),false).show();
 			break;
 		case R.id.tbCountDownFlag:
 			if (!tbCountDown.isChecked()) {
@@ -205,7 +203,7 @@ public class TimerSelectedActivity extends BaseActivity implements
 				getResources()
 						.getString(R.string.appointment_count_down_label1),
 				getResources()
-						.getString(R.string.appointment_count_down_label2))
+						.getString(R.string.appointment_count_down_label2),true)
 				.show();
 	}
 

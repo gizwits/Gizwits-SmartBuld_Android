@@ -546,9 +546,6 @@ public class MainControlActivity extends BaseActivity implements
 		case R.id.ivMenu:
 			mView.toggle();
 			break;
-		case R.id.rlPowerOn:
-			mCenter.cSwitchOn(mXpgWifiDevice, true);
-			break;
 		case R.id.ivPower:
 			mPowerOffDialog.show();
 			break;
@@ -571,7 +568,7 @@ public class MainControlActivity extends BaseActivity implements
 				startActivity(intent);
 			}
 			break;
-		case R.id.rlPowerOff:
+		case R.id.rlPowerButton:
 			mCenter.cSwitchOn(mXpgWifiDevice, true);
 			break;
 		}
