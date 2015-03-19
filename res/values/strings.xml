@@ -52,7 +52,7 @@
 	<string name="device_manage_text4">设备序列号：XXXXXXXXXXXXXXXX</string>
 	<string name="device_name">设备名称</string>
 	<string name="name">名称</string>
-	<string name="delete_aircondition">删除空调</string>
+	<string name="delete_aircondition">删除热水器</string>
 	<string name="forget_password">忘记密码</string>
 	<string name="forget_password_hint1">手机号/邮箱</string>
 	<string name="forget_password_get_verifycode">获取验证码</string>
@@ -71,15 +71,9 @@
     <string name="main_control_timing_shutdown">定时关机</string>
     <string name="main_control_advanced_features">高级功能</string>
     <string name="main_control_temp_curve">温度曲线</string>
-    <string name="main_control_celsius">摄氏</string>
-    <string name="main_control_refrigeration">制冷</string>
     <string name="main_control_actual_temp">当前温度</string>
     <string name="main_control_degree">°</string>
     <string name="main_control_set_temp">设定温度</string>
-    <string name="main_control_low_wind">低风</string>
-    <string name="main_control_regular_wind">中风</string>
-    <string name="main_control_high_wind">高风</string>
-    <string name="main_control_shake_wind">摆风</string>
     <string name="main_control_turn_on">开机</string>
     <string name="main_control_timing_turn_on">定时开机</string>
     <string name="register_email">邮箱</string>
@@ -112,7 +106,7 @@
 	
 	<string name="no_device">没有设备</string>
 	<string name="device_online">在线设备</string>
-	<string name="aircondition">空调</string>
+	<string name="heater">热水器</string>
 	<string name="remote_online">在线设备</string>
 	<string name="not_processing">暂不处理</string>
 	<string name="call_customer_service">拨打客服</string>

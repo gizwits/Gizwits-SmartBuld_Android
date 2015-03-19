@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.gizwits.heater.R;
+import com.gizwits.heater.activity.control.MainControlActivity;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.onboarding.SearchDeviceActivity;
 import com.gizwits.framework.adapter.ManageListAdapter;
@@ -56,9 +57,6 @@ public class DeviceManageListActivity extends BaseActivity implements OnClickLis
 
     /** The iv add. */
     private ImageView ivAdd;
-
-    /** The Device device list. */
-    private List<XPGWifiDevice> devices;
 
     /** The m adapter. */
     ManageListAdapter mAdapter;

@@ -114,24 +114,29 @@ public class ManageListAdapter extends BaseAdapter {
 
 		XPGWifiDevice device = devicelist.get(position);
 		
+		String name="";
 		if(StringUtils.isEmpty(device.getRemark()))
 		{
 			String macAddress=device.getMacAddress();
 			int size=macAddress.length();
-			holder.tvName.setText(device.getProductName() + macAddress.substring(size-4, size));
+			name=device.getProductName() + macAddress.substring(size-4, size);
 		}else
 		{
-			holder.tvName.setText(device.getRemark());
+			name=device.getRemark();
 		}
+		name=StringUtils.getStrFomat(name, 8, true);
+		holder.tvName.setText(name);
 		
-		if (device.isLAN() || device.isOnline()) {
+		if (device.isOnline()) {
 			holder.tvName.setTextColor(context.getResources().getColor(
 					R.color.text_blue));
 			holder.ivArrow.setVisibility(View.VISIBLE);
+			holder.ivType.setImageResource(R.drawable.device);
 		} else {
 			holder.tvName.setTextColor(context.getResources().getColor(
 					R.color.text_gray));
 			holder.ivArrow.setVisibility(View.GONE);
+			holder.ivType.setImageResource(R.drawable.device2);
 		}
 		return convertView;
 	}

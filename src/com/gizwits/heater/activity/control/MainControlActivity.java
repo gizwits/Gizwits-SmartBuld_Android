@@ -57,6 +57,7 @@ import com.gizwits.framework.activity.help.HelpActivity;
 import com.gizwits.framework.adapter.MenuDeviceAdapter;
 import com.gizwits.framework.config.JsonKeys;
 import com.gizwits.framework.entity.DeviceAlarm;
+import com.gizwits.framework.utils.DensityUtil;
 import com.gizwits.framework.utils.DialogManager;
 import com.gizwits.framework.utils.StringUtils;
 import com.gizwits.framework.widget.CircularSeekBar;
@@ -117,7 +118,7 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** The tv timer. */
 	private TextView tvTimer;
-	
+
 	/** The tv TempCurrentTips. */
 	private TextView tvTempCurrentTips;
 
@@ -168,7 +169,7 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** 是否超时标志位 */
 	private boolean isTimeOut = false;
-	
+
 	private ScrollView slMenu;
 
 	/**
@@ -391,16 +392,16 @@ public class MainControlActivity extends BaseActivity implements
 	 */
 	@Override
 	public void onResume() {
-		super.onResume();
-		Log.e("isOpen", mView.isOpen()+",hahahahhaha");
 		if (mView.isOpen()) {
 			refleshMenu();
 		} else {
-			refleshMainControl();
+			 refleshMainControl();
 		}
+		super.onResume();
+
 	}
-	
-	private void refleshMenu(){
+
+	private void refleshMenu() {
 		initBindList();
 		mAdapter.setChoosedPos(-1);
 		for (int i = 0; i < bindlist.size(); i++) {
@@ -409,10 +410,12 @@ public class MainControlActivity extends BaseActivity implements
 				mAdapter.setChoosedPos(i);
 		}
 		mAdapter.notifyDataSetChanged();
-		slMenu.scrollTo(0, 0);
+		int px = DensityUtil.dip2px(this, mAdapter.getCount() * 50);
+		lvDevice.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
+				android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, px));
 	}
-	
-	private void refleshMainControl(){
+
+	private void refleshMainControl() {
 		mXpgWifiDevice.setListener(deviceListener);
 		alarmShowList.clear();
 		handler.sendEmptyMessage(handler_key.GET_STATUE.ordinal());
@@ -425,7 +428,7 @@ public class MainControlActivity extends BaseActivity implements
 		statuMap = new ConcurrentHashMap<String, Object>();
 		alarmList = new ArrayList<DeviceAlarm>();
 		alarmShowList = new ArrayList<String>();
-		
+
 		refleshMenu();
 		refleshMainControl();
 	}
@@ -447,7 +450,7 @@ public class MainControlActivity extends BaseActivity implements
 		tvTimer = (TextView) findViewById(R.id.tvTimer);
 		tvCurrentTemperature = (TextView) findViewById(R.id.tvCurrentTemperature);
 		tvSettingTemerature = (TextView) findViewById(R.id.tvSettingTemerature);
-		tvTempCurrentTips=(TextView) findViewById(R.id.tvTempCurrentTips);
+		tvTempCurrentTips = (TextView) findViewById(R.id.tvTempCurrentTips);
 		rlPowerOn = (RelativeLayout) findViewById(R.id.rlPowerOn);
 		rlContent = (RelativeLayout) findViewById(R.id.rlContent);
 		seekBar = (CircularSeekBar) findViewById(R.id.csbSeekbar);
@@ -485,9 +488,7 @@ public class MainControlActivity extends BaseActivity implements
 		mAdapter = new MenuDeviceAdapter(this, bindlist);
 		lvDevice = (ListView) findViewById(R.id.lvDevice);
 		lvDevice.setAdapter(mAdapter);
-		LayoutInflater inflater = LayoutInflater.from(this);
-		View view=inflater.inflate(R.layout.activity_slibbar, null);
-		slMenu=(ScrollView) view.findViewById(R.id.slMenu);
+		slMenu = (ScrollView) findViewById(R.id.slMenu);
 
 		progressDialog = new ProgressDialog(MainControlActivity.this);
 		progressDialog.setCancelable(false);
@@ -553,13 +554,14 @@ public class MainControlActivity extends BaseActivity implements
 	 */
 	@Override
 	public void onClick(View v) {
-		if(mView.isOpen()){
-			mView.toggle();
+		if (mView.isOpen()) {
+			backToMain();
 			return;
 		}
-		
+
 		switch (v.getId()) {
 		case R.id.ivMenu:
+			slMenu.scrollTo(0, 0);
 			mView.toggle();
 			break;
 		case R.id.ivPower:
@@ -613,6 +615,14 @@ public class MainControlActivity extends BaseActivity implements
 					DeviceListActivity.class);
 			finish();
 			break;
+		}
+	}
+	
+	private void backToMain(){
+		if(mXpgWifiDevice.isConnected()){
+			mView.toggle();
+		}else{
+			loginDevice(mXpgWifiDevice)	;
 		}
 	}
 
@@ -705,9 +715,9 @@ public class MainControlActivity extends BaseActivity implements
 	private void updateCurrentTemp(short temp) {
 		CurrentTemp = temp;
 		tvCurrentTemperature.setText("" + temp);
-		tvTempCurrentTips.setText(Html.fromHtml("当前温度"+
-				"<big><big>"+temp+"°"+"</big></big>"));
-		
+		tvTempCurrentTips.setText(Html.fromHtml("当前温度" + "<big><big>" + temp
+				+ "°" + "</big></big>"));
+
 		updateHeaterTips();
 	}
 
@@ -727,9 +737,10 @@ public class MainControlActivity extends BaseActivity implements
 	private void updateHeaterTips() {
 		if (SettingTemp - CurrentTemp > 5) {
 			tvHeaterTips.setText(R.string.heater_is_heating);
-		} else if(SettingTemp - CurrentTemp <= 5&&SettingTemp - CurrentTemp>=0){
+		} else if (SettingTemp - CurrentTemp <= 5
+				&& SettingTemp - CurrentTemp >= 0) {
 			tvHeaterTips.setText(R.string.heater_is_keeping_warm);
-		}else{
+		} else {
 			tvHeaterTips.setText("");
 		}
 	}
@@ -789,7 +800,7 @@ public class MainControlActivity extends BaseActivity implements
 	@Override
 	public void onBackPressed() {
 		if (mView.isOpen()) {
-			mView.toggle();
+			backToMain();
 		} else {
 			if (mXpgWifiDevice != null && mXpgWifiDevice.isConnected()) {
 				mCenter.cDisconnect(mXpgWifiDevice);

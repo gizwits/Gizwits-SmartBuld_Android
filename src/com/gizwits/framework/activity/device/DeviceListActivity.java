@@ -17,6 +17,7 @@
  */
 package com.gizwits.framework.activity.device;
 
+import java.util.Date;
 import java.util.List;
 
 import android.app.Dialog;
@@ -139,6 +140,7 @@ public class DeviceListActivity extends BaseActivity implements
 				break;
 
 			case LOGIN_SUCCESS:
+				mCenter.cTimerNow(mXpgWifiDevice, getCurrentTime());
 				progressDialog.cancel();
 				IntentUtils.getInstance().startActivity(
 						DeviceListActivity.this, MainControlActivity.class);
@@ -405,6 +407,14 @@ public class DeviceListActivity extends BaseActivity implements
 	@Override
 	public void onBackPressed() {
 		exit();
+	}
+	
+	private int getCurrentTime(){
+		int result=0;
+		Date mDate= new Date();
+		result=mDate.getHours()*60+mDate.getMinutes();
+		
+		return result;
 	}
 
 }

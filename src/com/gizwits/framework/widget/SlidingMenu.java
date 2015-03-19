@@ -69,8 +69,6 @@ public class SlidingMenu extends HorizontalScrollView    {
 				ViewGroup mContent = (ViewGroup) wrapper.getChildAt(i);
 				mContent.getLayoutParams().width = mScreenWidth;
 			}
-			
-			closeMenu();
 		}
 		updateState();
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -121,7 +119,6 @@ public class SlidingMenu extends HorizontalScrollView    {
 	 * 打开菜单
 	 */
 	public void openMenu() {
-		Log.e("openMenu", isOpen+"");
 		if (isOpen)
 			return;
 		
@@ -133,7 +130,6 @@ public class SlidingMenu extends HorizontalScrollView    {
 	 * 关闭菜单
 	 */
 	public void closeMenu() {
-		Log.e("closeMenu", isOpen+"");
 		if (isOpen) {
 			this.smoothScrollTo(mMenuWidth, 0);
 			this.isOpen = false;
@@ -144,13 +140,11 @@ public class SlidingMenu extends HorizontalScrollView    {
 	 * 切换菜单状态
 	 */
 	public void toggle() {
-		Log.e("isOpen", isOpen+",first");
 		if (isOpen) {
 			closeMenu();
 		} else {
 			openMenu();
 		}
-		Log.e("isOpen", isOpen+",second");
 	}
 
 	@Override

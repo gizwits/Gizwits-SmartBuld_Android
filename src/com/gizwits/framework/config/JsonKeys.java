@@ -55,8 +55,10 @@ public class JsonKeys {
 	/** 预约开关. */
 	public final static String RESERVE_ON_OFF = "Reserve_OnOff";
 	
+	/** 时钟校准. */
+	public final static String CALIBRATION_TIME = "Calibration_Time";
 	
-
+	
 
 	/** 干烧故障. */
 	public final static String FAULT_BURNING = "Fault_burning";

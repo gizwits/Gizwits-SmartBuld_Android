@@ -39,15 +39,15 @@
             android:id="@+id/slMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_above="@id/btnDeviceList"
+            android:layout_alignParentTop="true"
             android:scrollbars="none" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="100dp"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:paddingBottom="100dp" >
 
                 <RelativeLayout
                     android:id="@+id/rlDevice"
@@ -90,10 +90,16 @@
 
                 <ListView
                     android:id="@+id/lvDevice"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:cacheColorHint="#00000000"
+                    android:listSelector="#00000000"
                     android:scrollbars="none" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/background_gray" />
 
                 <RelativeLayout
                     android:id="@+id/rlAccount"

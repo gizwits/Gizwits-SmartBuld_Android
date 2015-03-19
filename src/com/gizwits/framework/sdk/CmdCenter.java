@@ -450,5 +450,9 @@ public class CmdCenter {
 		}
 		cGetStatus(xpgWifiDevice);
 	}
+	
+	public void cTimerNow(XPGWifiDevice xpgWifiDevice, int timer){
+		cWrite(xpgWifiDevice, JsonKeys.CALIBRATION_TIME, timer);
+	}
 
 }

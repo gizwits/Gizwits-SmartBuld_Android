@@ -595,10 +595,14 @@ public class DeviceListAdapter extends BaseAdapter {
     private void onBindDeviceItem(DeviceViewHolder viewHolder,
                                   XPGWifiDevice device) {
     	String DeviceName="";
-    	if(StringUtils.isEmpty(device.getRemark()))
-    		DeviceName=device.getProductName();
-        else
+    	if(StringUtils.isEmpty(device.getRemark())){
+    		String macAddress=device.getMacAddress();
+			int size=macAddress.length();
+    		DeviceName=device.getProductName() + macAddress.substring(size-4, size);
+    	}else{
         	DeviceName=device.getRemark();
+    	}
+    	DeviceName=StringUtils.getStrFomat(DeviceName, 8, true);
     	viewHolder.name.setText(DeviceName);
     	
         if (device.isLAN()) {
