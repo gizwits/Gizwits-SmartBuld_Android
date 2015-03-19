@@ -135,7 +135,7 @@
                             android:layout_centerInParent="true"
                             android:drawableTop="@drawable/home_tab_heating_icon"
                             android:gravity="center"
-                            android:text="@string/main_control_advanced_features"
+                            android:text="@string/pattern_intelligence"
                             android:textColor="#ffffff"
                             android:textSize="12sp" />
                     </RelativeLayout>
@@ -145,9 +145,9 @@
                     android:id="@+id/rlContent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
                     android:layout_above="@+id/llFooter"
                     android:onClick="onClick"
-                    android:layout_alignParentTop="true"
                     android:background="@drawable/water_heating_home_bg" >
 
                     <RelativeLayout
@@ -257,6 +257,7 @@
                 android:id="@+id/rlPowerOff"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@id/rlHeader"
                 android:background="@color/transparent_half"
                 android:visibility="gone" >
 

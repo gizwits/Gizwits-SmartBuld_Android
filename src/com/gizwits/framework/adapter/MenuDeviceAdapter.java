@@ -107,10 +107,10 @@ public class MenuDeviceAdapter extends ArrayAdapter<XPGWifiDevice>{
 
 		if (getChoosedPos() == position) {
 			holder.deviceName_tv.setSelected(true);
-			holder.device_checked_tv.setSelected(true);
+			holder.device_checked_tv.setVisibility(View.VISIBLE);;
 		} else {
 			holder.deviceName_tv.setSelected(false);
-			holder.device_checked_tv.setSelected(false);
+			holder.device_checked_tv.setVisibility(View.INVISIBLE);;
 		}
 
 		if (device.isOnline())

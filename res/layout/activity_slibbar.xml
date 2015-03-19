@@ -5,21 +5,48 @@
     android:layout_height="match_parent"
     android:background="@color/white" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/slideout_placeholder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-         >
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:id="@+id/btnDeviceList"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/background_light_gray"
+            android:gravity="center_vertical"
+            android:onClick="onClickSlipBar"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/icon5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:src="@drawable/slib_setting" />
+
+            <TextView
+                style="@style/MenuTextViewGray"
+                android:layout_toRightOf="@+id/icon5"
+                android:text="@string/back_to_device_list" />
+        </RelativeLayout>
 
         <ScrollView
+            android:id="@+id/slMenu"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/btnDeviceList"
             android:scrollbars="none" >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="100dp"
                 android:orientation="vertical" >
 
                 <RelativeLayout
@@ -27,10 +54,10 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
-                    android:gravity="center_vertical"
                     android:background="@color/background_light_gray"
-                    android:orientation="horizontal"
-                    android:onClick="onClickSlipBar" >
+                    android:gravity="center_vertical"
+                    android:onClick="onClickSlipBar"
+                    android:orientation="horizontal" >
 
                     <ImageView
                         android:id="@+id/icon1"
@@ -64,18 +91,18 @@
                 <ListView
                     android:id="@+id/lvDevice"
                     android:layout_width="fill_parent"
-                    android:scrollbars="none"
                     android:layout_height="wrap_content"
-                    android:cacheColorHint="#00000000" />
+                    android:cacheColorHint="#00000000"
+                    android:scrollbars="none" />
 
                 <RelativeLayout
                     android:id="@+id/rlAccount"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:background="@color/background_light_gray"
-                    android:orientation="horizontal"
-                    android:onClick="onClickSlipBar" >
+                    android:gravity="center_vertical"
+                    android:onClick="onClickSlipBar"
+                    android:orientation="horizontal" >
 
                     <ImageView
                         android:id="@+id/icon2"
@@ -110,10 +137,10 @@
                     android:id="@+id/rlHelp"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:background="@color/background_light_gray"
-                    android:orientation="horizontal"
-                    android:onClick="onClickSlipBar" >
+                    android:gravity="center_vertical"
+                    android:onClick="onClickSlipBar"
+                    android:orientation="horizontal" >
 
                     <ImageView
                         android:id="@+id/icon3"
@@ -148,10 +175,10 @@
                     android:id="@+id/rlAbout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:background="@color/background_light_gray"
-                    android:orientation="horizontal"
-                    android:onClick="onClickSlipBar" >
+                    android:gravity="center_vertical"
+                    android:onClick="onClickSlipBar"
+                    android:orientation="horizontal" >
 
                     <ImageView
                         android:id="@+id/icon4"
@@ -181,23 +208,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="1dp"
                     android:background="@color/text_gray" />
-
-                <Button
-                    android:id="@+id/btnDeviceList"
-                    style="@style/ButtonBlue"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginBottom="50dp"
-                    android:text="@string/back_to_device_list"
-                    android:onClick="onClickSlipBar" />
             </LinearLayout>
         </ScrollView>
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/slidedout_cover"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY" />
+    </RelativeLayout>
 
 </AbsoluteLayout>

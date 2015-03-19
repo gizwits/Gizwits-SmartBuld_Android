@@ -158,7 +158,7 @@ public class ModeSelectedActivity extends BaseActivity implements OnItemClickLis
 		private LayoutInflater inflater;
 		
 		/** The selected. */
-		private int selected=0;
+		private int selected=-1;
 		
 		public ModeAdapter(Context context){
 			this.inflater = LayoutInflater.from(context);

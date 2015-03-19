@@ -34,6 +34,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -167,6 +168,8 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** 是否超时标志位 */
 	private boolean isTimeOut = false;
+	
+	private ScrollView slMenu;
 
 	/**
 	 * ClassName: Enum handler_key. <br/>
@@ -389,21 +392,30 @@ public class MainControlActivity extends BaseActivity implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		Log.e("isOpen", mView.isOpen()+"");
+		Log.e("isOpen", mView.isOpen()+",hahahahhaha");
 		if (mView.isOpen()) {
-			initBindList();
-			mAdapter.setChoosedPos(-1);
-			for (int i = 0; i < bindlist.size(); i++) {
-				if (bindlist.get(i).getDid()
-						.equalsIgnoreCase(mXpgWifiDevice.getDid()))
-					mAdapter.setChoosedPos(i);
-			}
-			mAdapter.notifyDataSetChanged();
+			refleshMenu();
 		} else {
-			mXpgWifiDevice.setListener(deviceListener);
-			alarmShowList.clear();
-			handler.sendEmptyMessage(handler_key.GET_STATUE.ordinal());
+			refleshMainControl();
 		}
+	}
+	
+	private void refleshMenu(){
+		initBindList();
+		mAdapter.setChoosedPos(-1);
+		for (int i = 0; i < bindlist.size(); i++) {
+			if (bindlist.get(i).getDid()
+					.equalsIgnoreCase(mXpgWifiDevice.getDid()))
+				mAdapter.setChoosedPos(i);
+		}
+		mAdapter.notifyDataSetChanged();
+		slMenu.scrollTo(0, 0);
+	}
+	
+	private void refleshMainControl(){
+		mXpgWifiDevice.setListener(deviceListener);
+		alarmShowList.clear();
+		handler.sendEmptyMessage(handler_key.GET_STATUE.ordinal());
 	}
 
 	/**
@@ -413,6 +425,9 @@ public class MainControlActivity extends BaseActivity implements
 		statuMap = new ConcurrentHashMap<String, Object>();
 		alarmList = new ArrayList<DeviceAlarm>();
 		alarmShowList = new ArrayList<String>();
+		
+		refleshMenu();
+		refleshMainControl();
 	}
 
 	/**
@@ -470,6 +485,9 @@ public class MainControlActivity extends BaseActivity implements
 		mAdapter = new MenuDeviceAdapter(this, bindlist);
 		lvDevice = (ListView) findViewById(R.id.lvDevice);
 		lvDevice.setAdapter(mAdapter);
+		LayoutInflater inflater = LayoutInflater.from(this);
+		View view=inflater.inflate(R.layout.activity_slibbar, null);
+		slMenu=(ScrollView) view.findViewById(R.id.slMenu);
 
 		progressDialog = new ProgressDialog(MainControlActivity.this);
 		progressDialog.setCancelable(false);
@@ -657,23 +675,21 @@ public class MainControlActivity extends BaseActivity implements
 			seekBar.setVisibility(View.INVISIBLE);
 			rlPowerOff.setVisibility(View.VISIBLE);
 			ivPower.setVisibility(View.GONE);
-			ivMenu.setClickable(false);
 			tvHeaterTips.setVisibility(View.INVISIBLE);
 
 			for (int i = 0; i < llFooter.getChildCount(); i++) {
-				View mView = llFooter.getChildAt(i);
-				mView.setClickable(false);
+				View view = llFooter.getChildAt(i);
+				view.setClickable(false);
 			}
 		} else {
 			seekBar.setVisibility(View.VISIBLE);
 			rlPowerOff.setVisibility(View.GONE);
 			ivPower.setVisibility(View.VISIBLE);
-			ivMenu.setClickable(true);
 			tvHeaterTips.setVisibility(View.VISIBLE);
 
 			for (int i = 0; i < llFooter.getChildCount(); i++) {
-				View mView = llFooter.getChildAt(i);
-				mView.setClickable(true);
+				View view = llFooter.getChildAt(i);
+				view.setClickable(true);
 			}
 		}
 	}
