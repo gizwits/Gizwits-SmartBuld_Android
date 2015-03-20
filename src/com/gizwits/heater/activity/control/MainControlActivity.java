@@ -34,7 +34,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -79,7 +78,7 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** The tag. */
 	private final String TAG = "MainControlActivity";
-	// private XPGWifiDevice device;
+	
 	/** The seek bar. */
 	private CircularSeekBar seekBar;
 
@@ -95,7 +94,7 @@ public class MainControlActivity extends BaseActivity implements
 	/** The rl power off. */
 	private RelativeLayout rlPowerOff;
 
-	// /** The ll footer. */
+	 /** The ll footer. */
 	private LinearLayout llFooter;
 
 	/** The iv menu. */
@@ -134,17 +133,11 @@ public class MainControlActivity extends BaseActivity implements
 	/** The lv device. */
 	private ListView lvDevice;
 
-	// /** The tv title off. */
-	// private TextView tvTitleOff;
-
 	/** The rl power on. */
 	private RelativeLayout rlPowerOn;
 
 	/** The is show. */
 	private boolean isShow;
-
-	/** The height. */
-	// private int height;
 
 	/** The device data map. */
 	private ConcurrentHashMap<String, Object> deviceDataMap;
@@ -170,6 +163,7 @@ public class MainControlActivity extends BaseActivity implements
 	/** 是否超时标志位 */
 	private boolean isTimeOut = false;
 
+	/** 侧拉菜单 */
 	private ScrollView slMenu;
 
 	/**
@@ -393,15 +387,20 @@ public class MainControlActivity extends BaseActivity implements
 	@Override
 	public void onResume() {
 		if (mView.isOpen()) {
-			refleshMenu();
+			refreshMenu();
 		} else {
-			 refleshMainControl();
+			 refreshMainControl();
 		}
 		super.onResume();
 
 	}
 
-	private void refleshMenu() {
+	/**
+	 * 更新菜单界面.
+	 * 
+	 * @return void
+	 */
+	private void refreshMenu() {
 		initBindList();
 		mAdapter.setChoosedPos(-1);
 		for (int i = 0; i < bindlist.size(); i++) {
@@ -415,7 +414,12 @@ public class MainControlActivity extends BaseActivity implements
 				android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, px));
 	}
 
-	private void refleshMainControl() {
+	/**
+	 * 更新主控制界面.
+	 * 
+	 * @return void
+	 */
+	private void refreshMainControl() {
 		mXpgWifiDevice.setListener(deviceListener);
 		alarmShowList.clear();
 		handler.sendEmptyMessage(handler_key.GET_STATUE.ordinal());
@@ -429,8 +433,8 @@ public class MainControlActivity extends BaseActivity implements
 		alarmList = new ArrayList<DeviceAlarm>();
 		alarmShowList = new ArrayList<String>();
 
-		refleshMenu();
-		refleshMainControl();
+		refreshMenu();
+		refreshMainControl();
 	}
 
 	/**
@@ -532,21 +536,6 @@ public class MainControlActivity extends BaseActivity implements
 		});
 	}
 
-	/**
-	 * 防止循环调用.
-	 * 
-	 * @author Administrator
-	 * @param on
-	 *            the new listen null
-	 * @return void
-	 * @Title: setListenNull
-	 * @Description: TODO
-	 */
-	private void setListenNull(boolean on) {
-		// cbWindShake.setOnCheckedChangeListener(on ? null : this);
-		// rgWing.setOnCheckedChangeListener(on ? null : this);
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -590,6 +579,11 @@ public class MainControlActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 菜单界面点击事件监听方法.
+	 * 
+	 * @return void
+	 */
 	public void onClickSlipBar(View view) {
 		switch (view.getId()) {
 		case R.id.rlDevice:
@@ -618,6 +612,11 @@ public class MainControlActivity extends BaseActivity implements
 		}
 	}
 	
+	/**
+	 * 菜单界面返回主控界面.
+	 * 
+	 * @return void
+	 */
 	private void backToMain(){
 		if(mXpgWifiDevice.isConnected()){
 			mView.toggle();
@@ -680,6 +679,12 @@ public class MainControlActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 更新开关状态.
+	 * 
+	 * @param isSwitch
+	 *            the isSwitch
+	 */
 	private void updatePowerSwitch(boolean isSwitch) {
 		if (!isSwitch) {
 			seekBar.setVisibility(View.INVISIBLE);
@@ -704,6 +709,14 @@ public class MainControlActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 更新定时预约状态.
+	 * 
+	 * @param timer
+	 *            the timer
+	 * @param countDown
+	 * 			  the countDown
+	 */
 	private void updateTiming(boolean timer, int countDown) {
 		if (timer || countDown > 0) {
 			tvTimer.setText(R.string.appointment_already);
@@ -712,6 +725,12 @@ public class MainControlActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * 更新当前温度状态.
+	 * 
+	 * @param temp
+	 *            the temp
+	 */
 	private void updateCurrentTemp(short temp) {
 		CurrentTemp = temp;
 		tvCurrentTemperature.setText("" + temp);
@@ -721,6 +740,12 @@ public class MainControlActivity extends BaseActivity implements
 		updateHeaterTips();
 	}
 
+	/**
+	 * 更新设定温度状态.
+	 * 
+	 * @param temp
+	 *            the temp
+	 */
 	private void updateSettingTemp(short temp) {
 		SettingTemp = temp;
 		tvSettingTemerature.setText("" + temp);
@@ -734,6 +759,10 @@ public class MainControlActivity extends BaseActivity implements
 		updateHeaterTips();
 	}
 
+	/**
+	 * 更新加热提示状态.
+	 * 
+	 */
 	private void updateHeaterTips() {
 		if (SettingTemp - CurrentTemp > 5) {
 			tvHeaterTips.setText(R.string.heater_is_heating);

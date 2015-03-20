@@ -1,3 +1,20 @@
+/**
+ * Project Name:XPGSdkV4AppBase
+ * File Name:TimerSelectedActivity.java
+ * Package Name:com.gizwits.heater.activity.control
+ * Date:2015-3-20 14:48:07
+ * Copyright (c) 2014~2015 Xtreme Programming Group, Inc.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
+ * to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package com.gizwits.heater.activity.control;
 
 import java.util.Iterator;
@@ -23,23 +40,38 @@ import com.gizwits.framework.utils.DialogManager.On2TimingChosenListener;
 import com.gizwits.heater.R;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
+/**
+ * The Class TimerSelectedActivity.
+ * 
+ * 预约用水界面
+ * 
+ * @author Sunny
+ */
 public class TimerSelectedActivity extends BaseActivity implements
 		OnClickListener {
 
+	/** The count down tb. */
 	private ToggleButton tbCountDown;
 
+	/** The timer tb. */
 	private ToggleButton tbTiming;
 
+	/** The count down tv. */
 	private TextView tvCountDown;
 
+	/** The timer tv. */
 	private TextView tvTiming;
 
+	/** The count down hour. */
 	private int CountDownHour = 0;
 
+	/** The count down minute. */
 	private int CountDownMin = 0;
 
+	/** The timer hour. */
 	private int TimerHour = 0;
 
+	/** The timer minute. */
 	private int TimerMin = 0;
 
 	/** The device data map. */
@@ -120,6 +152,13 @@ public class TimerSelectedActivity extends BaseActivity implements
 		}
 	};
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.gizwits.aircondition.activity.BaseActivity#onCreate(android.os.Bundle
+	 * )
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -128,6 +167,9 @@ public class TimerSelectedActivity extends BaseActivity implements
 		initEvent();
 	}
 
+	/**
+	 * Inits the views.
+	 */
 	private void initView() {
 		tbCountDown = (ToggleButton) findViewById(R.id.tbCountDownFlag);
 		tbTiming = (ToggleButton) findViewById(R.id.tbTimingFlag);
@@ -135,11 +177,19 @@ public class TimerSelectedActivity extends BaseActivity implements
 		tvTiming = (TextView) findViewById(R.id.tvTiming);
 	}
 
+	/**
+	 * Inits the events.
+	 */
 	private void initEvent() {
 		tbCountDown.setOnClickListener(this);
 		tbTiming.setOnClickListener(this);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -193,6 +243,9 @@ public class TimerSelectedActivity extends BaseActivity implements
 		}
 	}
 
+	/**
+	 * show the count down dialog.
+	 */
 	private void showCountDownDialog() {
 		DialogManager.get2WheelTimingDialog(
 				this,
@@ -207,11 +260,19 @@ public class TimerSelectedActivity extends BaseActivity implements
 				.show();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onBackPressed()
+	 */
 	@Override
 	public void onBackPressed() {
 		finish();
 	}
 
+	/**
+	 * refresh the count down status.
+	 */
 	private void setCountDown(int mhour) {
 		if (mhour > 0) {
 			tbCountDown.setChecked(true);
@@ -228,6 +289,9 @@ public class TimerSelectedActivity extends BaseActivity implements
 		tvCountDown.setText(String.format("%02d:%02d后", hour, min));
 	}
 
+	/**
+	 * refresh the timing status.
+	 */
 	private void setTimer(boolean isTurn, int mhour) {
 		tbTiming.setChecked(isTurn);
 
@@ -240,6 +304,9 @@ public class TimerSelectedActivity extends BaseActivity implements
 		tvTiming.setText(String.format("%02d:%02d", hour, min));
 	}
 
+	/**
+	 * the count down dialog listener
+	 */
 	private class CountDownDialogListener implements On2TimingChosenListener {
 
 		@Override
@@ -261,6 +328,9 @@ public class TimerSelectedActivity extends BaseActivity implements
 
 	}
 
+	/**
+	 * the timing dialog listener
+	 */
 	private class TimerDialogListener implements On2TimingChosenListener {
 
 		@Override
@@ -277,6 +347,11 @@ public class TimerSelectedActivity extends BaseActivity implements
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.gizwits.aircondition.activity.BaseActivity#onResume()
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();

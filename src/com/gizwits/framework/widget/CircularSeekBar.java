@@ -28,14 +28,12 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.graphics.Xfermode;
-import android.support.v4.util.LruCache;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.gizwits.heater.R;
 import com.xpg.common.device.DensityUtils;
-import com.xpg.ui.utils.BitmapUtils;
 
 // TODO: Auto-generated Javadoc
 /**
