@@ -296,7 +296,7 @@ public class MainControlActivity extends BaseActivity implements
 
 				if (alarmList != null && alarmList.size() > 0) {
 					if (isNeedDialog) {
-						mFaultDialog.show();
+						DialogManager.showDialog(MainControlActivity.this, mFaultDialog);
 					}
 					setTipsLayoutVisiblity(true, alarmList.size());
 				} else {
@@ -707,7 +707,7 @@ public class MainControlActivity extends BaseActivity implements
 			}
 			
 			if(!isPowerOff){
-				mFaultDialog.show();
+				DialogManager.showDialog(this, mFaultDialog);
 			}
 		}
 		isPowerOff=isSwitch;

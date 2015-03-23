@@ -145,10 +145,10 @@
                     android:id="@+id/rlContent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
                     android:layout_above="@+id/llFooter"
-                    android:onClick="onClick"
-                    android:background="@drawable/water_heating_home_bg" >
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/water_heating_home_bg"
+                    android:onClick="onClick" >
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -219,15 +219,16 @@
                                     android:textSize="22sp" />
                             </LinearLayout>
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal" >
+                                android:layout_gravity="center_horizontal" >
 
                                 <TextView
                                     android:id="@+id/tvSettingTemerature"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
                                     android:text="30"
                                     android:textColor="@color/white"
                                     android:textSize="100sp" />
@@ -235,11 +236,13 @@
                                 <TextView
                                     android:id="@+id/tvSettingUnit"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_alignTop="@id/tvSettingTemerature"
+                                    android:layout_toRightOf="@id/tvSettingTemerature"
+                                    android:layout_height="wrap_content"
                                     android:text="@string/main_control_degree2"
                                     android:textColor="@color/white"
                                     android:textSize="25sp" />
-                            </LinearLayout>
+                            </RelativeLayout>
 
                             <TextView
                                 android:layout_width="wrap_content"
