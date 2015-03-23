@@ -130,12 +130,10 @@ public class ManageListAdapter extends BaseAdapter {
 		if (device.isOnline()) {
 			holder.tvName.setTextColor(context.getResources().getColor(
 					R.color.text_blue));
-			holder.ivArrow.setVisibility(View.VISIBLE);
 			holder.ivType.setImageResource(R.drawable.device);
 		} else {
 			holder.tvName.setTextColor(context.getResources().getColor(
 					R.color.text_gray));
-			holder.ivArrow.setVisibility(View.GONE);
 			holder.ivType.setImageResource(R.drawable.device2);
 		}
 		return convertView;

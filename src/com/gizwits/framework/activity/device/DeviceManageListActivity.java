@@ -17,7 +17,6 @@
  */
 package com.gizwits.framework.activity.device;
 
-import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +28,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.gizwits.heater.R;
-import com.gizwits.heater.activity.control.MainControlActivity;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.onboarding.SearchDeviceActivity;
 import com.gizwits.framework.adapter.ManageListAdapter;
@@ -83,13 +81,11 @@ public class DeviceManageListActivity extends BaseActivity implements OnClickLis
                                     int position, long id) {
                 // TODO Auto-generated method stub
                 XPGWifiDevice device = bindlist.get(position);
-                if (device.isLAN() || device.isOnline()) {
                     Intent intent = new Intent(DeviceManageListActivity.this,
                             DeviceManageDetailActivity.class);
                     intent.putExtra("mac", device.getMacAddress());
                     intent.putExtra("did", device.getDid());
                     startActivity(intent);
-                }
             }
         });
         ivBack.setOnClickListener(this);
