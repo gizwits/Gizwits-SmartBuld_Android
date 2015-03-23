@@ -36,17 +36,17 @@ import android.widget.LinearLayout;
  * 
  * @author Sunny
  */
-public class SlidingMenu extends HorizontalScrollView    {
+public class SlidingMenu extends HorizontalScrollView {
 	/**
 	 * 屏幕宽度
 	 */
 	private int mScreenWidth;
-	
+
 	/**
 	 * dp
 	 */
 	private int mMenuRightPadding;
-	
+
 	/**
 	 * dip
 	 */
@@ -56,7 +56,7 @@ public class SlidingMenu extends HorizontalScrollView    {
 	 * 菜单的宽度
 	 */
 	private int mMenuWidth;
-	
+
 	/**
 	 * 菜单的半宽度
 	 */
@@ -76,14 +76,14 @@ public class SlidingMenu extends HorizontalScrollView    {
 	 * 侧拉菜单控件
 	 */
 	private ViewGroup mMenu;
-	
+
 	/**
 	 * 构造函数
 	 */
 	public SlidingMenu(Context context) {
 		this(context, null, 0);
 	}
-	
+
 	/**
 	 * 构造函数
 	 */
@@ -133,23 +133,31 @@ public class SlidingMenu extends HorizontalScrollView    {
 			once = true;
 		}
 	}
-	
+
 	/**
 	 * 更新当前状态
 	 */
-	private void updateState(){
-		if(isOpen){
+	private void updateState() {
+		if (isOpen) {
 			this.scrollTo(0, 0);
-		}else{
+		} else {
 			this.scrollTo(mMenuWidth, 0);
 		}
 	}
 
 	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		if (isOpen&&ev.getX() > mMenuWidth) {
+				toggle();
+		}
+		return super.onInterceptTouchEvent(ev);
+	}
+
+	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
-		if(!isOpen)
+		if (!isOpen)
 			return true;
-		
+
 		int action = ev.getAction();
 		switch (action) {
 		// Up时，进行判断，如果显示区域大于菜单宽度一半则完全显示，否则隐藏
@@ -173,7 +181,7 @@ public class SlidingMenu extends HorizontalScrollView    {
 	public void openMenu() {
 		if (isOpen)
 			return;
-		
+
 		this.smoothScrollTo(0, 0);
 		this.isOpen = true;
 	}
