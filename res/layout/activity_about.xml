@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/black" >
 
     <RelativeLayout
         android:id="@+id/rlTop"
@@ -28,14 +29,17 @@
     </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/svAbout"
         android:layout_width="fill_parent"
         android:scrollbars="vertical"
         android:layout_height="wrap_content" >
 
         <ImageView
+            android:id="@+id/ivAbout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/about" />
+            android:scaleType="fitStart"
+             />
     </ScrollView>
 
 </LinearLayout>

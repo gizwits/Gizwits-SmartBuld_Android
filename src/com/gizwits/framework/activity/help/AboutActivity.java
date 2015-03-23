@@ -17,10 +17,14 @@
  */
 package com.gizwits.framework.activity.help;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import com.gizwits.heater.R;
 import com.gizwits.framework.activity.BaseActivity;
@@ -36,12 +40,21 @@ import com.gizwits.framework.activity.BaseActivity;
  * @author StephenC
  */
 public class AboutActivity extends BaseActivity {
-	
+
 	/** The iv back. */
 	private ImageView ivBack;
 
-	/* (non-Javadoc)
-	 * @see com.gizwits.framework.activity.BaseActivity#onCreate(android.os.Bundle)
+	/** The iv about. */
+	private ImageView ivAbout;
+
+	/** The sv About. */
+	private ScrollView svAbout;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.gizwits.framework.activity.BaseActivity#onCreate(android.os.Bundle)
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +67,8 @@ public class AboutActivity extends BaseActivity {
 	 * Inits the views.
 	 */
 	private void initViews() {
+		svAbout = (ScrollView) findViewById(R.id.svAbout);
+		ivAbout = (ImageView) findViewById(R.id.ivAbout);
 		ivBack = (ImageView) findViewById(R.id.ivBack);
 		ivBack.setOnClickListener(new OnClickListener() {
 
@@ -63,9 +78,36 @@ public class AboutActivity extends BaseActivity {
 
 			}
 		});
+		
+		Bitmap mBitmap = BitmapFactory
+				.decodeResource(getResources(), R.drawable.about);
+		ivAbout.setImageBitmap(mBitmap);
+		
+		DisplayMetrics metric = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(metric);
+		float width = metric.widthPixels;
+		if (width < mBitmap.getWidth()) {
+			float mHight = 0;
+			float mWidth = 0;
+			float scal = 0;
+			
+			mWidth = width;
+			scal = width / mBitmap.getWidth();
+			mHight =  scal * mBitmap.getHeight();
+			svAbout.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
+					(int)mWidth, (int)mHight));
+		}
+		
 	}
-	
-	/* (non-Javadoc)
+
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see android.app.Activity#onBackPressed()
 	 */
 	@Override
