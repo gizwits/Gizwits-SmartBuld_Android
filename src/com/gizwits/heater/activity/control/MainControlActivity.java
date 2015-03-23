@@ -165,6 +165,9 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** 侧拉菜单 */
 	private ScrollView slMenu;
+	
+	/** 开关机标志位 */
+	private boolean isPowerOff=false;
 
 	/**
 	 * ClassName: Enum handler_key. <br/>
@@ -293,23 +296,6 @@ public class MainControlActivity extends BaseActivity implements
 
 				if (alarmList != null && alarmList.size() > 0) {
 					if (isNeedDialog) {
-						if (mFaultDialog == null) {
-							mFaultDialog = DialogManager.getDeviceErrirDialog(
-									MainControlActivity.this, "设备故障",
-									new OnClickListener() {
-
-										@Override
-										public void onClick(View v) {
-											Intent intent = new Intent(
-													Intent.ACTION_CALL, Uri
-															.parse("tel:10086"));
-											startActivity(intent);
-											mFaultDialog.dismiss();
-											mFaultDialog = null;
-										}
-									});
-
-						}
 						mFaultDialog.show();
 					}
 					setTipsLayoutVisiblity(true, alarmList.size());
@@ -486,6 +472,19 @@ public class MainControlActivity extends BaseActivity implements
 						mCenter.cSwitchOn(mXpgWifiDevice, false);
 						DialogManager.dismissDialog(MainControlActivity.this,
 								mPowerOffDialog);
+					}
+				});
+		mFaultDialog = DialogManager.getDeviceErrirDialog(
+				MainControlActivity.this, "设备故障",
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent intent = new Intent(
+								Intent.ACTION_CALL, Uri
+										.parse("tel:10086"));
+						startActivity(intent);
+						mFaultDialog.dismiss();
 					}
 				});
 
@@ -706,7 +705,12 @@ public class MainControlActivity extends BaseActivity implements
 				View view = llFooter.getChildAt(i);
 				view.setClickable(true);
 			}
+			
+			if(!isPowerOff){
+				mFaultDialog.show();
+			}
 		}
+		isPowerOff=isSwitch;
 	}
 
 	/**
