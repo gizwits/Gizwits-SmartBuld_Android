@@ -74,6 +74,7 @@
     <string name="main_control_temp_curve">温度曲线</string>
     <string name="main_control_actual_temp">当前温度</string>
     <string name="main_control_degree">°</string>
+    <string name="main_control_degree2">。</string>
     <string name="main_control_set_temp">设定温度</string>
     <string name="main_control_turn_on">开机</string>
     <string name="main_control_timing_turn_on">定时开机</string>
