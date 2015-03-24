@@ -706,7 +706,7 @@ public class MainControlActivity extends BaseActivity implements
 				view.setClickable(true);
 			}
 			
-			if(!isPowerOff){
+			if(!isPowerOff&&alarmList.size()!=0){
 				DialogManager.showDialog(this, mFaultDialog);
 			}
 		}
