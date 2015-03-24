@@ -60,7 +60,7 @@ public class BindingDeviceActivity extends BaseActivity implements
 
 	/** The device. */
 	private String did="";
-
+	
 	/**
 	 *  
 	 * ClassName: Enum handler_key. <br/> 
@@ -94,6 +94,8 @@ public class BindingDeviceActivity extends BaseActivity implements
 			handler_key key = handler_key.values()[msg.what];
 			switch (key) {
 			case BIND_SUCCESS:
+				IntentUtils.getInstance().startActivity(BindingDeviceActivity.this,
+						DeviceListActivity.class);
 				finish();
 				break;
 			case BIND_FAILED:
@@ -158,11 +160,15 @@ public class BindingDeviceActivity extends BaseActivity implements
 			handler.sendEmptyMessage(handler_key.BIND_FAILED.ordinal());
 			break;
 		case R.id.btnRetry:
-			IntentUtils.getInstance().startActivity(BindingDeviceActivity.this,
-					SearchDeviceActivity.class);
-			finish();
+			goBack();
 			break;
 		}
+	}
+	
+	private void goBack(){
+		IntentUtils.getInstance().startActivity(BindingDeviceActivity.this,
+				SearchDeviceActivity.class);
+		finish();
 	}
 
 	/**
