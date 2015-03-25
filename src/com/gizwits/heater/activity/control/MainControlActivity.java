@@ -301,6 +301,9 @@ public class MainControlActivity extends BaseActivity implements
 				}
 				break;
 			case ALARM:
+				if (mView.isOpen())
+					break;
+				
 				// 是否需要弹dialog判断
 				boolean isNeedDialog = false;
 				for (DeviceAlarm alarm : alarmList) {

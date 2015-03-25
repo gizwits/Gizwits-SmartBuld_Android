@@ -22,7 +22,11 @@ import java.util.List;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,7 +36,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.gizwits.heater.R;
 import com.gizwits.framework.activity.BaseActivity;
@@ -41,7 +44,6 @@ import com.gizwits.framework.activity.onboarding.BindingDeviceActivity;
 import com.gizwits.framework.activity.onboarding.SearchDeviceActivity;
 import com.gizwits.framework.adapter.DeviceListAdapter;
 import com.gizwits.framework.utils.DialogManager;
-import com.gizwits.framework.utils.Historys;
 import com.gizwits.framework.widget.RefreshableListView;
 import com.gizwits.framework.widget.RefreshableListView.OnRefreshListener;
 import com.gizwits.heater.activity.control.MainControlActivity;
@@ -84,6 +86,9 @@ public class DeviceListActivity extends BaseActivity implements
 
 	/** The dialog. */
 	private Dialog dialog;
+
+	/** 网络状态广播接受器. */
+	private ConnecteChangeBroadcast mChangeBroadcast = new ConnecteChangeBroadcast();
 
 	/**
 	 * The boolean isExit.
@@ -198,6 +203,16 @@ public class DeviceListActivity extends BaseActivity implements
 			getList();
 		}
 
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+		registerReceiver(mChangeBroadcast, filter);
+
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		unregisterReceiver(mChangeBroadcast);
 	}
 
 	/**
@@ -383,12 +398,10 @@ public class DeviceListActivity extends BaseActivity implements
 		handler.sendEmptyMessage(handler_key.FOUND.ordinal());
 
 	}
-	
-	
 
 	@Override
 	protected void didDisconnected(XPGWifiDevice device) {
-		if(mXpgWifiDevice.getDid().equals(device.getDid())){
+		if (mXpgWifiDevice.getDid().equals(device.getDid())) {
 			DialogManager.dismissDialog(this, progressDialog);
 			handler.sendEmptyMessage(handler_key.LOGIN_FAIL.ordinal());
 		}
@@ -418,13 +431,36 @@ public class DeviceListActivity extends BaseActivity implements
 	public void onBackPressed() {
 		exit();
 	}
-	
-	private int getCurrentTime(){
-		int result=0;
-		Date mDate= new Date();
-		result=mDate.getHours()*60+mDate.getMinutes();
-		
+
+	private int getCurrentTime() {
+		int result = 0;
+		Date mDate = new Date();
+		result = mDate.getHours() * 60 + mDate.getMinutes();
+
 		return result;
+	}
+
+	/**
+	 * 广播监听器，监听wifi连上的广播.
+	 * 
+	 * @author Lien
+	 */
+	public class ConnecteChangeBroadcast extends BroadcastReceiver {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * android.content.BroadcastReceiver#onReceive(android.content.Context,
+		 * android.content.Intent)
+		 */
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent
+					.getAction())) {
+				getList();
+			}
+		}
 	}
 
 }
