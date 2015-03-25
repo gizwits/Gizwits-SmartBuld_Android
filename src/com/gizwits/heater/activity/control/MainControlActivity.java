@@ -431,7 +431,7 @@ public class MainControlActivity extends BaseActivity implements
 	 */
 	private void refreshMenu() {
 		initBindList();
-		mAdapter.setChoosedPos(-1);
+		mAdapter.setChoosedPos(0);
 		for (int i = 0; i < bindlist.size(); i++) {
 			if (bindlist.get(i).getDid()
 					.equalsIgnoreCase(mXpgWifiDevice.getDid()))

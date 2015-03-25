@@ -17,7 +17,6 @@
  */
 package com.gizwits.framework.activity.device;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -36,81 +35,83 @@ import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
 // TODO: Auto-generated Javadoc
 /**
- *  
- * ClassName: Class DeviceManageListActivity. <br/> 
- * 设备管理列表，用于显示当前账号中已经绑定了的设备列表
- * <br/>
- * date: 2015-1-27 14:45:30 <br/> 
- *
+ * 
+ * ClassName: Class DeviceManageListActivity. <br/>
+ * 设备管理列表，用于显示当前账号中已经绑定了的设备列表 <br/>
+ * date: 2015-1-27 14:45:30 <br/>
+ * 
  * @author Lien
  */
-public class DeviceManageListActivity extends BaseActivity implements OnClickListener {
-    /**
-     * The iv TopBar leftBtn.
-     */
-    private ImageView ivBack;
+public class DeviceManageListActivity extends BaseActivity implements
+		OnClickListener {
+	/**
+	 * The iv TopBar leftBtn.
+	 */
+	private ImageView ivBack;
 
-    /** The tv init date. */
-    private ListView lvDevices;
+	/** The tv init date. */
+	private ListView lvDevices;
 
-    /** The iv add. */
-    private ImageView ivAdd;
+	/** The iv add. */
+	private ImageView ivAdd;
 
-    /** The m adapter. */
-    ManageListAdapter mAdapter;
+	/** The m adapter. */
+	ManageListAdapter mAdapter;
 
-    /* (non-Javadoc)
-     * @see com.gizwits.framework.activity.BaseActivity#onCreate(android.os.Bundle)
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_device_list);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.gizwits.framework.activity.BaseActivity#onCreate(android.os.Bundle)
+	 */
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_manage_device_list);
 
-        initViews();
-        initEvents();
-    }
+		initViews();
+		initEvents();
+	}
 
-    /**
-     * Inits the events.
-     */
-    private void initEvents() {
-        lvDevices.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO Auto-generated method stub
-                XPGWifiDevice device = bindlist.get(position);
-                    Intent intent = new Intent(DeviceManageListActivity.this,
-                            DeviceManageDetailActivity.class);
-                    intent.putExtra("mac", device.getMacAddress());
-                    intent.putExtra("did", device.getDid());
-                    startActivity(intent);
-            }
-        });
-        ivBack.setOnClickListener(this);
-        ivAdd.setOnClickListener(this);
-    }
+	/**
+	 * Inits the events.
+	 */
+	private void initEvents() {
+		lvDevices.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				XPGWifiDevice device = bindlist.get(position);
+				Intent intent = new Intent(DeviceManageListActivity.this,
+						DeviceManageDetailActivity.class);
+				intent.putExtra("mac", device.getMacAddress());
+				intent.putExtra("did", device.getDid());
+				startActivity(intent);
+			}
+		});
+		ivBack.setOnClickListener(this);
+		ivAdd.setOnClickListener(this);
+	}
 
-    /**
-     * Inits the views.
-     */
-    private void initViews() {
-        ivAdd = (ImageView) findViewById(R.id.ivAdd);
-        ivBack = (ImageView) findViewById(R.id.ivBack);
-        lvDevices = (ListView) findViewById(R.id.lvDevices);
-        mAdapter = new ManageListAdapter(DeviceManageListActivity.this,
-                bindlist);
-        lvDevices.setAdapter(mAdapter);
+	/**
+	 * Inits the views.
+	 */
+	private void initViews() {
+		ivAdd = (ImageView) findViewById(R.id.ivAdd);
+		ivBack = (ImageView) findViewById(R.id.ivBack);
+		lvDevices = (ListView) findViewById(R.id.lvDevices);
+		mAdapter = new ManageListAdapter(DeviceManageListActivity.this,
+				bindlist);
+		lvDevices.setAdapter(mAdapter);
 
-    }
-    
-    
+	}
 
-    /* (non-Javadoc)
-     * @see android.app.Activity#onBackPressed()
-     */
-    @Override
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onBackPressed()
+	 */
+	@Override
 	public void onResume() {
 		super.onResume();
 		initBindList();
@@ -118,23 +119,35 @@ public class DeviceManageListActivity extends BaseActivity implements OnClickLis
 	}
 
 	@Override
-    public void onBackPressed() {
-        finish();
-    }
+	public void onBackPressed() {
+		boolean isNoOnLineDevice = true;
+		for (XPGWifiDevice xpgDevice : bindlist) {
+			if (xpgDevice.isOnline())
+				isNoOnLineDevice = false;
+		}
 
-    /* (non-Javadoc)
-     * @see android.view.View.OnClickListener#onClick(android.view.View)
-     */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ivBack:
-                onBackPressed();
-                break;
-            case R.id.ivAdd:
-                IntentUtils.getInstance().startActivity(DeviceManageListActivity.this,
-                        SearchDeviceActivity.class);
-                break;
-        }
-    }
+		if (isNoOnLineDevice) {
+			IntentUtils.getInstance().startActivity(DeviceManageListActivity.this,DeviceListActivity.class);
+		} else {
+			finish();
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.ivBack:
+			onBackPressed();
+			break;
+		case R.id.ivAdd:
+			IntentUtils.getInstance().startActivity(
+					DeviceManageListActivity.this, SearchDeviceActivity.class);
+			break;
+		}
+	}
 }

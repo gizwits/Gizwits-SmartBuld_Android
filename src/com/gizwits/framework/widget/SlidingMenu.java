@@ -81,7 +81,7 @@ public class SlidingMenu extends HorizontalScrollView {
 	 * 控件时间监听器
 	 */
 	private SlidingMenuListener mListener;
-	
+
 	/**
 	 * 构造函数
 	 */
@@ -96,7 +96,7 @@ public class SlidingMenu extends HorizontalScrollView {
 		this(context, attrs, 0);
 
 	}
-	
+
 	/**
 	 * 构造函数
 	 */
@@ -169,8 +169,10 @@ public class SlidingMenu extends HorizontalScrollView {
 		case MotionEvent.ACTION_UP:
 			int scrollX = getScrollX();
 			if (scrollX > mHalfMenuWidth) {
+				this.isOpen = true;
 				closeMenu();
 			} else {
+				this.isOpen = false;
 				openMenu();
 			}
 			return true;
@@ -187,16 +189,23 @@ public class SlidingMenu extends HorizontalScrollView {
 
 		this.smoothScrollTo(0, 0);
 		this.isOpen = true;
+		
+		if (mListener != null)
+			mListener.OpenFinish();
 	}
 
 	/**
 	 * 关闭菜单
 	 */
 	public void closeMenu() {
-		if (isOpen) {
-			this.smoothScrollTo(mMenuWidth, 0);
-			this.isOpen = false;
-		}
+		if (!isOpen)
+			return;
+
+		this.smoothScrollTo(mMenuWidth, 0);
+		this.isOpen = false;
+
+		if (mListener != null)
+			mListener.CloseFinish();
 	}
 
 	/**
@@ -205,12 +214,8 @@ public class SlidingMenu extends HorizontalScrollView {
 	public void toggle() {
 		if (isOpen) {
 			closeMenu();
-			if(mListener!=null)
-				mListener.CloseFinish();
 		} else {
 			openMenu();
-			if(mListener!=null)
-				mListener.OpenFinish();
 		}
 	}
 
@@ -239,13 +244,10 @@ public class SlidingMenu extends HorizontalScrollView {
 		wm.getDefaultDisplay().getMetrics(outMetrics);
 		return outMetrics.widthPixels;
 	}
-	
-	
 
 	public void setSlidingMenuListener(SlidingMenuListener mListener) {
 		this.mListener = mListener;
 	}
-
 
 	/**
 	 * the view action listener.

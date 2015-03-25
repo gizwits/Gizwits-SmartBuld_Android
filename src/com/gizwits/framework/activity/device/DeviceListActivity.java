@@ -86,6 +86,9 @@ public class DeviceListActivity extends BaseActivity implements
 
 	/** The dialog. */
 	private Dialog dialog;
+	
+	/** 登陆设备超时时间 */
+	private int LoginDeviceTimeOut = 60000;
 
 	/** 网络状态广播接受器. */
 	private ConnecteChangeBroadcast mChangeBroadcast = new ConnecteChangeBroadcast();
@@ -146,16 +149,18 @@ public class DeviceListActivity extends BaseActivity implements
 
 			case LOGIN_SUCCESS:
 				mCenter.cTimerNow(mXpgWifiDevice, getCurrentTime());
-				progressDialog.cancel();
+				DialogManager.dismissDialog(DeviceListActivity.this, progressDialog);
 				IntentUtils.getInstance().startActivity(
 						DeviceListActivity.this, MainControlActivity.class);
 				break;
 
 			case LOGIN_FAIL:
+				DialogManager.dismissDialog(DeviceListActivity.this, progressDialog);
 				ToastUtils.showShort(DeviceListActivity.this, "连接失败");
 				break;
 			case LOGIN_TIMEOUT:
-
+				DialogManager.dismissDialog(DeviceListActivity.this, progressDialog);
+				ToastUtils.showShort(DeviceListActivity.this, "连接失败");
 				break;
 			case EXIT:
 				isExit = false;
@@ -236,6 +241,7 @@ public class DeviceListActivity extends BaseActivity implements
 		});
 		progressDialog = new ProgressDialog(this);
 		progressDialog.setMessage("连接中，请稍候。");
+		progressDialog.setCancelable(false);
 	}
 
 	/**
@@ -309,7 +315,7 @@ public class DeviceListActivity extends BaseActivity implements
 								+ tempDevice.getDid() + ";passcode="
 								+ tempDevice.getPasscode());
 				loginDevice(tempDevice);
-				progressDialog.show();
+				DialogManager.showDialog(DeviceListActivity.this, progressDialog);
 			} else {
 				// TODO 未设备
 				Log.i(TAG,
@@ -339,7 +345,7 @@ public class DeviceListActivity extends BaseActivity implements
 								+ tempDevice.getDid() + ";passcode="
 								+ tempDevice.getPasscode());
 				loginDevice(tempDevice);
-				progressDialog.show();
+				DialogManager.showDialog(DeviceListActivity.this, progressDialog);
 			}
 		}
 
@@ -352,6 +358,7 @@ public class DeviceListActivity extends BaseActivity implements
 	 *            the xpg wifi device
 	 */
 	private void loginDevice(XPGWifiDevice xpgWifiDevice) {
+		handler.sendEmptyMessageDelayed(handler_key.LOGIN_TIMEOUT.ordinal(), LoginDeviceTimeOut);
 		mXpgWifiDevice = xpgWifiDevice;
 		mXpgWifiDevice.setListener(deviceListener);
 		mXpgWifiDevice.login(setmanager.getUid(), setmanager.getToken());
@@ -365,6 +372,7 @@ public class DeviceListActivity extends BaseActivity implements
 	 */
 	@Override
 	protected void didLogin(XPGWifiDevice device, int result) {
+		handler.removeMessages(handler_key.LOGIN_TIMEOUT.ordinal());
 		if (result == 0) {
 			mXpgWifiDevice = device;
 			handler.sendEmptyMessage(handler_key.LOGIN_SUCCESS.ordinal());
@@ -393,7 +401,6 @@ public class DeviceListActivity extends BaseActivity implements
 	 */
 	@Override
 	protected void didDiscovered(int error, List<XPGWifiDevice> deviceList) {
-		Log.d("onDiscovered", "Device count:" + deviceList.size());
 		deviceslist = deviceList;
 		handler.sendEmptyMessage(handler_key.FOUND.ordinal());
 
@@ -402,7 +409,6 @@ public class DeviceListActivity extends BaseActivity implements
 	@Override
 	protected void didDisconnected(XPGWifiDevice device) {
 		if (mXpgWifiDevice.getDid().equals(device.getDid())) {
-			DialogManager.dismissDialog(this, progressDialog);
 			handler.sendEmptyMessage(handler_key.LOGIN_FAIL.ordinal());
 		}
 	}
