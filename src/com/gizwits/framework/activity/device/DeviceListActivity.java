@@ -75,7 +75,7 @@ public class DeviceListActivity extends BaseActivity implements
 
 	/** The tv init date. */
 	private RefreshableListView lvDevices;
-	// private List<XPGWifiDevice> deviceList;
+
 	/** The device list adapter. */
 	private DeviceListAdapter deviceListAdapter;
 
@@ -147,7 +147,7 @@ public class DeviceListActivity extends BaseActivity implements
 				break;
 
 			case LOGIN_FAIL:
-
+				ToastUtils.showShort(DeviceListActivity.this, "连接失败");
 				break;
 			case LOGIN_TIMEOUT:
 
@@ -382,6 +382,16 @@ public class DeviceListActivity extends BaseActivity implements
 		deviceslist = deviceList;
 		handler.sendEmptyMessage(handler_key.FOUND.ordinal());
 
+	}
+	
+	
+
+	@Override
+	protected void didDisconnected(XPGWifiDevice device) {
+		if(mXpgWifiDevice.getDid().equals(device.getDid())){
+			DialogManager.dismissDialog(this, progressDialog);
+			handler.sendEmptyMessage(handler_key.LOGIN_FAIL.ordinal());
+		}
 	}
 
 	/*
