@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.gizwits.heater.R;
 import com.gizwits.framework.sdk.SettingManager;
+import com.gizwits.framework.utils.StringUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
 // TODO: Auto-generated Javadoc
@@ -158,9 +159,15 @@ public class SearchListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		XPGWifiDevice device = currentDevices.get(position);
-		holder.tvName.setText(device.getProductName()
-				+ device.getMacAddress().substring(
-						device.getMacAddress().length() - 4));
+
+		String DeviceName = "";
+		String macAddress = device.getMacAddress();
+		int size = macAddress.length();
+		DeviceName = device.getProductName()
+				+ macAddress.substring(size - 4, size);
+		DeviceName = StringUtils.getStrFomat(DeviceName, 8, true);
+		holder.tvName.setText(DeviceName);
+
 		return convertView;
 	}
 
