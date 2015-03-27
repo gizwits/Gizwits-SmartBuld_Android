@@ -450,7 +450,6 @@ public class MainControlActivity extends BaseActivity implements
 	 */
 	private void refreshMainControl() {
 		mXpgWifiDevice.setListener(deviceListener);
-		alarmShowList.clear();
 		DialogManager.showDialog(this, progressDialogRefreshing);
 		handler.sendEmptyMessageDelayed(
 				handler_key.GET_STATUE_TIMEOUT.ordinal(), GetStatueTimeOut);
@@ -589,6 +588,7 @@ public class MainControlActivity extends BaseActivity implements
 					return;
 				}
 
+				alarmShowList.clear();
 				mAdapter.setChoosedPos(position);
 				mXpgWifiDevice = bindlist.get(position);
 				backToMain();
