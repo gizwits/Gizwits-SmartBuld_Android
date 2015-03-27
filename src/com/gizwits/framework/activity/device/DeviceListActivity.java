@@ -97,7 +97,7 @@ public class DeviceListActivity extends BaseActivity implements
 	 * The boolean isExit.
 	 */
 	private boolean isExit = false;
-
+	
 	/**
 	 * ClassName: Enum handler_key. <br/>
 	 * <br/>
@@ -273,6 +273,10 @@ public class DeviceListActivity extends BaseActivity implements
 							@Override
 							public void onClick(View v) {
 								setmanager.setToken("");
+								setmanager.setUserName("");
+								setmanager.setPassword("");
+								setmanager.setUid("");
+								
 								DialogManager.dismissDialog(
 										DeviceListActivity.this, dialog);
 								ToastUtils.showShort(DeviceListActivity.this,
@@ -403,7 +407,6 @@ public class DeviceListActivity extends BaseActivity implements
 	protected void didDiscovered(int error, List<XPGWifiDevice> deviceList) {
 		deviceslist = deviceList;
 		handler.sendEmptyMessage(handler_key.FOUND.ordinal());
-
 	}
 
 	@Override

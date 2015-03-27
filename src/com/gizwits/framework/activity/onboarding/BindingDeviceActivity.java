@@ -31,7 +31,6 @@ import com.gizwits.heater.R;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.device.DeviceListActivity;
 import com.xpg.common.system.IntentUtils;
-import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -192,6 +191,8 @@ public class BindingDeviceActivity extends BaseActivity implements
 	protected void didBindDevice(int error, String errorMessage, String did) {
 		if (error == 0) {
 			handler.sendEmptyMessage(handler_key.BIND_SUCCESS.ordinal());
+		}else{
+			handler.sendEmptyMessage(handler_key.BIND_FAILED.ordinal());
 		}
 	}
 }
