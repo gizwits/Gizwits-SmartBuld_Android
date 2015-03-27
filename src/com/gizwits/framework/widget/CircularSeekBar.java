@@ -653,26 +653,6 @@ public class CircularSeekBar extends View {
 		float x = event.getX();
 		float y = event.getY();
 
-		if (y >= cy)
-			myLock = lockX.UnLock;
-
-		switch (myLock) {
-		case UnLock:
-			if (x > cx)
-				myLock = lockX.LockLeft;
-			if (x < cx)
-				myLock = lockX.LockRight;
-			break;
-		case LockLeft:
-			if (x <= cx)
-				x = cx;
-			break;
-		case LockRight:
-			if (x > cx)
-				x = cx - 1;
-			break;
-		}
-
 		boolean up = false;
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
@@ -712,6 +692,26 @@ public class CircularSeekBar extends View {
 	private void moved(float x, float y, boolean up) {
 		if (!isMarkPointRange(x, y)) {
 			return;
+		}
+		
+		if (y >= cy)
+			myLock = lockX.UnLock;
+
+		switch (myLock) {
+		case UnLock:
+			if (x > cx)
+				myLock = lockX.LockLeft;
+			if (x < cx)
+				myLock = lockX.LockRight;
+			break;
+		case LockLeft:
+			if (x <= cx)
+				x = cx;
+			break;
+		case LockRight:
+			if (x > cx)
+				x = cx - 1;
+			break;
 		}
 
 		float distance = (float) Math.sqrt(Math.pow((x - cx), 2)
