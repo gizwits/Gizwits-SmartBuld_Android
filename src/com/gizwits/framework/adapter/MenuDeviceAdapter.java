@@ -3,7 +3,6 @@ package com.gizwits.framework.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +79,6 @@ public class MenuDeviceAdapter extends BaseAdapter {
 	 */
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		Log.e("getView", "getCount=" + getCount());
 		int px = DensityUtil.dip2px(ctx, getCount() * 50);
 		parent.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
 				android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, px));
