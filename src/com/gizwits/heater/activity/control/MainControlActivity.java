@@ -669,6 +669,8 @@ public class MainControlActivity extends BaseActivity implements
 	 * @return void
 	 */
 	private void backToMain() {
+		mXpgWifiDevice=mAdapter.getItem(mAdapter.getChoosedPos());
+		
 		if (!mXpgWifiDevice.isConnected()) {
 			loginDevice(mXpgWifiDevice);
 			DialogManager.showDialog(this, progressDialogRefreshing);
@@ -685,6 +687,7 @@ public class MainControlActivity extends BaseActivity implements
 	 */
 	private void loginDevice(XPGWifiDevice xpgWifiDevice) {
 		mXpgWifiDevice = xpgWifiDevice;
+		
 		mXpgWifiDevice.setListener(deviceListener);
 		mXpgWifiDevice.login(setmanager.getUid(), setmanager.getToken());
 		isTimeOut = false;
@@ -911,7 +914,7 @@ public class MainControlActivity extends BaseActivity implements
 			
 		handler.sendEmptyMessage(handler_key.DISCONNECTED.ordinal());
 	}
-
+	
 	/**
 	 * 把警告信息存入列表
 	 * 
