@@ -222,6 +222,10 @@ public class TimerSelectedActivity extends BaseActivity implements
 
 				tvCountDown.setText("00:00后");
 				tbCountDown.setChecked(false);
+				
+				CountDownHour = 0;
+				CountDownMin = 0;
+				
 				mCenter.cCountDown(mXpgWifiDevice, 0);
 
 				handler.sendEmptyMessageDelayed(handler_key.UNLOCK.ordinal(),
