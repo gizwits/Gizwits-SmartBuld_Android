@@ -17,6 +17,7 @@
  */
 package com.gizwits.framework.activity.device;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -199,6 +200,8 @@ public class DeviceListActivity extends BaseActivity implements
 	@Override
 	public void onResume() {
 		super.onResume();
+		deviceListAdapter.changeDatas(new ArrayList<XPGWifiDevice>());
+		
 		if (getIntent().getBooleanExtra("isbind", false)) {
 
 			mCenter.cBindDevice(setmanager.getUid(), setmanager.getToken(),
