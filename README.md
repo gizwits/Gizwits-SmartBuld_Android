@@ -1,25 +1,21 @@
-智能云空调
+机智云智能热水器
 =============
 
-Gizwits Air Condition Android Demo App
+Gizwits Water Heater Android Demo App
 
 功能介绍
 
 ▪这是一款使用XPGWifiSDK的开源代码示例APP，可以帮助开发者快速入手，使用XPGWifiSDK开发连接机智云的物联APP。
-▪该APP针对的是智能家电中的空调类产品。
+▪该APP针对的是智能家电中的热水器类产品。
 
-▪包括了以下几点空调常用功能：
+▪包括了以下几点热水器常用功能：
 
-1.空调电源的开关
-2.空调运行模式的切换，制冷，制热，抽湿，自动等
-3.空调制冷、制热温度的设置
-4.室内温度的获取
-5.空调风速的控制
-6.摆风功能开关
-7.定时开关机
-8.温度单位转换
-9.报警，故障的提示
-10.室内温度曲线（该功能属于定制功能，在开源App中未实现）
+1.热水器电源的开关
+2.热水器运行模式的切换，智能，节能，速热，加热，保温，安全等
+3.热水器倒计时、预约的设置
+4.当前温度的获取
+5.热水器目标温度的设置
+6.报警，故障的提示
 
 ▪如果开发者希望开发的设备与以上功能类似，可参考或直接使用该APP进行修改进行快速开发自己的智能家电App。
 
@@ -46,9 +42,8 @@ Gizwits Air Condition Android Demo App
 项目工程结构
 
 ▪包结构说明
-com.gizwits.aircondition                             -智能云空调独有代码，包含控制部分和侧边栏部分
-com.gizwits.aircondition.activity.control            -智能云空调控制界面activity
-com.gizwits.aircondition.activity.slipbar            -智能云空调侧边栏activity
+com.gizwits.heater                             -智能云热水器独有代码，包含控制部分和侧边栏部分
+com.gizwits.heater.activity.control            -智能云热水器控制界面activity
 
 com.gizwits.framework                                -机智云设备开源APP框架,包含除控制界面Activity外的代码，暂时机智云实验室中的其他开源APP所用框架一致
 com.gizwits.framework.activity                       -机智云设备开源APP框架相关activity
@@ -69,7 +64,7 @@ zxing                                                -第三方开源滚轮控�
 ▪虚拟设备＋app使用流程（体验指令发、状态获取等流程）
 
 1.在机智云官网上注册并登录帐号
-2.使用机智云实验室里面的智能云空调启动虚拟设备
+2.使用机智云实验室里面的机智云智能热水器启动虚拟设备
 3.在app上注册并登录帐号
 4.通过扫描网页上的二维码添加虚拟设备
 5.进入控制界面与虚拟设备进行交互
@@ -77,7 +72,7 @@ zxing                                                -第三方开源滚轮控�
 ▪gokit＋app使用流程（体验配置、绑定实体设备等流程）
 
 1.免费申请gokit，http://gizwits.com/zh-cn/gokit
-2.下载gokit开源代码并按说明替换为智能云空调的产品标识码
+2.下载gokit开源代码并按说明替换为机智云智能热水器的产品标识码
 3.在app上注册并登录帐号
 4.通过我要配置gokit按钮，使用Airlink或SoftAP模式配置gokit入网
 5.绑定gokit
