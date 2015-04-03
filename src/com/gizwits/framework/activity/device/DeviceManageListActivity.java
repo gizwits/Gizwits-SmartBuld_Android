@@ -119,7 +119,7 @@ public class DeviceManageListActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void onBackPressed() {
+    public void onBackPressed() {
 		boolean isNoOnLineDevice = true;
 		for (XPGWifiDevice xpgDevice : bindlist) {
 			if (xpgDevice.isOnline())

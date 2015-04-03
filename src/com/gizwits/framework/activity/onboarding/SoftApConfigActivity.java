@@ -121,7 +121,7 @@ public class SoftApConfigActivity extends BaseActivity implements OnClickListene
     
     /** The UI_STATE now. */
     private UI_STATE UiStateNow;
-
+    
 
     /**
      * ClassName: Enum handler_key. <br/>
@@ -225,6 +225,7 @@ public class SoftApConfigActivity extends BaseActivity implements OnClickListene
         btnOK = (Button) findViewById(R.id.btnOK);
         btnRetry = (Button) findViewById(R.id.btnRetry);
         tvpsw = (TextView) findViewById(R.id.tvpsw);
+        ivStep=(ImageView) findViewById(R.id.ivStep);
         tvSsid = (TextView) findViewById(R.id.tvSsid);
         tvTick = (TextView) findViewById(R.id.tvTick);
         tbPswFlag = (ToggleButton) findViewById(R.id.tbPswFlag);

@@ -181,19 +181,15 @@ public class ChangePswActivity extends BaseActivity implements OnClickListener {
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
 				if (isChecked) {
-					
 					etPswOld.setInputType(InputType.TYPE_CLASS_TEXT
 							| InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
 					etPswNew.setInputType(InputType.TYPE_CLASS_TEXT
 							| InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-					
 				} else {
-					
 					etPswOld.setInputType(InputType.TYPE_CLASS_TEXT
 							| InputType.TYPE_TEXT_VARIATION_PASSWORD);
 					etPswNew.setInputType(InputType.TYPE_CLASS_TEXT
 							| InputType.TYPE_TEXT_VARIATION_PASSWORD);
-					
 				}
 
 			}
@@ -302,5 +298,4 @@ public class ChangePswActivity extends BaseActivity implements OnClickListener {
 	public void onBackPressed() {
 		finish();
 	}
-	
 }

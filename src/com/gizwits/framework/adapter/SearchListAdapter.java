@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -159,7 +158,6 @@ public class SearchListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		XPGWifiDevice device = currentDevices.get(position);
-
 		String DeviceName = "";
 		String macAddress = device.getMacAddress();
 		int size = macAddress.length();

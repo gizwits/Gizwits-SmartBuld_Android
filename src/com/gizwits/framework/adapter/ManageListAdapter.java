@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.gizwits.heater.R;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
+import com.gizwits.framework.config.Configs;
 import com.gizwits.framework.utils.StringUtils;
 
 // TODO: Auto-generated Javadoc

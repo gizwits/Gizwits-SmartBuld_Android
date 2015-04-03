@@ -78,11 +78,11 @@ public class AboutActivity extends BaseActivity {
 
 			}
 		});
-		
-		Bitmap mBitmap = BitmapFactory
-				.decodeResource(getResources(), R.drawable.about);
+
+		Bitmap mBitmap = BitmapFactory.decodeResource(getResources(),
+				R.drawable.about);
 		ivAbout.setImageBitmap(mBitmap);
-		
+
 		DisplayMetrics metric = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metric);
 		float width = metric.widthPixels;
@@ -90,14 +90,14 @@ public class AboutActivity extends BaseActivity {
 			float mHight = 0;
 			float mWidth = 0;
 			float scal = 0;
-			
+
 			mWidth = width;
 			scal = width / mBitmap.getWidth();
-			mHight =  scal * mBitmap.getHeight();
+			mHight = scal * mBitmap.getHeight();
 			svAbout.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
-					(int)mWidth, (int)mHight));
+					(int) mWidth, (int) mHight));
 		}
-		
+
 	}
 
 	@Override

@@ -178,8 +178,6 @@ public class BindingDeviceActivity extends BaseActivity implements
 				did, null, "");
 	}
 
-	
-	
 	@Override
 	public void onBackPressed() {
 	}

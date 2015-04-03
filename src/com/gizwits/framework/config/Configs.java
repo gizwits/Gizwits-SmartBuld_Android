@@ -27,6 +27,9 @@ import com.xtremeprog.xpgconnect.XPGWifiSDK.XPGWifiLogLevel;
  */
 public class Configs {
 	
+	/**  设备名字符显示长度. */
+	public static final int DEVICE_NAME_KEEP_LENGTH = 8;
+	
 	/**  设定是否为debug版本. */
 	public static final boolean DEBUG = true;
 	

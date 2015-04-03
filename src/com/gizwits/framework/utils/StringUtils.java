@@ -170,7 +170,7 @@ public class StringUtils {
 		keyWord = keyWord.replace("/)", ")");
 		return keyWord;
 	}
-
+	
 	/**
 	 * 保留字符数
 	 * 
@@ -197,4 +197,5 @@ public class StringUtils {
 		return result;
 
 	}
+
 }
