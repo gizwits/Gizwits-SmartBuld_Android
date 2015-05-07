@@ -28,47 +28,30 @@ package com.gizwits.framework.config;
 public class JsonKeys {
 
 	/** 产品名. */
-	public final static String PRODUCT_NAME = "机智云智能热水器";
+	public final static String PRODUCT_NAME = "机智云智能灯泡（单品）";
 
 	/** 实体字段名，代表对应的项目. */
 	public final static String KEY_ACTION = "entity0";
 
 	/** 开关. */
 	public final static String ON_OFF = "Switch";
-
-	/** 目标温度 30 - 75. */
-	public final static String SET_TEMP = "Set_Temp";
 	
-	/** 当前温度 0 - 99. */
-	public final static String ROOM_TEMP = "Room_Temp";
+	/** 亮度. */
+	public final static String BRIGHTNESS = "Brightness";
 	
-	/** 模式切换 0、智能模式 1、节能模式 2、速热模式 3、加热模式 4、保温模式 5、安全模式. */
-	public final static String MODE = "Mode";
+	/** 红色. */
+	public final static String COLOR_RED = "Color_R";
 	
+	/** 绿色. */
+	public final static String COLOR_GREEN = "Color_G";
 	
-	/** 倒计时预约. */
-	public final static String COUNT_DOWN_RESERVE = "CountDown_Reserve";
+	/** 蓝色. */
+	public final static String COLOR_BLUE = "Color_B";
 	
-	/** 定时预约. */
-	public final static String TIME_RESERVE = "Time_Reserve";
+	/** 色温. */
+	public final static String COLOR_TEMPERATURE = "C_Temperature";
 	
-	/** 预约开关. */
-	public final static String RESERVE_ON_OFF = "Reserve_OnOff";
+	/** 选择调节模式. */
+	public final static String MODE = "mode";
 	
-	/** 时钟校准. */
-	public final static String CALIBRATION_TIME = "Calibration_Time";
-	
-	
-
-	/** 干烧故障. */
-	public final static String FAULT_BURNING = "Fault_burning";
-
-	/** 传感器开路故障. */
-	public final static String FAULT_SENSOR_OPEN = "Fault_SensorOpen";
-
-	/** 传感器短路故障. */
-	public final static String FAULT_SENSOR_SHORT = "Fault_SensorShort";
-	
-	/** 超温故障. */
-	public final static String FAULT_OVER_TEMP = "Fault_OverTemp";
 }

@@ -44,6 +44,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.gizwits.framework.activity.BaseActivity;
@@ -162,6 +163,12 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** The disconnect dialog. */
 	private Dialog mDisconnectDialog;
+	
+	/** The ColorTemp Seekbar. */
+	private SeekBar sbColorTemp;
+	
+	/** The Brighteness Seekbar. */
+	private SeekBar sbBrighteness;
 
 	/** 是否超时标志位 */
 	private boolean isTimeOut = false;
@@ -266,31 +273,31 @@ public class MainControlActivity extends BaseActivity implements
 					handler.removeMessages(handler_key.GET_STATUE_TIMEOUT
 							.ordinal());
 
-					// 更新当前温度
-					String curTemp = (String) statuMap.get(JsonKeys.ROOM_TEMP);
-					if (!StringUtils.isEmpty(curTemp)) {
-						updateCurrentTemp(Short.parseShort(curTemp));
-					}
-					// 更新设定温度
-					String setTemp = (String) statuMap.get(JsonKeys.SET_TEMP);
-					if (!StringUtils.isEmpty(setTemp)) {
-						updateSettingTemp(Short.parseShort(setTemp));
-					}
-					// 更新模式状态
-					String mode = (String) statuMap.get(JsonKeys.MODE);
-					if (!StringUtils.isEmpty(mode)) {
-						updateMode(Short.parseShort(mode));
-					}
-					// 更新定时模式
-					String countDown = (String) statuMap
-							.get(JsonKeys.COUNT_DOWN_RESERVE);
-					if (!StringUtils.isEmpty(countDown)) {
-						updateTiming(
-								(Boolean) statuMap.get(JsonKeys.RESERVE_ON_OFF),
-								Integer.parseInt(countDown));
-					}
+//					// 更新当前温度
+//					String curTemp = (String) statuMap.get(JsonKeys.ROOM_TEMP);
+//					if (!StringUtils.isEmpty(curTemp)) {
+//						updateCurrentTemp(Short.parseShort(curTemp));
+//					}
+//					// 更新设定温度
+//					String setTemp = (String) statuMap.get(JsonKeys.SET_TEMP);
+//					if (!StringUtils.isEmpty(setTemp)) {
+//						updateSettingTemp(Short.parseShort(setTemp));
+//					}
+//					// 更新模式状态
+//					String mode = (String) statuMap.get(JsonKeys.MODE);
+//					if (!StringUtils.isEmpty(mode)) {
+//						updateMode(Short.parseShort(mode));
+//					}
+//					// 更新定时模式
+//					String countDown = (String) statuMap
+//							.get(JsonKeys.COUNT_DOWN_RESERVE);
+//					if (!StringUtils.isEmpty(countDown)) {
+//						updateTiming(
+//								(Boolean) statuMap.get(JsonKeys.RESERVE_ON_OFF),
+//								Integer.parseInt(countDown));
+//					}
 					// 更新电源开关
-					updatePowerSwitch((Boolean) statuMap.get(JsonKeys.ON_OFF));
+//					updatePowerSwitch((Boolean) statuMap.get(JsonKeys.ON_OFF));
 
 					DialogManager.dismissDialog(MainControlActivity.this,
 							progressDialogRefreshing);
@@ -468,21 +475,25 @@ public class MainControlActivity extends BaseActivity implements
 	 */
 	private void initViews() {
 		mView = (SlidingMenu) findViewById(R.id.main_layout);
-		llFooter = (LinearLayout) findViewById(R.id.llFooter);
 		rlAlarmTips = (RelativeLayout) findViewById(R.id.rlAlarmTips);
-		rlPowerOff = (RelativeLayout) findViewById(R.id.rlPowerOff);
 		ivMenu = (ImageView) findViewById(R.id.ivMenu);
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
-		tvHeaterTips = (TextView) findViewById(R.id.tvHeaterTips);
 		ivPower = (ImageView) findViewById(R.id.ivPower);
 		tvAlarmTipsCount = (TextView) findViewById(R.id.tvAlarmTipsCount);
-		tvMode = (TextView) findViewById(R.id.tvMode);
-		tvTimer = (TextView) findViewById(R.id.tvTimer);
-		tvCurrentTemperature = (TextView) findViewById(R.id.tvCurrentTemperature);
-		tvSettingTemerature = (TextView) findViewById(R.id.tvSettingTemerature);
-		tvTempCurrentTips = (TextView) findViewById(R.id.tvTempCurrentTips);
+		
+//		llFooter = (LinearLayout) findViewById(R.id.llFooter);
+//		tvMode = (TextView) findViewById(R.id.tvMode);
+//		tvTimer = (TextView) findViewById(R.id.tvTimer);
+//		tvHeaterTips = (TextView) findViewById(R.id.tvHeaterTips);
+//		rlPowerOff = (RelativeLayout) findViewById(R.id.rlPowerOff);
+//		tvCurrentTemperature = (TextView) findViewById(R.id.tvCurrentTemperature);
+//		tvSettingTemerature = (TextView) findViewById(R.id.tvSettingTemerature);
+//		tvTempCurrentTips = (TextView) findViewById(R.id.tvTempCurrentTips);
+//		rlContent = (RelativeLayout) findViewById(R.id.rlContent);
+		sbBrighteness=(SeekBar) findViewById(R.id.sbBrighteness);
+		sbColorTemp=(SeekBar) findViewById(R.id.sbColorTemp);
+		
 		rlPowerOn = (RelativeLayout) findViewById(R.id.rlPowerOn);
-		rlContent = (RelativeLayout) findViewById(R.id.rlContent);
 		seekBar = (CircularSeekBar) findViewById(R.id.csbSeekbar);
 		seekBar.postInvalidateDelayed(2000);
 		seekBar.setMaxProgress(100);
@@ -492,7 +503,7 @@ public class MainControlActivity extends BaseActivity implements
 		seekBar.setSeekBarChangeListener(new CircularSeekBar.OnSeekChangeListener() {
 			@Override
 			public void onProgressChange(CircularSeekBar view, int newProgress) {
-				mCenter.cSetTemp(mXpgWifiDevice, SettingTemp);
+//				mCenter.cSetTemp(mXpgWifiDevice, SettingTemp);
 				updateHeaterTips();
 			}
 		});
@@ -547,26 +558,59 @@ public class MainControlActivity extends BaseActivity implements
 						finish();
 					}
 				});
+		
+		sbBrighteness.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					sbBrighteness.getParent().requestDisallowInterceptTouchEvent(true);
+					break;
+				case MotionEvent.ACTION_CANCEL:
+					sbBrighteness.getParent().requestDisallowInterceptTouchEvent(false);
+					break;
+				}
+				return false;
+			}
+		});
+		sbColorTemp.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					sbColorTemp.getParent().requestDisallowInterceptTouchEvent(true);
+					break;
+				case MotionEvent.ACTION_CANCEL:
+					sbColorTemp.getParent().requestDisallowInterceptTouchEvent(false);
+					break;
+				}
+				return false;
+			}
+		});
 	}
 
 	/**
 	 * Inits the events.
 	 */
 	private void initEvents() {
-		rlPowerOn.setOnClickListener(this);
-		ivPower.setOnClickListener(this);
-		rlContent.setOnTouchListener(new OnTouchListener() {
+//		rlPowerOn.setOnClickListener(this);
+//		ivPower.setOnClickListener(this);
+//		rlContent.setOnTouchListener(new OnTouchListener() {
+//
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				isShow = false;
+//				return false;
+//			}
+//		});
+//		rlAlarmTips.setOnClickListener(this);
+//		tvTitle.setOnClickListener(this);
 
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				isShow = false;
-				return false;
-			}
-		});
 		ivMenu.setOnClickListener(this);
-		rlAlarmTips.setOnClickListener(this);
-		tvTitle.setOnClickListener(this);
-
 		lvDevice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -607,26 +651,18 @@ public class MainControlActivity extends BaseActivity implements
 		case R.id.ivPower:
 			mPowerOffDialog.show();
 			break;
-		case R.id.rlTimer:
-			startActivity(new Intent(MainControlActivity.this,
-					TimerSelectedActivity.class));
-			break;
-		case R.id.rlMode:
-			startActivity(new Intent(MainControlActivity.this,
-					ModeSelectedActivity.class));
-			break;
-		case R.id.rlAlarmTips:
-		case R.id.tvTitle:
-			if (alarmList != null && alarmList.size() > 0) {
-				Intent intent = new Intent(MainControlActivity.this,
-						AlarmListActicity.class);
-				intent.putExtra("alarm_list", alarmList);
-				startActivity(intent);
-			}
-			break;
-		case R.id.rlPowerButton:
-			mCenter.cSwitchOn(mXpgWifiDevice, true);
-			break;
+//		case R.id.rlAlarmTips:
+//		case R.id.tvTitle:
+//			if (alarmList != null && alarmList.size() > 0) {
+//				Intent intent = new Intent(MainControlActivity.this,
+//						AlarmListActicity.class);
+//				intent.putExtra("alarm_list", alarmList);
+//				startActivity(intent);
+//			}
+//			break;
+//		case R.id.rlPowerButton:
+//			mCenter.cSwitchOn(mXpgWifiDevice, true);
+//			break;
 		}
 	}
 
@@ -731,7 +767,7 @@ public class MainControlActivity extends BaseActivity implements
 				mCenter.cDisconnect(theDevice);
 		}
 	}
-
+//	==================================================================================
 	/**
 	 * 更新开关状态.
 	 * 
@@ -864,6 +900,8 @@ public class MainControlActivity extends BaseActivity implements
 		rlAlarmTips.setVisibility(isShow ? View.VISIBLE : View.GONE);
 		tvAlarmTipsCount.setText(count + "");
 	}
+	
+//	==================================================================================
 
 	/*
 	 * (non-Javadoc)

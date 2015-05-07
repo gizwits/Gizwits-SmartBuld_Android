@@ -149,7 +149,6 @@ public class DeviceListActivity extends BaseActivity implements
 				break;
 
 			case LOGIN_SUCCESS:
-				mCenter.cTimerNow(mXpgWifiDevice, getCurrentTime());
 				DialogManager.dismissDialog(DeviceListActivity.this, progressDialog);
 				IntentUtils.getInstance().startActivity(
 						DeviceListActivity.this, MainControlActivity.class);

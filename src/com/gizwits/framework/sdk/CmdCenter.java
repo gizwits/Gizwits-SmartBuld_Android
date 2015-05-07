@@ -380,79 +380,79 @@ public class CmdCenter {
 		cGetStatus(xpgWifiDevice);
 	}
 	
-	/**
-	 * C set temp.
-	 *
-	 * @param xpgWifiDevice the xpg wifi device
-	 * @param templature the templature
-	 */
-	public void cSetTemp(XPGWifiDevice xpgWifiDevice, int templature) {
-		cWrite(xpgWifiDevice, JsonKeys.SET_TEMP, templature);
-		cGetStatus(xpgWifiDevice);
-	}
-	
-	/**
-	 * C mode.
-	 *
-	 * @param xpgWifiDevice the xpg wifi device
-	 * @param mode the mode
-	 */
-	public void cMode(XPGWifiDevice xpgWifiDevice, int mode) {
-		cWrite(xpgWifiDevice, JsonKeys.MODE, mode);
-		cGetStatus(xpgWifiDevice);
-	}
-	
-	/**
-	 * C cCountDown.
-	 *
-	 * @param xpgWifiDevice the xpg wifi device
-	 * @param countDown the countDown
-	 */
-	public void cCountDown(XPGWifiDevice xpgWifiDevice, int countDown) {
-		cWrite(xpgWifiDevice, JsonKeys.COUNT_DOWN_RESERVE, countDown);
-		cGetStatus(xpgWifiDevice);
-	}
-	
-	/**
-	 * C cTimerSwitch.
-	 *
-	 * @param xpgWifiDevice the xpg wifi device
-	 * @param isOn the isOn
-	 */
-	public void cTimerSwitch(XPGWifiDevice xpgWifiDevice, boolean isOn) {
-		cWrite(xpgWifiDevice, JsonKeys.RESERVE_ON_OFF, isOn);
-		cGetStatus(xpgWifiDevice);
-	}
-	
-	/**
-	 * C cTimer.
-	 *
-	 * @param xpgWifiDevice the xpg wifi device
-	 * @param timer the timer
-	 */
-	public void cTimer(XPGWifiDevice xpgWifiDevice, int timer) {
-		cWrite(xpgWifiDevice, JsonKeys.TIME_RESERVE, timer);
-		cGetStatus(xpgWifiDevice);
-	}
-	
-	public void cTimer2(XPGWifiDevice xpgWifiDevice, int timer){
-		try {
-			final JSONObject jsonsend = new JSONObject();
-			JSONObject jsonparam = new JSONObject();
-			jsonsend.put("cmd", 1);
-			jsonparam.put(JsonKeys.RESERVE_ON_OFF, true);
-			jsonparam.put(JsonKeys.TIME_RESERVE, timer);
-			jsonsend.put(JsonKeys.KEY_ACTION, jsonparam);
-			Log.i("sendjson", jsonsend.toString());
-			xpgWifiDevice.write(jsonsend.toString());
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		cGetStatus(xpgWifiDevice);
-	}
-	
-	public void cTimerNow(XPGWifiDevice xpgWifiDevice, int timer){
-		cWrite(xpgWifiDevice, JsonKeys.CALIBRATION_TIME, timer);
-	}
+//	/**
+//	 * C set temp.
+//	 *
+//	 * @param xpgWifiDevice the xpg wifi device
+//	 * @param templature the templature
+//	 */
+//	public void cSetTemp(XPGWifiDevice xpgWifiDevice, int templature) {
+//		cWrite(xpgWifiDevice, JsonKeys.SET_TEMP, templature);
+//		cGetStatus(xpgWifiDevice);
+//	}
+//	
+//	/**
+//	 * C mode.
+//	 *
+//	 * @param xpgWifiDevice the xpg wifi device
+//	 * @param mode the mode
+//	 */
+//	public void cMode(XPGWifiDevice xpgWifiDevice, int mode) {
+//		cWrite(xpgWifiDevice, JsonKeys.MODE, mode);
+//		cGetStatus(xpgWifiDevice);
+//	}
+//	
+//	/**
+//	 * C cCountDown.
+//	 *
+//	 * @param xpgWifiDevice the xpg wifi device
+//	 * @param countDown the countDown
+//	 */
+//	public void cCountDown(XPGWifiDevice xpgWifiDevice, int countDown) {
+//		cWrite(xpgWifiDevice, JsonKeys.COUNT_DOWN_RESERVE, countDown);
+//		cGetStatus(xpgWifiDevice);
+//	}
+//	
+//	/**
+//	 * C cTimerSwitch.
+//	 *
+//	 * @param xpgWifiDevice the xpg wifi device
+//	 * @param isOn the isOn
+//	 */
+//	public void cTimerSwitch(XPGWifiDevice xpgWifiDevice, boolean isOn) {
+//		cWrite(xpgWifiDevice, JsonKeys.RESERVE_ON_OFF, isOn);
+//		cGetStatus(xpgWifiDevice);
+//	}
+//	
+//	/**
+//	 * C cTimer.
+//	 *
+//	 * @param xpgWifiDevice the xpg wifi device
+//	 * @param timer the timer
+//	 */
+//	public void cTimer(XPGWifiDevice xpgWifiDevice, int timer) {
+//		cWrite(xpgWifiDevice, JsonKeys.TIME_RESERVE, timer);
+//		cGetStatus(xpgWifiDevice);
+//	}
+//	
+//	public void cTimer2(XPGWifiDevice xpgWifiDevice, int timer){
+//		try {
+//			final JSONObject jsonsend = new JSONObject();
+//			JSONObject jsonparam = new JSONObject();
+//			jsonsend.put("cmd", 1);
+//			jsonparam.put(JsonKeys.RESERVE_ON_OFF, true);
+//			jsonparam.put(JsonKeys.TIME_RESERVE, timer);
+//			jsonsend.put(JsonKeys.KEY_ACTION, jsonparam);
+//			Log.i("sendjson", jsonsend.toString());
+//			xpgWifiDevice.write(jsonsend.toString());
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//		cGetStatus(xpgWifiDevice);
+//	}
+//	
+//	public void cTimerNow(XPGWifiDevice xpgWifiDevice, int timer){
+//		cWrite(xpgWifiDevice, JsonKeys.CALIBRATION_TIME, timer);
+//	}
 
 }

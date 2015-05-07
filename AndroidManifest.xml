@@ -68,10 +68,7 @@
             android:name="zxing.CaptureActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden" />
-        <activity android:name="com.gizwits.light.activity.control.AlarmListActicity" />
         <activity android:name="com.gizwits.light.activity.control.CurveActivity" />
-         <activity android:name="com.gizwits.light.activity.control.ModeSelectedActivity" />
-         <activity android:name="com.gizwits.light.activity.control.TimerSelectedActivity" />
     </application>
 
 </manifest>

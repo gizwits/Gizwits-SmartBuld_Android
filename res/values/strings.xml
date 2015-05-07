@@ -144,4 +144,7 @@
 	<string name="appointment_timer">定时预约</string>
 	<string name="appointment_timer_label1">时</string>
 	<string name="appointment_timer_label2">分</string>
+	
+	<string name="warm_white">暖白</string>
+	<string name="cold_white">冷白</string>
 </resources>
