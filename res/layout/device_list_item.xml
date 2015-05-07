@@ -30,7 +30,6 @@
             android:layout_margin="5dp"
             android:layout_toLeftOf="@+id/llArrow"
             android:layout_toRightOf="@+id/icon"
-            android:text="@string/heater"
             android:textColor="@color/text_blue"
             android:textSize="18sp" />
 
