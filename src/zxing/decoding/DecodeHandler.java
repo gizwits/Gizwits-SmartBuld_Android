@@ -28,7 +28,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import com.gizwits.heater.R;
+import com.gizwits.light.R;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.MultiFormatReader;

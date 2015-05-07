@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gizwits.heater"
+    package="com.gizwits.light"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -62,16 +62,16 @@
         <activity android:name="com.gizwits.framework.activity.help.AboutActivity" />
         <activity android:name="com.gizwits.framework.activity.help.HelpActivity" />
         <activity android:name="com.gizwits.aircondition.activity.slipbar.SlipBarActivity" />
-        <activity android:name="com.gizwits.heater.activity.control.MainControlActivity"
+        <activity android:name="com.gizwits.light.activity.control.MainControlActivity"
             android:launchMode="singleTask" />
         <activity
             android:name="zxing.CaptureActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden" />
-        <activity android:name="com.gizwits.heater.activity.control.AlarmListActicity" />
-        <activity android:name="com.gizwits.heater.activity.control.CurveActivity" />
-         <activity android:name="com.gizwits.heater.activity.control.ModeSelectedActivity" />
-         <activity android:name="com.gizwits.heater.activity.control.TimerSelectedActivity" />
+        <activity android:name="com.gizwits.light.activity.control.AlarmListActicity" />
+        <activity android:name="com.gizwits.light.activity.control.CurveActivity" />
+         <activity android:name="com.gizwits.light.activity.control.ModeSelectedActivity" />
+         <activity android:name="com.gizwits.light.activity.control.TimerSelectedActivity" />
     </application>
 
 </manifest>

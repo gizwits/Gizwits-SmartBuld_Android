@@ -10,9 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gizwits.heater.R;
 import com.gizwits.framework.utils.DensityUtil;
 import com.gizwits.framework.utils.StringUtils;
+import com.gizwits.light.R;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
 /**

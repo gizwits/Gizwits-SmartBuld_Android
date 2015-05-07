@@ -15,7 +15,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.gizwits.heater.activity.control;
+package com.gizwits.light.activity.control;
 
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,9 +35,9 @@ import android.widget.ToggleButton;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.config.JsonKeys;
 import com.gizwits.framework.utils.DialogManager;
-import com.gizwits.framework.utils.StringUtils;
 import com.gizwits.framework.utils.DialogManager.On2TimingChosenListener;
-import com.gizwits.heater.R;
+import com.gizwits.framework.utils.StringUtils;
+import com.gizwits.light.R;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
 
 /**

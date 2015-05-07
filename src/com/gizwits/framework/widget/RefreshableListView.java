@@ -36,7 +36,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.gizwits.heater.R;
+import com.gizwits.light.R;
 
 // TODO: Auto-generated Javadoc
 /**

@@ -28,11 +28,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.gizwits.heater.R;
 import com.gizwits.framework.widget.ArrayWheelAdapter;
 import com.gizwits.framework.widget.NumericWheelAdapter;
 import com.gizwits.framework.widget.OnWheelChangedListener;
 import com.gizwits.framework.widget.WheelView;
+import com.gizwits.light.R;
 
 // TODO: Auto-generated Javadoc
 /**

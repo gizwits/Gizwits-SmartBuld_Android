@@ -38,7 +38,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 
-import com.gizwits.heater.R;
 import com.gizwits.framework.activity.BaseActivity;
 import com.gizwits.framework.activity.account.LoginActivity;
 import com.gizwits.framework.activity.onboarding.BindingDeviceActivity;
@@ -47,7 +46,8 @@ import com.gizwits.framework.adapter.DeviceListAdapter;
 import com.gizwits.framework.utils.DialogManager;
 import com.gizwits.framework.widget.RefreshableListView;
 import com.gizwits.framework.widget.RefreshableListView.OnRefreshListener;
-import com.gizwits.heater.activity.control.MainControlActivity;
+import com.gizwits.light.R;
+import com.gizwits.light.activity.control.MainControlActivity;
 import com.xpg.common.system.IntentUtils;
 import com.xpg.ui.utils.ToastUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;

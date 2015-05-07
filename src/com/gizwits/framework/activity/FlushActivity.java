@@ -21,10 +21,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.gizwits.heater.R;
 import com.gizwits.framework.activity.account.LoginActivity;
 import com.gizwits.framework.activity.device.DeviceListActivity;
 import com.gizwits.framework.utils.StringUtils;
+import com.gizwits.light.R;
 import com.xpg.common.system.IntentUtils;
 
 // TODO: Auto-generated Javadoc

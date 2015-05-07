@@ -26,8 +26,8 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
-import com.gizwits.heater.R;
 import com.gizwits.framework.activity.BaseActivity;
+import com.gizwits.light.R;
 
 // TODO: Auto-generated Javadoc
 //TODO: Auto-generated Javadoc

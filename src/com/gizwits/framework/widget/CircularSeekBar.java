@@ -23,16 +23,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.graphics.Xfermode;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.gizwits.heater.R;
+import com.gizwits.light.R;
 import com.xpg.common.device.DensityUtils;
 
 // TODO: Auto-generated Javadoc
