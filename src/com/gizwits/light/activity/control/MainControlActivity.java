@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -84,49 +85,59 @@ public class MainControlActivity extends BaseActivity implements
 	private CircularSeekBar seekBar;
 
 	/** The scl content. */
-	private RelativeLayout rlContent;
+//	private RelativeLayout rlContent;
 
 	/** The m view. */
 	private SlidingMenu mView;
 
-	/** The rl alarm tips. */
-	private RelativeLayout rlAlarmTips;
-
-	/** The rl power off. */
-	private RelativeLayout rlPowerOff;
-
-	/** The ll footer. */
-	private LinearLayout llFooter;
-
+//	/** The rl alarm tips. */
+//	private RelativeLayout rlAlarmTips;
+//
+//	/** The rl power off. */
+//	private RelativeLayout rlPowerOff;
+//
+//	/** The ll footer. */
+//	private LinearLayout llFooter;
+//
 	/** The iv menu. */
 	private ImageView ivMenu;
+	
+	private ImageView ivColorful;
+	
+	private ImageView ivColorTemp;
+	
+	/** The ColorTemp Seekbar. */
+	private SeekBar sbColorTemp;
+	
+	/** The Brighteness Seekbar. */
+	private SeekBar sbBrighteness;
+//
+//	/** The tv title. */
+//	private TextView tvTitle;
+//
+//	/** The iv power. */
+//	private ImageView ivPower;
 
-	/** The tv title. */
-	private TextView tvTitle;
+//	/** The tv HeaterTips. */
+//	private TextView tvHeaterTips;
+//
+//	/** The tv alarm tips count. */
+//	private TextView tvAlarmTipsCount;
 
-	/** The iv power. */
-	private ImageView ivPower;
-
-	/** The tv HeaterTips. */
-	private TextView tvHeaterTips;
-
-	/** The tv alarm tips count. */
-	private TextView tvAlarmTipsCount;
-
-	/** The tv mode. */
-	private TextView tvMode;
-
-	/** The tv timer. */
-	private TextView tvTimer;
-
-	/** The tv TempCurrentTips. */
-	private TextView tvTempCurrentTips;
-
-	/** The tv current temperature. */
-	private TextView tvCurrentTemperature;
-
-	/** The tv setting temerature. */
-	private TextView tvSettingTemerature;
+//	/** The tv mode. */
+//	private TextView tvMode;
+//
+//	/** The tv timer. */
+//	private TextView tvTimer;
+//
+//	/** The tv TempCurrentTips. */
+//	private TextView tvTempCurrentTips;
+//
+//	/** The tv current temperature. */
+//	private TextView tvCurrentTemperature;
+//
+//	/** The tv setting temerature. */
+//	private TextView tvSettingTemerature;
 
 	/** The m adapter. */
 	private MenuDeviceAdapter mAdapter;
@@ -164,12 +175,6 @@ public class MainControlActivity extends BaseActivity implements
 	/** The disconnect dialog. */
 	private Dialog mDisconnectDialog;
 	
-	/** The ColorTemp Seekbar. */
-	private SeekBar sbColorTemp;
-	
-	/** The Brighteness Seekbar. */
-	private SeekBar sbBrighteness;
-
 	/** 是否超时标志位 */
 	private boolean isTimeOut = false;
 
@@ -273,6 +278,18 @@ public class MainControlActivity extends BaseActivity implements
 					handler.removeMessages(handler_key.GET_STATUE_TIMEOUT
 							.ordinal());
 
+					//更新当前颜色
+					String R = (String) statuMap.get(JsonKeys.COLOR_RED);
+					String G = (String) statuMap.get(JsonKeys.COLOR_GREEN);
+					String B = (String) statuMap.get(JsonKeys.COLOR_BLUE);
+					if (!StringUtils.isEmpty(R)&&
+							!StringUtils.isEmpty(G)&&!StringUtils.isEmpty(B)) {
+						int r=Integer.parseInt(R);
+						int g=Integer.parseInt(G);
+						int b=Integer.parseInt(B);
+						
+						seekBar.setInnerColor(Color.argb(255, r, g, b));
+					}					
 //					// 更新当前温度
 //					String curTemp = (String) statuMap.get(JsonKeys.ROOM_TEMP);
 //					if (!StringUtils.isEmpty(curTemp)) {
@@ -304,33 +321,33 @@ public class MainControlActivity extends BaseActivity implements
 				}
 				break;
 			case ALARM:
-				if (mView.isOpen())
-					break;
-				
-				// 是否需要弹dialog判断
-				boolean isNeedDialog = false;
-				for (DeviceAlarm alarm : alarmList) {
-					if (!alarmShowList.contains((String) alarm.getDesc())) {
-						alarmShowList.add(alarm.getDesc());
-						isNeedDialog = true;
-					}
-				}
-
-				alarmShowList.clear();
-
-				for (DeviceAlarm alarm : alarmList) {
-					alarmShowList.add(alarm.getDesc());
-				}
-
-				if (alarmList != null && alarmList.size() > 0) {
-					if (isNeedDialog) {
-						DialogManager.showDialog(MainControlActivity.this,
-								mFaultDialog);
-					}
-					setTipsLayoutVisiblity(true, alarmList.size());
-				} else {
-					setTipsLayoutVisiblity(false, 0);
-				}
+//				if (mView.isOpen())
+//					break;
+//				
+//				// 是否需要弹dialog判断
+//				boolean isNeedDialog = false;
+//				for (DeviceAlarm alarm : alarmList) {
+//					if (!alarmShowList.contains((String) alarm.getDesc())) {
+//						alarmShowList.add(alarm.getDesc());
+//						isNeedDialog = true;
+//					}
+//				}
+//
+//				alarmShowList.clear();
+//
+//				for (DeviceAlarm alarm : alarmList) {
+//					alarmShowList.add(alarm.getDesc());
+//				}
+//
+//				if (alarmList != null && alarmList.size() > 0) {
+//					if (isNeedDialog) {
+//						DialogManager.showDialog(MainControlActivity.this,
+//								mFaultDialog);
+//					}
+//					setTipsLayoutVisiblity(true, alarmList.size());
+//				} else {
+//					setTipsLayoutVisiblity(false, 0);
+//				}
 				break;
 			case DISCONNECTED:
 				if (!mView.isOpen()) {
@@ -366,17 +383,17 @@ public class MainControlActivity extends BaseActivity implements
 		}
 	};
 
-	// 0.智能模式, 1.节能模式, 2.速热模式, 3.加热模式,4.保温模式,5.安全模式
-	/** The mode images. */
-	private int[] modeImages = { R.drawable.home_tab_intelligence_icon,
-			R.drawable.home_tab_energy_icon, R.drawable.home_tab_fullpower,
-			R.drawable.home_tab_heating_icon,
-			R.drawable.home_tab_temperature_icon, R.drawable.home_tab_safe_icon };
-	/** The mode str res. */
-	private int[] modeStrs = { R.string.pattern_intelligence,
-			R.string.pattern_energy, R.string.power_fullpower,
-			R.string.pattern_heating, R.string.pattern_temperature,
-			R.string.pattern_safe };
+//	// 0.智能模式, 1.节能模式, 2.速热模式, 3.加热模式,4.保温模式,5.安全模式
+//	/** The mode images. */
+//	private int[] modeImages = { R.drawable.home_tab_intelligence_icon,
+//			R.drawable.home_tab_energy_icon, R.drawable.home_tab_fullpower,
+//			R.drawable.home_tab_heating_icon,
+//			R.drawable.home_tab_temperature_icon, R.drawable.home_tab_safe_icon };
+//	/** The mode str res. */
+//	private int[] modeStrs = { R.string.pattern_intelligence,
+//			R.string.pattern_energy, R.string.power_fullpower,
+//			R.string.pattern_heating, R.string.pattern_temperature,
+//			R.string.pattern_safe };
 
 	/** 设定温度 */
 	private int SettingTemp;
@@ -475,11 +492,12 @@ public class MainControlActivity extends BaseActivity implements
 	 */
 	private void initViews() {
 		mView = (SlidingMenu) findViewById(R.id.main_layout);
-		rlAlarmTips = (RelativeLayout) findViewById(R.id.rlAlarmTips);
 		ivMenu = (ImageView) findViewById(R.id.ivMenu);
-		tvTitle = (TextView) findViewById(R.id.tvTitle);
-		ivPower = (ImageView) findViewById(R.id.ivPower);
-		tvAlarmTipsCount = (TextView) findViewById(R.id.tvAlarmTipsCount);
+		
+//		rlAlarmTips = (RelativeLayout) findViewById(R.id.rlAlarmTips);
+//		tvTitle = (TextView) findViewById(R.id.tvTitle);
+//		ivPower = (ImageView) findViewById(R.id.ivPower);
+//		tvAlarmTipsCount = (TextView) findViewById(R.id.tvAlarmTipsCount);
 		
 //		llFooter = (LinearLayout) findViewById(R.id.llFooter);
 //		tvMode = (TextView) findViewById(R.id.tvMode);
@@ -490,6 +508,8 @@ public class MainControlActivity extends BaseActivity implements
 //		tvSettingTemerature = (TextView) findViewById(R.id.tvSettingTemerature);
 //		tvTempCurrentTips = (TextView) findViewById(R.id.tvTempCurrentTips);
 //		rlContent = (RelativeLayout) findViewById(R.id.rlContent);
+		ivColorful=(ImageView) findViewById(R.id.ivColorful);
+		ivColorTemp=(ImageView) findViewById(R.id.ivColorTemp);
 		sbBrighteness=(SeekBar) findViewById(R.id.sbBrighteness);
 		sbColorTemp=(SeekBar) findViewById(R.id.sbColorTemp);
 		
@@ -504,7 +524,7 @@ public class MainControlActivity extends BaseActivity implements
 			@Override
 			public void onProgressChange(CircularSeekBar view, int newProgress) {
 //				mCenter.cSetTemp(mXpgWifiDevice, SettingTemp);
-				updateHeaterTips();
+//				updateHeaterTips();
 			}
 		});
 		seekBar.setSeekContinueChangeListener(new CircularSeekBar.OnSeekContinueChangeListener() {
@@ -512,7 +532,7 @@ public class MainControlActivity extends BaseActivity implements
 			public void onProgressContinueChange(CircularSeekBar view,
 					int newProgress) {
 				SettingTemp = (short) (newProgress * 45 / 100.00 + 30);
-				tvSettingTemerature.setText(SettingTemp + "");
+//				tvSettingTemerature.setText(SettingTemp + "");
 			}
 		});
 		mPowerOffDialog = DialogManager.getPowerOffDialog(this,
@@ -774,50 +794,50 @@ public class MainControlActivity extends BaseActivity implements
 	 * @param isSwitch
 	 *            the isSwitch
 	 */
-	private void updatePowerSwitch(boolean isSwitch) {
-		if (!isSwitch) {
-			seekBar.setVisibility(View.INVISIBLE);
-			rlPowerOff.setVisibility(View.VISIBLE);
-			ivPower.setVisibility(View.GONE);
-			tvHeaterTips.setVisibility(View.INVISIBLE);
+//	private void updatePowerSwitch(boolean isSwitch) {
+//		if (!isSwitch) {
+//			seekBar.setVisibility(View.INVISIBLE);
+//			rlPowerOff.setVisibility(View.VISIBLE);
+//			ivPower.setVisibility(View.GONE);
+//			tvHeaterTips.setVisibility(View.INVISIBLE);
+//
+//			for (int i = 0; i < llFooter.getChildCount(); i++) {
+//				View view = llFooter.getChildAt(i);
+//				view.setClickable(false);
+//			}
+//		} else {
+//			seekBar.setVisibility(View.VISIBLE);
+//			rlPowerOff.setVisibility(View.GONE);
+//			ivPower.setVisibility(View.VISIBLE);
+//			tvHeaterTips.setVisibility(View.VISIBLE);
+//
+//			for (int i = 0; i < llFooter.getChildCount(); i++) {
+//				View view = llFooter.getChildAt(i);
+//				view.setClickable(true);
+//			}
+//
+//			if (!isPowerOff && alarmList.size() != 0) {
+//				DialogManager.showDialog(this, mFaultDialog);
+//			}
+//		}
+//		isPowerOff = isSwitch;
+//	}
 
-			for (int i = 0; i < llFooter.getChildCount(); i++) {
-				View view = llFooter.getChildAt(i);
-				view.setClickable(false);
-			}
-		} else {
-			seekBar.setVisibility(View.VISIBLE);
-			rlPowerOff.setVisibility(View.GONE);
-			ivPower.setVisibility(View.VISIBLE);
-			tvHeaterTips.setVisibility(View.VISIBLE);
-
-			for (int i = 0; i < llFooter.getChildCount(); i++) {
-				View view = llFooter.getChildAt(i);
-				view.setClickable(true);
-			}
-
-			if (!isPowerOff && alarmList.size() != 0) {
-				DialogManager.showDialog(this, mFaultDialog);
-			}
-		}
-		isPowerOff = isSwitch;
-	}
-
-	/**
-	 * 更新定时预约状态.
-	 * 
-	 * @param timer
-	 *            the timer
-	 * @param countDown
-	 *            the countDown
-	 */
-	private void updateTiming(boolean timer, int countDown) {
-		if (timer || countDown > 0) {
-			tvTimer.setText(R.string.appointment_already);
-		} else {
-			tvTimer.setText(R.string.appointment_water);
-		}
-	}
+//	/**
+//	 * 更新定时预约状态.
+//	 * 
+//	 * @param timer
+//	 *            the timer
+//	 * @param countDown
+//	 *            the countDown
+//	 */
+//	private void updateTiming(boolean timer, int countDown) {
+//		if (timer || countDown > 0) {
+//			tvTimer.setText(R.string.appointment_already);
+//		} else {
+//			tvTimer.setText(R.string.appointment_water);
+//		}
+//	}
 
 	/**
 	 * 更新当前温度状态.
@@ -825,14 +845,14 @@ public class MainControlActivity extends BaseActivity implements
 	 * @param temp
 	 *            the temp
 	 */
-	private void updateCurrentTemp(short temp) {
-		CurrentTemp = temp;
-		tvCurrentTemperature.setText("" + temp);
-		tvTempCurrentTips.setText(Html.fromHtml("当前温度" + "<big><big>" + temp
-				+ "°" + "</big></big>"));
-
-		updateHeaterTips();
-	}
+//	private void updateCurrentTemp(short temp) {
+//		CurrentTemp = temp;
+//		tvCurrentTemperature.setText("" + temp);
+//		tvTempCurrentTips.setText(Html.fromHtml("当前温度" + "<big><big>" + temp
+//				+ "°" + "</big></big>"));
+//
+//		updateHeaterTips();
+//	}
 
 	/**
 	 * 更新设定温度状态.
@@ -840,33 +860,33 @@ public class MainControlActivity extends BaseActivity implements
 	 * @param temp
 	 *            the temp
 	 */
-	private void updateSettingTemp(short temp) {
-		SettingTemp = temp;
-		tvSettingTemerature.setText("" + temp);
-
-		int progress = (int) ((temp - 30) * 100.00 / 45);
-		if (seekBar != null) {
-			seekBar.setMProgress(progress);
-			seekBar.postInvalidateDelayed(1000);
-		}
-
-		updateHeaterTips();
-	}
+//	private void updateSettingTemp(short temp) {
+//		SettingTemp = temp;
+//		tvSettingTemerature.setText("" + temp);
+//
+//		int progress = (int) ((temp - 30) * 100.00 / 45);
+//		if (seekBar != null) {
+//			seekBar.setMProgress(progress);
+//			seekBar.postInvalidateDelayed(1000);
+//		}
+//
+//		updateHeaterTips();
+//	}
 
 	/**
 	 * 更新加热提示状态.
 	 * 
 	 */
-	private void updateHeaterTips() {
-		if (SettingTemp - CurrentTemp > 5) {
-			tvHeaterTips.setText(R.string.heater_is_heating);
-		} else if (SettingTemp - CurrentTemp <= 5
-				&& SettingTemp - CurrentTemp >= 0) {
-			tvHeaterTips.setText(R.string.heater_is_keeping_warm);
-		} else {
-			tvHeaterTips.setText("");
-		}
-	}
+//	private void updateHeaterTips() {
+//		if (SettingTemp - CurrentTemp > 5) {
+//			tvHeaterTips.setText(R.string.heater_is_heating);
+//		} else if (SettingTemp - CurrentTemp <= 5
+//				&& SettingTemp - CurrentTemp >= 0) {
+//			tvHeaterTips.setText(R.string.heater_is_keeping_warm);
+//		} else {
+//			tvHeaterTips.setText("");
+//		}
+//	}
 
 	/**
 	 * 转换模式更新UI.
@@ -881,10 +901,10 @@ public class MainControlActivity extends BaseActivity implements
 	 * @when num = 3 加热模式
 	 * 
 	 */
-	private void updateMode(int num) {
-		tvMode.setCompoundDrawablesWithIntrinsicBounds(0, modeImages[num], 0, 0);
-		tvMode.setText(modeStrs[num]);
-	}
+//	private void updateMode(int num) {
+//		tvMode.setCompoundDrawablesWithIntrinsicBounds(0, modeImages[num], 0, 0);
+//		tvMode.setText(modeStrs[num]);
+//	}
 
 	/**
 	 * 设置提示框显示与隐藏,设置故障数量.
@@ -896,10 +916,10 @@ public class MainControlActivity extends BaseActivity implements
 	 * @true 显示
 	 * @false 隐藏
 	 */
-	private void setTipsLayoutVisiblity(boolean isShow, int count) {
-		rlAlarmTips.setVisibility(isShow ? View.VISIBLE : View.GONE);
-		tvAlarmTipsCount.setText(count + "");
-	}
+//	private void setTipsLayoutVisiblity(boolean isShow, int count) {
+//		rlAlarmTips.setVisibility(isShow ? View.VISIBLE : View.GONE);
+//		tvAlarmTipsCount.setText(count + "");
+//	}
 	
 //	==================================================================================
 

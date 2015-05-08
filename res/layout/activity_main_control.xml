@@ -47,43 +47,6 @@
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
 
-                <ImageView
-                    android:id="@+id/ivPower"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:padding="10dp"
-                    android:src="@drawable/icon_power" />
-
-                <RelativeLayout
-                    android:id="@+id/rlAlarmTips"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/tvTitle"
-                    android:gravity="center"
-                    android:visibility="gone" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/fault_tips" />
-
-                    <TextView
-                        android:id="@+id/tvAlarmTipsCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:textColor="#006cff"
-                        android:textSize="18sp" />
-                </RelativeLayout>
             </RelativeLayout>
 
             <RelativeLayout
@@ -93,28 +56,12 @@
                 android:layout_below="@+id/rlHeader"
                 android:gravity="center_horizontal" >
 
-                <RelativeLayout
-                    android:id="@+id/circleSeekBar"
-                    android:layout_width="220dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_height="220dp"
-                    android:background="@color/transparent_half"
-                    android:layout_gravity="center"
-                    android:gravity="center" >
-
-                    <com.gizwits.framework.widget.CircularSeekBar
-                        android:id="@+id/csbSeekbar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:rotation="-180" />
-                </RelativeLayout>
-
                 <LinearLayout
+                    android:id="@+id/llFoot"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_below="@id/circleSeekBar"
                     android:gravity="center_horizontal"
                     android:orientation="vertical" >
 
@@ -125,30 +72,52 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="80dp" >
+                        android:layout_height="70dp"
+                        android:layout_marginTop="10dp" >
+
+                        <ImageView
+                            android:id="@+id/ivColorTemp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/selector_mode_choose" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@id/ivColorTemp"
+                            android:text="@string/color_temp"
+                            android:textColor="@color/text_blue"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvWarmWhite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="10dp"
+                            android:text="@string/warm_white" />
+
+                        <TextView
+                            android:id="@+id/tvColdWhite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="10dp"
+                            android:text="@string/cold_white" />
 
                         <SeekBar
                             android:id="@+id/sbColorTemp"
-                            android:layout_width="100dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@id/tvColdWhite"
+                            android:layout_toRightOf="@id/tvWarmWhite"
                             android:progressDrawable="@drawable/light_sewen_bg1"
                             android:thumb="@drawable/light_sewen_bg2" />
-                        
-                        <TextView 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="@string/warm_white"
-                            android:layout_toLeftOf="@id/sbColorTemp"/>
-                        
-                        <TextView 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="@string/cold_white"
-                            android:layout_toRightOf="@id/sbColorTemp"/>
-                        
                     </RelativeLayout>
 
                     <ImageView
@@ -158,29 +127,44 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="80dp" >
+                        android:layout_height="70dp"
+                        android:layout_marginTop="10dp" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="@string/brightness"
+                            android:textColor="@color/text_blue"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:id="@+id/ivLeft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/light_icon_liang1" />
+
+                        <ImageView
+                            android:id="@+id/ivRight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/light_icon_liang2" />
 
                         <SeekBar
                             android:id="@+id/sbBrighteness"
-                            android:layout_width="100dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@id/ivRight"
+                            android:layout_toRightOf="@id/ivLeft"
                             android:progressDrawable="@drawable/light_liangdu_bg1"
                             android:thumb="@drawable/light_sewen_bg2" />
-                        
-                        <ImageView 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@id/sbBrighteness"
-                            android:src="@drawable/light_icon_liang1"/>
-                        
-                        <ImageView 
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/sbBrighteness"
-                            android:src="@drawable/light_icon_liang2"/>
                     </RelativeLayout>
 
                     <ImageView
@@ -193,12 +177,58 @@
                         android:layout_height="match_parent" >
 
                         <ImageView
+                            android:id="@+id/ivPower"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/light_icon_off" />
+                            android:layout_margin="10dp"
+                            android:src="@drawable/light_icon_on2"
+                            android:onClick="onClick" />
                     </RelativeLayout>
                 </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/circleSeekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/llFoot"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:gravity="center" >
+
+                    <LinearLayout
+                        android:id="@+id/llColorful"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@+id/ivColorful"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/selector_mode_choose" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="@string/colorful"
+                            android:textColor="@color/text_blue"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <com.gizwits.framework.widget.CircularSeekBar
+                        android:id="@+id/csbSeekbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/llColorful"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="5dp"
+                         />
+                </RelativeLayout>
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
