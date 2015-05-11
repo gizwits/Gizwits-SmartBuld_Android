@@ -606,6 +606,10 @@ public class CircularSeekBar extends View {
 	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		if(!SHOW_SEEKBAR){
+			return true;
+		}
+		
 		float markRange = DensityUtils.dp2px(getContext(), 60);
 		float x = event.getX();
 		float y = event.getY();

@@ -121,6 +121,7 @@
                                 android:id="@+id/sbColorTemp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:progress="50"
                                 android:layout_toLeftOf="@id/tvColdWhite"
                                 android:layout_toRightOf="@id/tvWarmWhite"
                                 android:progressDrawable="@drawable/light_sewen_bg1"
@@ -178,6 +179,7 @@
                             <SeekBar
                                 android:id="@+id/sbBrighteness"
                                 android:layout_width="match_parent"
+                                android:progress="50"
                                 android:layout_height="wrap_content"
                                 android:layout_toLeftOf="@id/ivRight"
                                 android:layout_toRightOf="@id/ivLeft"
@@ -187,6 +189,7 @@
                     </RelativeLayout>
 
                     <ImageView
+                        android:id="@+id/ivBottom"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/background_gray" />
@@ -206,6 +209,16 @@
                     </RelativeLayout>
                 </LinearLayout>
 
+                <ImageView 
+                    android:id="@+id/ivPowerOff"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/llFoot"
+                    android:layout_alignBottom="@id/llFoot"
+                    android:layout_alignLeft="@id/llFoot"
+                    android:layout_alignRight="@id/llFoot"/>
+                
                 <RelativeLayout
                     android:id="@+id/circleSeekBar"
                     android:layout_width="match_parent"
@@ -231,6 +244,7 @@
                             android:src="@drawable/selector_mode_choose" />
 
                         <TextView
+                            android:id="@+id/tvColorful"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
