@@ -46,7 +46,6 @@
                     android:text="@string/main_control_title"
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -72,14 +71,15 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="70dp"
+                        android:layout_height="80dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp" >
 
                         <ImageView
                             android:id="@+id/ivColorTemp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
                             android:src="@drawable/selector_mode_choose" />
 
                         <TextView
@@ -91,33 +91,50 @@
                             android:textColor="@color/text_blue"
                             android:textSize="14sp" />
 
-                        <TextView
-                            android:id="@+id/tvWarmWhite"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:layout_margin="10dp"
-                            android:text="@string/warm_white" />
-
-                        <TextView
-                            android:id="@+id/tvColdWhite"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_margin="10dp"
-                            android:text="@string/cold_white" />
-
-                        <SeekBar
-                            android:id="@+id/sbColorTemp"
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@id/tvColdWhite"
-                            android:layout_toRightOf="@id/tvWarmWhite"
-                            android:progressDrawable="@drawable/light_sewen_bg1"
-                            android:thumb="@drawable/light_sewen_bg2" />
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginBottom="20dp" >
+
+                            <TextView
+                                android:id="@+id/tvWarmWhite"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:gravity="center"
+                                android:text="@string/warm_white"
+                                android:textColor="@color/text_gray" />
+
+                            <TextView
+                                android:id="@+id/tvColdWhite"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:gravity="center"
+                                android:text="@string/cold_white"
+                                android:textColor="@color/text_gray" />
+
+                            <SeekBar
+                                android:id="@+id/sbColorTemp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toLeftOf="@id/tvColdWhite"
+                                android:layout_toRightOf="@id/tvWarmWhite"
+                                android:progressDrawable="@drawable/light_sewen_bg1"
+                                android:thumb="@drawable/light_sewen_bg2" />
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/mid_white"
+                            android:textColor="@color/text_gray" />
                     </RelativeLayout>
 
                     <ImageView
@@ -127,44 +144,46 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:layout_marginTop="10dp" >
+                        android:layout_height="60dp"
+                        android:layout_margin="10dp" >
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:text="@string/brightness"
                             android:textColor="@color/text_blue"
                             android:textSize="14sp" />
 
-                        <ImageView
-                            android:id="@+id/ivLeft"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/light_icon_liang1" />
-
-                        <ImageView
-                            android:id="@+id/ivRight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_margin="10dp"
-                            android:src="@drawable/light_icon_liang2" />
-
-                        <SeekBar
-                            android:id="@+id/sbBrighteness"
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@id/ivRight"
-                            android:layout_toRightOf="@id/ivLeft"
-                            android:progressDrawable="@drawable/light_liangdu_bg1"
-                            android:thumb="@drawable/light_sewen_bg2" />
+                            android:layout_alignParentBottom="true"
+                            android:gravity="center_vertical" >
+
+                            <ImageView
+                                android:id="@+id/ivLeft"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:src="@drawable/light_icon_liang1" />
+
+                            <ImageView
+                                android:id="@+id/ivRight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:src="@drawable/light_icon_liang2" />
+
+                            <SeekBar
+                                android:id="@+id/sbBrighteness"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toLeftOf="@id/ivRight"
+                                android:layout_toRightOf="@id/ivLeft"
+                                android:progressDrawable="@drawable/light_liangdu_bg1"
+                                android:thumb="@drawable/light_sewen_bg2" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <ImageView
@@ -182,8 +201,8 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_margin="10dp"
-                            android:src="@drawable/light_icon_on2"
-                            android:onClick="onClick" />
+                            android:onClick="onClick"
+                            android:src="@drawable/light_icon_on2" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -226,8 +245,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/llColorful"
                         android:layout_centerHorizontal="true"
-                        android:layout_margin="5dp"
-                         />
+                        android:layout_margin="5dp" />
                 </RelativeLayout>
             </RelativeLayout>
         </RelativeLayout>

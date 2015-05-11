@@ -189,7 +189,7 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** 登陆设备超时时间 */
 	private int LoginTimeOut = 5000;
-
+	
 	/**
 	 * ClassName: Enum handler_key. <br/>
 	 * <br/>
@@ -277,7 +277,6 @@ public class MainControlActivity extends BaseActivity implements
 				if (statuMap != null && statuMap.size() > 0) {
 					handler.removeMessages(handler_key.GET_STATUE_TIMEOUT
 							.ordinal());
-
 					//更新当前颜色
 					String R = (String) statuMap.get(JsonKeys.COLOR_RED);
 					String G = (String) statuMap.get(JsonKeys.COLOR_GREEN);
@@ -289,65 +288,34 @@ public class MainControlActivity extends BaseActivity implements
 						int b=Integer.parseInt(B);
 						
 						seekBar.setInnerColor(Color.argb(255, r, g, b));
-					}					
-//					// 更新当前温度
-//					String curTemp = (String) statuMap.get(JsonKeys.ROOM_TEMP);
-//					if (!StringUtils.isEmpty(curTemp)) {
-//						updateCurrentTemp(Short.parseShort(curTemp));
-//					}
-//					// 更新设定温度
-//					String setTemp = (String) statuMap.get(JsonKeys.SET_TEMP);
-//					if (!StringUtils.isEmpty(setTemp)) {
-//						updateSettingTemp(Short.parseShort(setTemp));
-//					}
-//					// 更新模式状态
-//					String mode = (String) statuMap.get(JsonKeys.MODE);
-//					if (!StringUtils.isEmpty(mode)) {
-//						updateMode(Short.parseShort(mode));
-//					}
-//					// 更新定时模式
-//					String countDown = (String) statuMap
-//							.get(JsonKeys.COUNT_DOWN_RESERVE);
-//					if (!StringUtils.isEmpty(countDown)) {
-//						updateTiming(
-//								(Boolean) statuMap.get(JsonKeys.RESERVE_ON_OFF),
-//								Integer.parseInt(countDown));
-//					}
-					// 更新电源开关
-//					updatePowerSwitch((Boolean) statuMap.get(JsonKeys.ON_OFF));
-
+					}			
+					
+					//更新当前色温
+					String colorTemp = (String) statuMap.get(JsonKeys.COLOR_TEMPERATURE);
+					if (!StringUtils.isEmpty(colorTemp)) {
+						Integer.parseInt(colorTemp);
+					}
+					
+					//更新当前亮度
+					String brightness = (String) statuMap.get(JsonKeys.BRIGHTNESS);
+					if (!StringUtils.isEmpty(brightness)) {
+						Integer.parseInt(brightness);
+					}
+					
+					//更新当前模式
+					String mode = (String) statuMap.get(JsonKeys.MODE);
+					if (!StringUtils.isEmpty(mode)) {
+						updateMode(Integer.parseInt(mode));
+					}
+					
+					//更新开关机
+					updatePowerSwitch((Boolean)statuMap.get(JsonKeys.ON_OFF));
+					
 					DialogManager.dismissDialog(MainControlActivity.this,
 							progressDialogRefreshing);
 				}
 				break;
 			case ALARM:
-//				if (mView.isOpen())
-//					break;
-//				
-//				// 是否需要弹dialog判断
-//				boolean isNeedDialog = false;
-//				for (DeviceAlarm alarm : alarmList) {
-//					if (!alarmShowList.contains((String) alarm.getDesc())) {
-//						alarmShowList.add(alarm.getDesc());
-//						isNeedDialog = true;
-//					}
-//				}
-//
-//				alarmShowList.clear();
-//
-//				for (DeviceAlarm alarm : alarmList) {
-//					alarmShowList.add(alarm.getDesc());
-//				}
-//
-//				if (alarmList != null && alarmList.size() > 0) {
-//					if (isNeedDialog) {
-//						DialogManager.showDialog(MainControlActivity.this,
-//								mFaultDialog);
-//					}
-//					setTipsLayoutVisiblity(true, alarmList.size());
-//				} else {
-//					setTipsLayoutVisiblity(false, 0);
-//				}
 				break;
 			case DISCONNECTED:
 				if (!mView.isOpen()) {
@@ -382,24 +350,6 @@ public class MainControlActivity extends BaseActivity implements
 			}
 		}
 	};
-
-//	// 0.智能模式, 1.节能模式, 2.速热模式, 3.加热模式,4.保温模式,5.安全模式
-//	/** The mode images. */
-//	private int[] modeImages = { R.drawable.home_tab_intelligence_icon,
-//			R.drawable.home_tab_energy_icon, R.drawable.home_tab_fullpower,
-//			R.drawable.home_tab_heating_icon,
-//			R.drawable.home_tab_temperature_icon, R.drawable.home_tab_safe_icon };
-//	/** The mode str res. */
-//	private int[] modeStrs = { R.string.pattern_intelligence,
-//			R.string.pattern_energy, R.string.power_fullpower,
-//			R.string.pattern_heating, R.string.pattern_temperature,
-//			R.string.pattern_safe };
-
-	/** 设定温度 */
-	private int SettingTemp;
-
-	/** 当前温度 */
-	private int CurrentTemp;
 
 	/*
 	 * (non-Javadoc)
@@ -522,19 +472,19 @@ public class MainControlActivity extends BaseActivity implements
 		seekBar.postInvalidateDelayed(100);
 		seekBar.setSeekBarChangeListener(new CircularSeekBar.OnSeekChangeListener() {
 			@Override
-			public void onProgressChange(CircularSeekBar view, int newProgress) {
-//				mCenter.cSetTemp(mXpgWifiDevice, SettingTemp);
-//				updateHeaterTips();
+			public void onProgressChange(CircularSeekBar view, int color) {
+				updateMode(0);//色彩模式
+				mCenter.cColor(mXpgWifiDevice, color);
 			}
 		});
-		seekBar.setSeekContinueChangeListener(new CircularSeekBar.OnSeekContinueChangeListener() {
-			@Override
-			public void onProgressContinueChange(CircularSeekBar view,
-					int newProgress) {
-				SettingTemp = (short) (newProgress * 45 / 100.00 + 30);
-//				tvSettingTemerature.setText(SettingTemp + "");
-			}
-		});
+//		seekBar.setSeekContinueChangeListener(new CircularSeekBar.OnSeekContinueChangeListener() {
+//			@Override
+//			public void onProgressContinueChange(CircularSeekBar view,
+//					int newProgress) {
+////				SettingTemp = (short) (newProgress * 45 / 100.00 + 30);
+////				tvSettingTemerature.setText(SettingTemp + "");
+//			}
+//		});
 		mPowerOffDialog = DialogManager.getPowerOffDialog(this,
 				new OnClickListener() {
 
@@ -794,7 +744,7 @@ public class MainControlActivity extends BaseActivity implements
 	 * @param isSwitch
 	 *            the isSwitch
 	 */
-//	private void updatePowerSwitch(boolean isSwitch) {
+	private void updatePowerSwitch(boolean isSwitch) {
 //		if (!isSwitch) {
 //			seekBar.setVisibility(View.INVISIBLE);
 //			rlPowerOff.setVisibility(View.VISIBLE);
@@ -820,8 +770,28 @@ public class MainControlActivity extends BaseActivity implements
 //				DialogManager.showDialog(this, mFaultDialog);
 //			}
 //		}
-//		isPowerOff = isSwitch;
-//	}
+		isPowerOff = isSwitch;
+	}
+
+	/**
+	 * 更新模式状态.
+	 * 
+	 * @param mode
+	 *            the mode
+	 */
+	private void updateMode(int mode){
+		switch(mode){
+		case 0://色彩模式
+			ivColorful.setSelected(true);
+			ivColorTemp.setSelected(false);
+			break;
+		case 1://色温模式
+			ivColorful.setSelected(false);
+			ivColorTemp.setSelected(true);
+			break;
+		}
+		
+	}
 
 //	/**
 //	 * 更新定时预约状态.

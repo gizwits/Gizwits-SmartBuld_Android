@@ -130,6 +130,7 @@
 	
 	
 	<string name="warm_white">暖白</string>
+	<string name="mid_white">中性白</string>
 	<string name="cold_white">冷白</string>
 	<string name="color_temp">色温</string>
 	<string name="brightness">亮度</string>
