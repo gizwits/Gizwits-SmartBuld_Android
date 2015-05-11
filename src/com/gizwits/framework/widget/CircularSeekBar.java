@@ -258,8 +258,8 @@ public class CircularSeekBar extends View {
 		cy = height / 2; // Center Y for circle
 		
 		//分辨率适配
-		if(width<=400){
-			innerCircle=30;
+		if(width<=480){
+			innerCircle=20;
 			circleRing.setStrokeWidth(30);
 		}else{
 			innerCircle=60;
