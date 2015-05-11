@@ -124,11 +124,7 @@
 	
 	<string name="temp_now">当前温度</string>
 	<string name="temp_set">设定温度</string>
-	
-	<string name="heater_is_heating">热水器加热中</string>
-	<string name="heater_is_keeping_warm">热水器保温中</string>
-	
-	
+		
 	<string name="warm_white">暖白</string>
 	<string name="mid_white">中性白</string>
 	<string name="cold_white">冷白</string>

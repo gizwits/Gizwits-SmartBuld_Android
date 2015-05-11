@@ -55,11 +55,27 @@
                 android:layout_below="@+id/rlHeader"
                 android:gravity="center_horizontal" >
 
+                <RelativeLayout
+                    android:id="@+id/rlPower"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true" >
+
+                    <ImageView
+                        android:id="@+id/ivPower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="10dp"
+                        android:onClick="onClick"
+                        android:src="@drawable/selector_power" />
+                </RelativeLayout>
+
                 <LinearLayout
                     android:id="@+id/llFoot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
+                    android:layout_above="@id/rlPower"
                     android:layout_centerHorizontal="true"
                     android:gravity="center_horizontal"
                     android:orientation="vertical" >
@@ -121,9 +137,9 @@
                                 android:id="@+id/sbColorTemp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:progress="50"
                                 android:layout_toLeftOf="@id/tvColdWhite"
                                 android:layout_toRightOf="@id/tvWarmWhite"
+                                android:progress="50"
                                 android:progressDrawable="@drawable/light_sewen_bg1"
                                 android:thumb="@drawable/light_sewen_bg2" />
                         </RelativeLayout>
@@ -179,10 +195,10 @@
                             <SeekBar
                                 android:id="@+id/sbBrighteness"
                                 android:layout_width="match_parent"
-                                android:progress="50"
                                 android:layout_height="wrap_content"
                                 android:layout_toLeftOf="@id/ivRight"
                                 android:layout_toRightOf="@id/ivLeft"
+                                android:progress="50"
                                 android:progressDrawable="@drawable/light_liangdu_bg1"
                                 android:thumb="@drawable/light_sewen_bg2" />
                         </RelativeLayout>
@@ -193,32 +209,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/background_gray" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
-
-                        <ImageView
-                            android:id="@+id/ivPower"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:layout_margin="10dp"
-                            android:onClick="onClick"
-                            android:src="@drawable/light_icon_on2" />
-                    </RelativeLayout>
                 </LinearLayout>
 
-                <ImageView 
+                <ImageView
                     android:id="@+id/ivPowerOff"
-                    android:visibility="invisible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/llFoot"
                     android:layout_alignBottom="@id/llFoot"
                     android:layout_alignLeft="@id/llFoot"
-                    android:layout_alignRight="@id/llFoot"/>
-                
+                    android:layout_alignRight="@id/llFoot"
+                    android:layout_alignTop="@id/llFoot"
+                    android:visibility="invisible" />
+
                 <RelativeLayout
                     android:id="@+id/circleSeekBar"
                     android:layout_width="match_parent"

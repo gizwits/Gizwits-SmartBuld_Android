@@ -97,16 +97,18 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** The ll footer. */
 	private LinearLayout llFooter;
-	
+
 	/** The iv power off. */
 	private ImageView ivPowerOff;
-	
+
 	/** The iv menu. */
 	private ImageView ivMenu;
 
 	private ImageView ivColorful;
 
 	private ImageView ivColorTemp;
+
+	private ImageView ivPower;
 
 	/** The ColorTemp Seekbar. */
 	private SeekBar sbColorTemp;
@@ -125,7 +127,7 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** The is show. */
 	private boolean isShow;
-	
+
 	/** The tv colorFul. */
 	private TextView tvColorful;
 
@@ -420,13 +422,14 @@ public class MainControlActivity extends BaseActivity implements
 		mView = (SlidingMenu) findViewById(R.id.main_layout);
 		ivMenu = (ImageView) findViewById(R.id.ivMenu);
 
-		llFooter=(LinearLayout) findViewById(R.id.llFoot);
-		ivPowerOff=(ImageView) findViewById(R.id.ivPowerOff);
-		tvColorful=(TextView) findViewById(R.id.tvColorful);
+		llFooter = (LinearLayout) findViewById(R.id.llFoot);
+		ivPowerOff = (ImageView) findViewById(R.id.ivPowerOff);
+		tvColorful = (TextView) findViewById(R.id.tvColorful);
 		ivColorful = (ImageView) findViewById(R.id.ivColorful);
 		ivColorTemp = (ImageView) findViewById(R.id.ivColorTemp);
 		sbBrighteness = (SeekBar) findViewById(R.id.sbBrighteness);
 		sbColorTemp = (SeekBar) findViewById(R.id.sbColorTemp);
+		ivPower = (ImageView) findViewById(R.id.ivPower);
 
 		rlPowerOn = (RelativeLayout) findViewById(R.id.rlPowerOn);
 		seekBar = (CircularSeekBar) findViewById(R.id.csbSeekbar);
@@ -617,7 +620,11 @@ public class MainControlActivity extends BaseActivity implements
 			mView.toggle();
 			break;
 		case R.id.ivPower:
-			mPowerOffDialog.show();
+			if (isPowerOff) {
+				mPowerOffDialog.show();
+			} else {
+				mCenter.cSwitchOn(mXpgWifiDevice, true);
+			}
 			break;
 		}
 	}
@@ -628,9 +635,9 @@ public class MainControlActivity extends BaseActivity implements
 	 * @return void
 	 */
 	public void onClickSlipBar(View view) {
-		if(!mView.isOpen())
+		if (!mView.isOpen())
 			return;
-		
+
 		switch (view.getId()) {
 		case R.id.rlDevice:
 			IntentUtils.getInstance().startActivity(MainControlActivity.this,
@@ -735,27 +742,29 @@ public class MainControlActivity extends BaseActivity implements
 	 *            the isSwitch
 	 */
 	private void updatePowerSwitch(boolean isSwitch) {
-		if (isSwitch) {//开机
+		if (isSwitch) {// 开机
 			seekBar.ShowSeekBar();
+			ivPower.setSelected(true);
 			tvColorful.setTextColor(getResources().getColor(R.color.text_blue));
 			powerOn();
-		} else {//关机
+		} else {// 关机
 			seekBar.hideSeekBar();
 			ivColorful.setSelected(false);
 			ivColorTemp.setSelected(false);
+			ivPower.setSelected(false);
 			tvColorful.setTextColor(getResources().getColor(R.color.text_gray));
 			powerOff();
 		}
 		isPowerOff = isSwitch;
 	}
-	
-	//开机
-	private void powerOn(){
+
+	// 开机
+	private void powerOn() {
 		ivPowerOff.setVisibility(View.INVISIBLE);
 		llFooter.setVisibility(View.VISIBLE);
 	}
-	
-	//关机
+
+	// 关机
 	private void powerOff() {
 		Bitmap mBitmap = Bitmap.createBitmap(llFooter.getWidth(),
 				llFooter.getHeight(), Config.ARGB_8888);
@@ -766,7 +775,7 @@ public class MainControlActivity extends BaseActivity implements
 		ivPowerOff.setImageBitmap(mBitmap);
 		llFooter.setVisibility(View.INVISIBLE);
 	}
-	
+
 	private Bitmap getTransparentBitmap(Bitmap sourceImg, int number) {
 		int[] argb = new int[sourceImg.getWidth() * sourceImg.getHeight()];
 
@@ -780,21 +789,21 @@ public class MainControlActivity extends BaseActivity implements
 
 			if (argb[i] != 0) {// 把透明的颜色隔离掉
 				int color = argb[i];
-				int a=Color.alpha(color);
-				int r =Color.red(color);
-				int g =Color.green(color);
-				int b =Color.blue(color);
-				int avg=(r+g+b)/3;
-				argb[i]=Color.argb(a, avg,avg, avg);
+				int a = Color.alpha(color);
+				int r = Color.red(color);
+				int g = Color.green(color);
+				int b = Color.blue(color);
+				int avg = (r + g + b) / 3;
+				argb[i] = Color.argb(a, avg, avg, avg);
 			}
 		}
 
-		sourceImg = Bitmap.createBitmap(argb, sourceImg.getWidth(), sourceImg
-		.getHeight(), Config.ARGB_8888);
+		sourceImg = Bitmap.createBitmap(argb, sourceImg.getWidth(),
+				sourceImg.getHeight(), Config.ARGB_8888);
 
 		return sourceImg;
 	}
-	
+
 	/**
 	 * 更新色彩.
 	 * 
