@@ -45,7 +45,6 @@
 	<string name="cancel">取消</string>
 	<string name="password">密码</string>
 	<string name="setting_password">设置密码</string>
-	<string name="curve_text1">室内温度曲线</string>
 	<string name="device_list">设备列表</string>
 	<string name="device_manage">设备管理</string>
 	<string name="device_manage_text1">生产日期：XXXX.XX.XX</string>
@@ -70,14 +69,6 @@
     <string name="login">登陆</string>
     <string name="register">注册</string>
     <string name="main_control_title">智能灯</string>
-    <string name="main_control_timing_shutdown">定时关机</string>
-    <string name="main_control_advanced_features">高级功能</string>
-    <string name="main_control_temp_curve">温度曲线</string>
-    <string name="main_control_actual_temp">当前温度</string>
-    <string name="main_control_degree">°</string>
-    <string name="main_control_degree2">。</string>
-    <string name="main_control_set_temp">设定温度</string>
-    <string name="main_control_turn_on">开机</string>
     <string name="main_control_timing_turn_on">定时开机</string>
     <string name="register_email">邮箱</string>
     <string name="register_use_mobilephone">手机注册</string>
@@ -121,9 +112,6 @@
 	
 	<string name="reset_by_phone">通过手机重置密码</string>
 	<string name="reset_by_email">通过邮箱重置密码</string>
-	
-	<string name="temp_now">当前温度</string>
-	<string name="temp_set">设定温度</string>
 		
 	<string name="warm_white">暖白</string>
 	<string name="mid_white">中性白</string>

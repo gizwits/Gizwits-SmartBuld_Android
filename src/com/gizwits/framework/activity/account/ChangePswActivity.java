@@ -43,9 +43,6 @@ import com.xpg.common.useful.NetworkUtils;
 import com.xpg.common.useful.StringUtils;
 import com.xpg.ui.utils.ToastUtils;
 
-// TODO: Auto-generated Javadoc
-//TODO: Auto-generated Javadoc
-
 /**
  * ClassName: Class ChangePswActivity. <br/>
  * 修改密码，该类主要用于用户通过旧密码修改密码。<br/>
