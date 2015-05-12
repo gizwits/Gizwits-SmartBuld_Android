@@ -1,14 +1,12 @@
 package com.xpg.common.system;
 
-import java.io.File;
-
-import com.xpg.common.useful.StringUtils;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+
+import com.xpg.common.useful.StringUtils;
 
 
 public class IntentUtils {

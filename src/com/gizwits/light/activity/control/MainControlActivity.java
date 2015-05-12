@@ -18,7 +18,6 @@
 package com.gizwits.light.activity.control;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -36,7 +35,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Html;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -46,7 +44,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -61,7 +58,6 @@ import com.gizwits.framework.activity.help.HelpActivity;
 import com.gizwits.framework.adapter.MenuDeviceAdapter;
 import com.gizwits.framework.config.JsonKeys;
 import com.gizwits.framework.entity.DeviceAlarm;
-import com.gizwits.framework.sdk.CmdCenter;
 import com.gizwits.framework.utils.DensityUtil;
 import com.gizwits.framework.utils.DialogManager;
 import com.gizwits.framework.utils.StringUtils;
@@ -88,9 +84,6 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** The seek bar. */
 	private CircularSeekBar seekBar;
-
-	/** The scl content. */
-	// private RelativeLayout rlContent;
 
 	/** The m view. */
 	private SlidingMenu mView;
@@ -121,12 +114,6 @@ public class MainControlActivity extends BaseActivity implements
 
 	/** The lv device. */
 	private ListView lvDevice;
-
-	/** The rl power on. */
-	private RelativeLayout rlPowerOn;
-
-	/** The is show. */
-	private boolean isShow;
 
 	/** The tv colorFul. */
 	private TextView tvColorful;
@@ -431,7 +418,6 @@ public class MainControlActivity extends BaseActivity implements
 		sbColorTemp = (SeekBar) findViewById(R.id.sbColorTemp);
 		ivPower = (ImageView) findViewById(R.id.ivPower);
 
-		rlPowerOn = (RelativeLayout) findViewById(R.id.rlPowerOn);
 		seekBar = (CircularSeekBar) findViewById(R.id.csbSeekbar);
 		seekBar.postInvalidateDelayed(2000);
 		seekBar.setMaxProgress(100);

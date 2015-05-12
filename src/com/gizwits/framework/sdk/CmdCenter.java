@@ -26,7 +26,6 @@ import android.util.Log;
 
 import com.gizwits.framework.config.Configs;
 import com.gizwits.framework.config.JsonKeys;
-import com.xpg.common.useful.StringUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
 import com.xtremeprog.xpgconnect.XPGWifiSDK;
 import com.xtremeprog.xpgconnect.XPGWifiSDK.XPGWifiConfigureMode;
