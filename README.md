@@ -1,21 +1,20 @@
-机智云智能热水器
+机智云智能灯泡（单品）
 =============
 
-Gizwits Water Heater Android Demo App
+Gizwits Light Android Demo App
 
 功能介绍
 
 ▪这是一款使用XPGWifiSDK的开源代码示例APP，可以帮助开发者快速入手，使用XPGWifiSDK开发连接机智云的物联APP。
-▪该APP针对的是智能家电中的热水器类产品。
+▪该APP针对的是智能家电中的灯泡类产品。
 
-▪包括了以下几点热水器常用功能：
+▪包括了以下几点灯泡常用功能：
 
-1.热水器电源的开关
-2.热水器运行模式的切换，智能，节能，速热，加热，保温，安全等
-3.热水器倒计时、预约的设置
-4.当前温度的获取
-5.热水器目标温度的设置
-6.报警，故障的提示
+1.灯泡电源的开关
+2.灯泡色温模式和色彩模式的切换
+3.灯泡亮度的设置
+4.灯泡色彩的设置
+5.当前模式的获取和显示
 
 ▪如果开发者希望开发的设备与以上功能类似，可参考或直接使用该APP进行修改进行快速开发自己的智能家电App。
 
@@ -42,8 +41,8 @@ Gizwits Water Heater Android Demo App
 项目工程结构
 
 ▪包结构说明
-com.gizwits.heater                             -智能云热水器独有代码，包含控制部分和侧边栏部分
-com.gizwits.heater.activity.control            -智能云热水器控制界面activity
+com.gizwits.light                              -智能云灯泡独有代码，包含控制部分和侧边栏部分
+com.gizwits.light.activity.control             -智能云灯泡控制界面activity
 
 com.gizwits.framework                                -机智云设备开源APP框架,包含除控制界面Activity外的代码，暂时机智云实验室中的其他开源APP所用框架一致
 com.gizwits.framework.activity                       -机智云设备开源APP框架相关activity
@@ -64,7 +63,7 @@ zxing                                                -第三方二维码扫描�
 ▪虚拟设备＋app使用流程（体验指令发、状态获取等流程）
 
 1.在机智云官网上注册并登录帐号
-2.使用机智云实验室里面的机智云智能热水器启动虚拟设备
+2.使用机智云实验室里面的机智云智能灯泡启动虚拟设备
 3.在app上注册并登录帐号
 4.通过扫描网页上的二维码添加虚拟设备
 5.进入控制界面与虚拟设备进行交互
@@ -72,7 +71,7 @@ zxing                                                -第三方二维码扫描�
 ▪gokit＋app使用流程（体验配置、绑定实体设备等流程）
 
 1.免费申请gokit，http://gizwits.com/zh-cn/gokit
-2.下载gokit开源代码并按说明替换为机智云智能热水器的产品标识码
+2.下载gokit开源代码并按说明替换为机智云智能灯泡的产品标识码
 3.在app上注册并登录帐号
 4.通过我要配置gokit按钮，使用Airlink或SoftAP模式配置gokit入网
 5.绑定gokit
