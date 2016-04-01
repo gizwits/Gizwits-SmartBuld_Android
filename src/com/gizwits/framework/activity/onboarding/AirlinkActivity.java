@@ -17,6 +17,7 @@
  */
 package com.gizwits.framework.activity.onboarding;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,186 +38,198 @@ import com.gizwits.light.R;
 import com.xpg.common.system.IntentUtils;
 import com.xpg.common.useful.StringUtils;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
-
+import com.xtremeprog.xpgconnect.XPGWifiSDK;
+import com.xtremeprog.xpgconnect.XPGWifiSDK.XPGWifiGAgentType;
 
 /**
  * ClassName: Class AirlinkActivity. <br/>
- * 配置结果
- * <br/>
+ * 配置结果 <br/>
  *
  * @author Lien
  */
 public class AirlinkActivity extends BaseActivity implements OnClickListener {
 
-    /**
-     * The btn config.
-     */
-    private Button btnConfig;
+	/**
+	 * The btn config.
+	 */
+	private Button btnConfig;
 
-    /**
-     * The btn retry.
-     */
-    private Button btnRetry;
+	/**
+	 * The btn retry.
+	 */
+	private Button btnRetry;
 
-    /**
-     * The btn softap.
-     */
-    private Button btnSoftap;
+	/**
+	 * The btn softap.
+	 */
+	private Button btnSoftap;
 
-    /**
-     * The iv back.
-     */
-    private ImageView ivBack;
-    
-    /**
-     * The ll start config.
-     */
-    private LinearLayout llStartConfig;
+	/**
+	 * The iv back.
+	 */
+	private ImageView ivBack;
 
-    /**
-     * The ll configing.
-     */
-    private LinearLayout llConfiging;
+	/**
+	 * The ll start config.
+	 */
+	private LinearLayout llStartConfig;
 
-    /**
-     * The ll config failed.
-     */
-    private LinearLayout llConfigFailed;
+	/**
+	 * The ll configing.
+	 */
+	private LinearLayout llConfiging;
 
-    /** The tv tick. */
-    private TextView tvTick;
+	/**
+	 * The ll config failed.
+	 */
+	private LinearLayout llConfigFailed;
 
-    /** The secondleft. */
-    int secondleft = 60;
+	/** The tv tick. */
+	private TextView tvTick;
 
-    /** The timer. */
-    private Timer timer;
+	/** The secondleft. */
+	int secondleft = 60;
 
-    /** The str s sid. */
-    private String strSSid;
-    
-    /** The str psw. */
-    private String strPsw;
-    
-    /** The UI_STATE now. */
-    private UI_STATE UiStateNow;
+	/** The timer. */
+	private Timer timer;
 
-    /**
-     * ClassName: Enum handler_key. <br/>
-     * <br/>
-     * date: 2014-11-26 17:51:10 <br/>
-     *
-     * @author Lien
-     */
-    private enum handler_key {
+	/** The str s sid. */
+	private String strSSid;
 
-        /**
-         * The tick time.
-         */
-        TICK_TIME,
+	/** The str psw. */
+	private String strPsw;
 
-        /**
-         * The reg success.
-         */
-        CONFIG_SUCCESS,
+	private int mode_temp;
+	ArrayList<XPGWifiGAgentType> types;
+	ArrayList<XPGWifiSDK.XPGWifiGAgentType> typeList;
+	//
 
-        /**
-         * The toast.
-         */
+	/** The UI_STATE now. */
+	private UI_STATE UiStateNow;
 
-        CONFIG_FAILED,
+	/**
+	 * ClassName: Enum handler_key. <br/>
+	 * <br/>
+	 * date: 2014-11-26 17:51:10 <br/>
+	 *
+	 * @author Lien
+	 */
+	private enum handler_key {
 
-    }
+		/**
+		 * The tick time.
+		 */
+		TICK_TIME,
 
-    /**
-     * The handler.
-     */
-    Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            handler_key key = handler_key.values()[msg.what];
-            switch (key) {
+		/**
+		 * The reg success.
+		 */
+		CONFIG_SUCCESS,
 
-                case TICK_TIME:
-                    secondleft--;
-                    if (secondleft <= 0) {
-                        timer.cancel();
-                        sendEmptyMessage(handler_key.CONFIG_FAILED.ordinal());
-                    } else {
-                        tvTick.setText(secondleft + "");
-                    }
-                    break;
+		/**
+		 * The toast.
+		 */
 
-                case CONFIG_SUCCESS:
-                    IntentUtils.getInstance().startActivity(AirlinkActivity.this,
-                            DeviceListActivity.class);
-                    finish();
-                    break;
+		CONFIG_FAILED,
 
+	}
 
-                case CONFIG_FAILED:
-                    showLayout(UI_STATE.Result);
-                    break;
+	/**
+	 * The handler.
+	 */
+	Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			handler_key key = handler_key.values()[msg.what];
+			switch (key) {
 
-            }
-        }
-    };
+			case TICK_TIME:
+				secondleft--;
+				if (secondleft <= 0) {
+					timer.cancel();
+					sendEmptyMessage(handler_key.CONFIG_FAILED.ordinal());
+				} else {
+					tvTick.setText(secondleft + "");
+				}
+				break;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see com.gizwits.aircondition.activity.BaseActivity#onCreate(android.os.Bundle)
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_airlink);
-        initViews();
-        initEvents();
-        initData();
-    }
+			case CONFIG_SUCCESS:
+				IntentUtils.getInstance().startActivity(AirlinkActivity.this, DeviceListActivity.class);
+				finish();
+				break;
 
+			case CONFIG_FAILED:
+				showLayout(UI_STATE.Result);
+				break;
 
-    /**
-     * Inits the events.
-     */
-    private void initEvents() {
-        btnConfig.setOnClickListener(this);
-        btnRetry.setOnClickListener(this);
-        btnSoftap.setOnClickListener(this);
-        ivBack.setOnClickListener(this);
-    }
+			}
+		}
+	};
 
-    /**
-     * Inits the views.
-     */
-    private void initViews() {
-        btnConfig = (Button) findViewById(R.id.btnConfig);
-        btnRetry = (Button) findViewById(R.id.btnRetry);
-        btnSoftap = (Button) findViewById(R.id.btnSoftap);
-        tvTick = (TextView) findViewById(R.id.tvTick);
-        ivBack=(ImageView) findViewById(R.id.ivBack);
-        llStartConfig = (LinearLayout) findViewById(R.id.llStartConfig);
-        llConfiging = (LinearLayout) findViewById(R.id.llConfiging);
-        llConfigFailed = (LinearLayout) findViewById(R.id.llConfigFailed);
-        showLayout(UI_STATE.Ready);
-    }
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see com.gizwits.aircondition.activity.BaseActivity#onCreate(android.os.
+	 * Bundle)
+	 */
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_airlink);
+		initViews();
+		initEvents();
+		initData();
+	}
 
-    /**
-     * Inits the data.
-     */
-    private void initData() {
-        if (getIntent() != null) {
-            if (!StringUtils.isEmpty(getIntent().getStringExtra("ssid"))) {
-                strSSid = getIntent().getStringExtra("ssid");
-            }
-            if (!StringUtils.isEmpty(getIntent().getStringExtra("psw"))) {
-                strPsw = getIntent().getStringExtra("psw");
-            } else {
-                strPsw = "";
-            }
-        }
-    }
+	/**
+	 * Inits the events.
+	 */
+	private void initEvents() {
+		btnConfig.setOnClickListener(this);
+		btnRetry.setOnClickListener(this);
+		btnSoftap.setOnClickListener(this);
+		ivBack.setOnClickListener(this);
+	}
+
+	/**
+	 * Inits the views.
+	 */
+	private void initViews() {
+		btnConfig = (Button) findViewById(R.id.btnConfig);
+		btnRetry = (Button) findViewById(R.id.btnRetry);
+		btnSoftap = (Button) findViewById(R.id.btnSoftap);
+		tvTick = (TextView) findViewById(R.id.tvTick);
+		ivBack = (ImageView) findViewById(R.id.ivBack);
+		llStartConfig = (LinearLayout) findViewById(R.id.llStartConfig);
+		llConfiging = (LinearLayout) findViewById(R.id.llConfiging);
+		llConfigFailed = (LinearLayout) findViewById(R.id.llConfigFailed);
+		showLayout(UI_STATE.Ready);
+	}
+
+	/**
+	 * Inits the data.
+	 */
+	private void initData() {
+		if (getIntent() != null) {
+			if (!StringUtils.isEmpty(getIntent().getStringExtra("ssid"))) {
+				strSSid = getIntent().getStringExtra("ssid");
+			}
+			if (!StringUtils.isEmpty(getIntent().getStringExtra("psw"))) {
+				strPsw = getIntent().getStringExtra("psw");
+			} else {
+				strPsw = "";
+			}
+			mode_temp = getIntent().getIntExtra("Temp", 0);
+		}
+		typeList = new ArrayList<XPGWifiSDK.XPGWifiGAgentType>();
+		typeList.add(XPGWifiSDK.XPGWifiGAgentType.XPGWifiGAgentTypeMXCHIP);// 庆科
+		typeList.add(XPGWifiSDK.XPGWifiGAgentType.XPGWifiGAgentTypeHF);// 汉枫
+		typeList.add(XPGWifiSDK.XPGWifiGAgentType.XPGWifiGAgentTypeRTK);// 瑞昱
+		typeList.add(XPGWifiSDK.XPGWifiGAgentType.XPGWifiGAgentTypeWM);// 联盛德
+		typeList.add(XPGWifiSDK.XPGWifiGAgentType.XPGWifiGAgentTypeESP);// 乐鑫
+		typeList.add(XPGWifiSDK.XPGWifiGAgentType.XPGWifiGAgentTypeQCA);// 高通
+		typeList.add(XPGWifiSDK.XPGWifiGAgentType.XPGWifiGAgentTypeTI);// TI
+	}
 
     private enum UI_STATE{
     	Ready,Setting,Result;
@@ -291,7 +304,10 @@ public class AirlinkActivity extends BaseActivity implements OnClickListener {
                 handler.sendEmptyMessage(handler_key.TICK_TIME.ordinal());
             }
         }, 1000, 1000);
-        mCenter.cSetAirLink(strSSid, strPsw);
+        //
+		types = new ArrayList<XPGWifiSDK.XPGWifiGAgentType>();
+		types.add(typeList.get(mode_temp));
+		mCenter.cSetAirLink(strSSid, strPsw, types);
     }
 
     @Override

@@ -17,6 +17,8 @@
  */
 package com.gizwits.framework.sdk;
 
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +31,7 @@ import com.gizwits.framework.config.JsonKeys;
 import com.xtremeprog.xpgconnect.XPGWifiDevice;
 import com.xtremeprog.xpgconnect.XPGWifiSDK;
 import com.xtremeprog.xpgconnect.XPGWifiSDK.XPGWifiConfigureMode;
+import com.xtremeprog.xpgconnect.XPGWifiSDK.XPGWifiGAgentType;
 
 // TODO: Auto-generated Javadoc
 
@@ -211,8 +214,9 @@ public class CmdCenter {
 	 * @param phone
 	 *            手机号
 	 */
-	public void cRequestSendVerifyCode(String phone) {
-		xpgWifiGCC.requestSendVerifyCode(phone);
+	public void cRequestSendVerifyCode(String token, String captchaId, String captchaCode, String phone) {
+		// xpgWifiGCC.requestSendVerifyCode(phone);
+		xpgWifiGCC.requestSendPhoneSMSCode(token, captchaId, captchaCode, phone);
 	}
 
 	/**
@@ -223,9 +227,12 @@ public class CmdCenter {
 	 * @param password
 	 *            wifi密码
 	 */
-	public void cSetAirLink(String wifi, String password) {
-		xpgWifiGCC.setDeviceWifi(wifi, password,
-				XPGWifiConfigureMode.XPGWifiConfigureModeAirLink, 60);
+	public void cSetAirLink(String wifi, String password, List<XPGWifiGAgentType> types) {
+		/*
+		 * xpgWifiGCC.setDeviceWifi(wifi, password,
+		 * XPGWifiConfigureMode.XPGWifiConfigureModeAirLink, 60);
+		 */
+		xpgWifiGCC.setDeviceWifi(wifi, password, XPGWifiConfigureMode.XPGWifiConfigureModeAirLink, null, 60, types);
 	}
 
 	/**
@@ -236,9 +243,13 @@ public class CmdCenter {
 	 * @param password
 	 *            wifi密码
 	 */
-	public void cSetSoftAp(String wifi, String password) {
-		xpgWifiGCC.setDeviceWifi(wifi, password,
-				XPGWifiConfigureMode.XPGWifiConfigureModeSoftAP, 30);
+	public void cSetSoftAp(String wifi, String password, String ssidAP) {
+		/*
+		 * xpgWifiGCC.setDeviceWifi(wifi, password,
+		 * XPGWifiConfigureMode.XPGWifiConfigureModeSoftAP, 30);
+		 */
+		xpgWifiGCC.setDeviceWifi(wifi, password, XPGWifiConfigureMode.XPGWifiConfigureModeSoftAP, ssidAP, 60, null);
+
 	}
 
 	/**
