@@ -62,14 +62,14 @@ import com.xtremeprog.xpgconnect.XPGWifiDevice;
  * 
  * @author Lien
  */
-public class SearchDeviceActivity extends BaseActivity implements
-		OnClickListener, OnItemClickListener {
+public class SearchDeviceActivity extends BaseActivity implements OnClickListener, OnItemClickListener {
 
 	/**
 	 * The btn add qr.
 	 */
 	private Button btnAddQR;
-
+	//
+	
 	/**
 	 * The btn add gokit.
 	 */
@@ -158,8 +158,7 @@ public class SearchDeviceActivity extends BaseActivity implements
 
 				if (allDeviceList.size() > 0) {
 					for (XPGWifiDevice device : allDeviceList) {
-						if (device.isLAN()
-								&& !device.isBind(setmanager.getUid())) {
+						if (device.isLAN() && !device.isBind(setmanager.getUid())) {
 							deviceList.add(device);
 						}
 					}
@@ -176,8 +175,7 @@ public class SearchDeviceActivity extends BaseActivity implements
 				adapter.notifyDataSetChanged();
 				break;
 			case CHANGE_SUCCESS:
-				IntentUtils.getInstance().startActivity(
-						SearchDeviceActivity.this, AutoConfigActivity.class);
+				IntentUtils.getInstance().startActivity(SearchDeviceActivity.this, AutoConfigActivity.class);
 				break;
 			}
 		}
@@ -209,8 +207,7 @@ public class SearchDeviceActivity extends BaseActivity implements
 		super.onResume();
 		loadingDialog.show();
 		mCenter.cGetBoundDevices(setmanager.getUid(), setmanager.getToken());
-		handler.sendEmptyMessageDelayed(handler_key.FOUND_FINISH.ordinal(),
-				5000);
+		handler.sendEmptyMessageDelayed(handler_key.FOUND_FINISH.ordinal(), 5000);
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
 		registerReceiver(mChangeBroadcast, filter);
@@ -232,6 +229,7 @@ public class SearchDeviceActivity extends BaseActivity implements
 	 */
 	private void initViews() {
 		btnAddQR = (Button) findViewById(R.id.btnAddQR);
+		//
 		btnAddGokit = (Button) findViewById(R.id.btnAddGokit);
 		ivBack = (ImageView) findViewById(R.id.ivBack);
 		lvDevices = (ListView) findViewById(R.id.lvDevices);
@@ -264,6 +262,7 @@ public class SearchDeviceActivity extends BaseActivity implements
 	 */
 	private void initEvents() {
 		btnAddQR.setOnClickListener(this);
+		//
 		btnAddGokit.setOnClickListener(this);
 		lvDevices.setOnItemClickListener(this);
 		ivBack.setOnClickListener(this);
@@ -280,18 +279,16 @@ public class SearchDeviceActivity extends BaseActivity implements
 		case R.id.btnAddQR:
 			if (NetworkUtils.isNetworkConnected(this)) {
 				// 跳转到二维码扫描activity
-				IntentUtils.getInstance().startActivity(this,
-						CaptureActivity.class);
+				IntentUtils.getInstance().startActivity(this, CaptureActivity.class);
 			} else {
-				Toast.makeText(this, R.string.please_connect_network,
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, R.string.please_connect_network, Toast.LENGTH_SHORT).show();
 			}
 			break;
+		//
 		case R.id.btnAddGokit:
 			if (NetworkUtils.isWifiConnected(this)) {
 				// 跳转到添加airlink activity
-				IntentUtils.getInstance().startActivity(
-						SearchDeviceActivity.this, AutoConfigActivity.class);
+				IntentUtils.getInstance().startActivity(SearchDeviceActivity.this, AutoConfigActivity.class);
 				finish();
 			} else {
 				isWaitingWifi = true;
@@ -327,13 +324,11 @@ public class SearchDeviceActivity extends BaseActivity implements
 	 * .AdapterView, android.view.View, int, long)
 	 */
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO 跳到获取passcode activity
 		XPGWifiDevice device = (XPGWifiDevice) adapter.getItem(position);
 		// Device device = new Device(deviceList.get(position));
-		Intent intent = new Intent(SearchDeviceActivity.this,
-				BindingDeviceActivity.class);
+		Intent intent = new Intent(SearchDeviceActivity.this, BindingDeviceActivity.class);
 		intent.putExtra("mac", device.getMacAddress());
 		intent.putExtra("did", device.getDid());
 		startActivity(intent);
@@ -361,10 +356,8 @@ public class SearchDeviceActivity extends BaseActivity implements
 			Log.i("networkchange", "change" + iswifi);
 			if (iswifi && isWaitingWifi) {
 				if (noNetworkDialog.isShowing()) {
-					DialogManager.dismissDialog(SearchDeviceActivity.this,
-							noNetworkDialog);
-					handler.sendEmptyMessage(handler_key.CHANGE_SUCCESS
-							.ordinal());
+					DialogManager.dismissDialog(SearchDeviceActivity.this, noNetworkDialog);
+					handler.sendEmptyMessage(handler_key.CHANGE_SUCCESS.ordinal());
 				}
 			}
 		}
@@ -373,8 +366,7 @@ public class SearchDeviceActivity extends BaseActivity implements
 	@Override
 	public void onBackPressed() {
 		if (isRegister) {
-			IntentUtils.getInstance().startActivity(SearchDeviceActivity.this,
-					DeviceListActivity.class);
+			IntentUtils.getInstance().startActivity(SearchDeviceActivity.this, DeviceListActivity.class);
 		} else {
 			finish();
 		}

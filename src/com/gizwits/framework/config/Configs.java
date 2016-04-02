@@ -26,23 +26,25 @@ import com.xtremeprog.xpgconnect.XPGWifiSDK.XPGWifiLogLevel;
  * @author Lien
  */
 public class Configs {
-	
-	/**  设备名字符显示长度. */
+
+	/** 设备名字符显示长度. */
 	public static final int DEVICE_NAME_KEEP_LENGTH = 8;
-	
-	/**  设定是否为debug版本. */
+
+	/** 设定是否为debug版本. */
 	public static final boolean DEBUG = true;
-	
-	/**  设定AppID，参数为机智云官网中查看产品信息得到的AppID. */
-	public static final String APPID = "2675d8b7962c413c86780fa88ed9ce6e";
-	
-	/**  指定该app对应设备的product_key，如果设定了过滤，会过滤出该peoduct_key对应的设备. */
+
+	/** 设定AppID，参数为机智云官网中查看产品信息得到的AppID. */
+	public static final String APPID = "f31dac5cebf2446c8b3745ae0e3f8514";
+
+	/** 指定该app对应设备的product_key，如果设定了过滤，会过滤出该peoduct_key对应的设备. */
 	public static final String PRODUCT_KEY = "781aebb40640490fbd1a4f2e0e5774ac";
-	
-	/**  设定日志打印级别. */
+
+	/** 设定日志打印级别. */
 	public static final XPGWifiLogLevel LOG_LEVEL = XPGWifiLogLevel.XPGWifiLogLevelAll;
-	
-	/**  日志保存文件名. */
+
+	/** 日志保存文件名. */
 	public static final String LOG_FILE_NAME = "BassApp.log";
 
+	/** 产品密钥 */
+	public static final String APP_SECRET = "67dee77e5fef4fd281d979e8d74f2a1a";
 }
