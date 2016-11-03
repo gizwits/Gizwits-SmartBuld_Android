@@ -1,13 +1,13 @@
 ﻿{
-    "app_id":"e646ceb312454796a30f246fa04d8ce4",
-    "app_secret":"bdf4a047536b4a8e8dae745dc7acab04",
-    "product_key":[6b2d6b317e0a4558ba632322568061d8],   
+    "app_id":"your_app_id",
+    "app_secret":"your_app_secret",
+    "product_key":[your_product_key],   
     "wifi_type_select":true,
-    "tencent_app_id":"1105509702",
-    "wechat_app_id":"wxea48754eb6142684",
-    "wechat_app_secret":"30e8d60ef1cb5f76847537f3c13fa855",
+    "tencent_app_id":"your_tencent_app_id",
+    "wechat_app_id":"your_wechat_app_id",
+    "wechat_app_secret":"your_wechat_app_secret",
     "push_type":0,
-    "bpush_app_key":"9WkemuMesYflgpijZdOANjn3",
+    "bpush_app_key":"your_bpush_app_key",
     "openAPI_URL":"",
     "site_URL":"",
     "push_URL":"",
@@ -16,5 +16,5 @@
     "navigationBarColor":"F8DC26",
     "navigationBarTextColor":"000000",
     "configProgressViewColor":"000000",
-    "addDeviceTitle":"设备"
+    "addDeviceTitle":""
 }
