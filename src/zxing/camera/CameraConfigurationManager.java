@@ -72,7 +72,6 @@ public final class CameraConfigurationManager {
 		Log.i(TAG, "Camera resolution y: " + cameraResolution.y);
 	}
 
-	@SuppressWarnings("deprecation")
 	@SuppressLint("NewApi")
 	private Point getDisplaySize(final Display display) {
 		final Point point = new Point();
@@ -111,7 +110,13 @@ public final class CameraConfigurationManager {
 		}
 
 		/** 设置相机预览为竖屏 */
-		camera.setDisplayOrientation(90);
+		String model=android.os.Build.MODEL;
+		if("Nexus 5X".equals(model)){
+			camera.setDisplayOrientation(270);
+		}else{
+			camera.setDisplayOrientation(90);
+		}
+	
 	}
 
 	public Point getCameraResolution() {

@@ -18,7 +18,6 @@ package zxing.decoding;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
-
 import zxing.CaptureActivity;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
@@ -28,7 +27,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import com.gizwits.light.R;
+import com.gizwits.opensource.smartlight.R;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.MultiFormatReader;
@@ -152,7 +151,8 @@ public class DecodeHandler extends Handler {
 			return null;
 		}
 		// Go ahead and assume it's YUV rather than die.
-		return new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top, rect.width(), rect.height(), false);
+		return new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top, rect.width(), rect.height(),
+				false);
 	}
 
 }

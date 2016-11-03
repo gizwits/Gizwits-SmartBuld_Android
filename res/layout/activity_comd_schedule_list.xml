@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light_gray"
+    android:orientation="vertical" >
+
+    <!-- 头部布局开始 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/comd_top" >
+
+        <ImageView
+            android:id="@+id/iv_schedule_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:src="@drawable/comd_icon_return" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/apm_timing_schedule"
+            android:textColor="@color/text_blue"
+            android:textSize="22sp" />
+    </RelativeLayout>
+    <!-- 头部布局结束 -->
+
+
+    <!-- 顶部横线 -->
+
+    <View
+        android:id="@+id/vw_list_top_divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/divider_gray" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3" >
+
+        <ScrollView
+            android:id="@+id/sv_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:scrollbars="none" >
+
+            <com.gizwits.opensource.devicecontrol.ui.adapter.SlideListView
+                android:id="@+id/slide_listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/divider_gray"
+                android:dividerHeight="0.5dp"
+                android:listSelector="@drawable/devicelist_item_selector" >
+            </com.gizwits.opensource.devicecontrol.ui.adapter.SlideListView>
+        </ScrollView>
+
+        <!-- 底部横线 -->
+
+        <View
+            android:id="@+id/vw_list_bottom_divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.5px"
+            android:layout_below="@+id/sv_list"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/divider_gray" />
+
+        <TextView
+            android:id="@+id/tv_no_rule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/apm_no_rule"
+            android:textColor="@color/text_gray"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_apm_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/comd_timer_btn_add" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:text="@string/apm_add"
+        android:textColor="@color/text_gray"
+        android:textSize="16sp" />
+
+</LinearLayout>
