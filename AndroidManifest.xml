@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gizwits.opensource.smartlight"
     android:versionCode="1"
-    android:versionName="2.04.04.110115" >
+    android:versionName="2.02.01" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -86,7 +86,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent1105509702" />
+                <data android:scheme="" />
             </intent-filter>
         </activity>
         <activity
@@ -268,7 +268,7 @@
         <!-- Required. AppKey copied from Portal -->
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="4c9f1e9d391d8dbbe343a1bb" />
+            android:value="" />
 
         <!-- 百度推送 -->
         <!-- push service start -->
