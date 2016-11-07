@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light_gray"
+    android:orientation="vertical" >
+
+    <!-- 头部布局开始 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/comd_top" >
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/comd_icon_return"
+            android:drawablePadding="5dp"
+            android:paddingLeft="10dp"
+            android:text="@string/apm_schedule"
+            android:textColor="@color/text_blue"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/apm_repeat"
+            android:textColor="@color/text_blue"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="20dp"
+            android:text="@string/text_save"
+            android:textColor="@color/text_blue"
+            android:textSize="18sp" />
+    </RelativeLayout>
+    <!-- 头部布局结束 -->
+
+    <ListView
+        android:id="@+id/lv_repeat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:divider="@color/divider_gray"
+        android:dividerHeight="0.5dp"
+        android:listSelector="@drawable/devicelist_item_selector" >
+    </ListView>
+
+</LinearLayout>

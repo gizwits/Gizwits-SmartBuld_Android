@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:drawable="@drawable/light_icon_on2" android:state_selected="true"></item>
-    <item android:drawable="@drawable/light_icon_off2" android:state_selected="false"></item>
+    <item android:drawable="@drawable/comd1_home_bnt_on" android:state_selected="true"></item>
+    <item android:drawable="@drawable/comd1_home_bnt_off" android:state_selected="false"></item>
 
 </selector>

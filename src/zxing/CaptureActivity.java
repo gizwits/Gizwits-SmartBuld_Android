@@ -17,13 +17,15 @@ package zxing;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-
 import zxing.camera.CameraManager;
 import zxing.decoding.DecodeThread;
 import zxing.utils.CaptureActivityHandler;
 import zxing.utils.InactivityTimer;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,13 +42,9 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
-import com.gizwits.framework.activity.BaseActivity;
-import com.gizwits.framework.activity.device.DeviceListActivity;
-import com.gizwits.light.R;
+import com.gizwits.opensource.appkit.DeviceModule.GosDeviceListActivity;
+import com.gizwits.opensource.smartlight.R;
 import com.google.zxing.Result;
-import com.xpg.common.system.IntentUtils;
-import com.xpg.ui.utils.ToastUtils;
 
 /**
  * This activity opens the camera and does the actual scanning on a background
@@ -57,8 +55,7 @@ import com.xpg.ui.utils.ToastUtils;
  * @author dswitkin@google.com (Daniel Switkin)
  * @author Sean Owen
  */
-public final class CaptureActivity extends BaseActivity implements
-		SurfaceHolder.Callback {
+public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
 
 	private static final String TAG = CaptureActivity.class.getSimpleName();
 
@@ -70,10 +67,10 @@ public final class CaptureActivity extends BaseActivity implements
 	private RelativeLayout scanContainer;
 	private RelativeLayout scanCropView;
 	private ImageView scanLine;
-
-	private String product_key, passcode, did;
 	private Button btnCancel;
 	private ImageView ivReturn;
+	// private String uid, token, mac, productKey, productSecret;
+	private String did, passcode, product_key;
 
 	/**
 	 * ClassName: Enum handler_key. <br/>
@@ -86,15 +83,12 @@ public final class CaptureActivity extends BaseActivity implements
 
 		START_BIND,
 
-		SUCCESS,
-
-		FAILED,
-
 	}
 
 	/**
 	 * The handler.
 	 */
+	@SuppressLint("HandlerLeak")
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
@@ -102,28 +96,17 @@ public final class CaptureActivity extends BaseActivity implements
 			switch (key) {
 
 			case START_BIND:
-				startBind(passcode, did);
+
+				String[] strings = (String[]) msg.obj;
+				for (String string : strings) {
+					GosDeviceListActivity.boundMessage.add(string);
+				}
+				finish();
 				break;
 
-			case SUCCESS:
-				ToastUtils.showShort(CaptureActivity.this, "添加成功");
-				IntentUtils.getInstance().startActivity(CaptureActivity.this,
-						DeviceListActivity.class);
-				finish();
-				break;
-			case FAILED:
-				ToastUtils.showShort(CaptureActivity.this, "添加失败，请返回重试");
-				finish();
 			}
 		}
 	};
-
-	private void startBind(final String passcode, final String did) {
-
-		mCenter.cBindDevice(setmanager.getUid(), setmanager.getToken(), did,
-				passcode, "");
-
-	}
 
 	private Rect mCropRect = null;
 
@@ -141,9 +124,16 @@ public final class CaptureActivity extends BaseActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		/**
+		 * 设置为竖屏
+		 */
+		if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		}
+
 		Window window = getWindow();
 		window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		setContentView(R.layout.activity_capture);
+		setContentView(R.layout.activity_gos_capture);
 
 		scanPreview = (SurfaceView) findViewById(R.id.capture_preview);
 		scanContainer = (RelativeLayout) findViewById(R.id.capture_container);
@@ -152,11 +142,9 @@ public final class CaptureActivity extends BaseActivity implements
 
 		inactivityTimer = new InactivityTimer(this);
 
-		TranslateAnimation animation = new TranslateAnimation(
-				Animation.RELATIVE_TO_PARENT, 0.0f,
-				Animation.RELATIVE_TO_PARENT, 0.0f,
-				Animation.RELATIVE_TO_PARENT, -1.0f,
-				Animation.RELATIVE_TO_PARENT,0.0f);
+		TranslateAnimation animation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0.0f,
+				Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, -1.0f, Animation.RELATIVE_TO_PARENT,
+				0.0f);
 		animation.setDuration(4500);
 		animation.setRepeatCount(-1);
 		animation.setRepeatMode(Animation.RESTART);
@@ -226,8 +214,7 @@ public final class CaptureActivity extends BaseActivity implements
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		if (holder == null) {
-			Log.e(TAG,
-					"*** WARNING *** surfaceCreated() gave us a null surface!");
+			Log.e(TAG, "*** WARNING *** surfaceCreated() gave us a null surface!");
 		}
 		if (!isHasSurface) {
 			isHasSurface = true;
@@ -241,8 +228,7 @@ public final class CaptureActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
+	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
 	}
 
@@ -258,22 +244,43 @@ public final class CaptureActivity extends BaseActivity implements
 	 */
 	public void handleDecode(Result rawResult, Bundle bundle) {
 		String text = rawResult.getText();
-		Log.i("test", text);
-		if (text.contains("product_key=") & text.contains("did=")
-				&& text.contains("passcode=")) {
+		Log.i("Apptest", text);
+		Message msg = new Message();
+		if (text.contains("product_key=") && text.contains("did=") && text.contains("passcode=")) {
 
 			inactivityTimer.onActivity();
 			product_key = getParamFomeUrl(text, "product_key");
 			did = getParamFomeUrl(text, "did");
 			passcode = getParamFomeUrl(text, "passcode");
-			Log.i("passcode product_key did", passcode + " " + product_key
-					+ " " + did);
-			ToastUtils.showShort(this, "扫码成功");
-			mHandler.sendEmptyMessage(handler_key.START_BIND.ordinal());
+			String[] strings = { did, passcode };
+			msg.what = handler_key.START_BIND.ordinal();
+			msg.obj = strings;
+			mHandler.sendMessage(msg);
+		}
+		// else if (text.contains("uid") && text.contains("token") &&
+		// text.contains("productKey")
+		// && text.contains("productSecret")) {
+		// inactivityTimer.onActivity();
+		// uid = getParamFomeUrl(text, "uid");
+		// token = getParamFomeUrl(text, "token");
+		// mac = getParamFomeUrl(text, "mac");
+		// productKey = getParamFomeUrl(text, "productKey");
+		// productSecret = getParamFomeUrl(text, "productSecret");
+		// String[] strings = { uid, token, mac, productKey, productSecret };
+		// msg.what = handler_key.START_BIND.ordinal();
+		// msg.obj = strings;
+		//
+		// mHandler.sendMessage(msg);
+		// }
+		else {
+			// handler = new CaptureActivityHandler(this, cameraManager,
+			// DecodeThread.ALL_MODE);
+			String[] strings = { text };
+			msg.what = handler_key.START_BIND.ordinal();
+			msg.obj = strings;
+			mHandler.sendMessage(msg);
+		
 
-		} else {
-			handler = new CaptureActivityHandler(this, cameraManager,
-					DecodeThread.ALL_MODE);
 		}
 	}
 
@@ -291,27 +298,12 @@ public final class CaptureActivity extends BaseActivity implements
 		return product_key;
 	}
 
-	@Override
-	protected void didBindDevice(int error, String errorMessage, String did) {
-		Log.d("扫描结果", "error=" + error + ";errorMessage=" + errorMessage
-				+ ";did=" + did);
-		if (error == 0) {
-			mHandler.sendEmptyMessage(handler_key.SUCCESS.ordinal());
-		} else {
-			Message message = new Message();
-			message.what = handler_key.FAILED.ordinal();
-			message.obj = errorMessage;
-			mHandler.sendMessage(message);
-		}
-	}
-
 	private void initCamera(SurfaceHolder surfaceHolder) {
 		if (surfaceHolder == null) {
 			throw new IllegalStateException("No SurfaceHolder provided");
 		}
 		if (cameraManager.isOpen()) {
-			Log.w(TAG,
-					"initCamera() while already open -- late SurfaceView callback?");
+			Log.w(TAG, "initCamera() while already open -- late SurfaceView callback?");
 			return;
 		}
 		try {
@@ -319,8 +311,7 @@ public final class CaptureActivity extends BaseActivity implements
 			// Creating the handler starts the preview, which can also throw a
 			// RuntimeException.
 			if (handler == null) {
-				handler = new CaptureActivityHandler(this, cameraManager,
-						DecodeThread.ALL_MODE);
+				handler = new CaptureActivityHandler(this, cameraManager, DecodeThread.ALL_MODE);
 			}
 
 			initCrop();
@@ -339,8 +330,10 @@ public final class CaptureActivity extends BaseActivity implements
 		// camera error
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(getString(R.string.app_name));
-		builder.setMessage("相机打开出错，请稍后重试");
-		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		String camera_error = getText(R.string.camera_error).toString();
+		builder.setMessage(camera_error);
+		String shure = getText(R.string.besure).toString();
+		builder.setPositiveButton(shure, new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -415,4 +408,5 @@ public final class CaptureActivity extends BaseActivity implements
 		}
 		return 0;
 	}
+
 }

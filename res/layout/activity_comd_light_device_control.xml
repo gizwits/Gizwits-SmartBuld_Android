@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- 底层UI布局开始 -->
+	<RelativeLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent">
+	 	
+	    <!-- 底层头部布局开始 -->
+	    <RelativeLayout 
+	        android:id="@+id/rl_header"
+	        android:layout_width="match_parent"
+	        android:layout_height="55dp"
+	        android:background="@drawable/comd_top"
+	        android:layout_alignParentTop="true">
+	        
+	    </RelativeLayout>
+	    <!-- 底层头部布局结束 -->
+	    
+	    <!-- 底层底部布局开始 -->
+	    <RelativeLayout 
+	        android:id="@+id/rl_bottom"
+	        android:layout_width="match_parent"
+	        android:layout_height="100dp"
+	        android:background="#efefef"
+	        android:layout_centerHorizontal="true"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentBottom="true">	       
+	    </RelativeLayout>	
+	    <!-- 底层底部布局结束 -->
+	    	    
+	    <Button 
+	        android:id="@+id/btn_middle"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:visibility="gone"	        
+	        android:layout_marginTop="45dp"
+	        android:layout_marginBottom="100dp"
+	        android:layout_centerVertical="true"/>
+	    
+	    <!-- 中部布局开始 -->
+	    <RelativeLayout 	        
+	        android:id="@+id/rl_middle"
+	        android:layout_centerVertical="true"
+	        android:layout_above="@id/rl_bottom"
+	        android:layout_below="@id/rl_header"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content">
+	        <!-- 亮度布局开始 -->
+		    <RelativeLayout 
+		        android:id="@+id/rl_brightness"
+		        android:layout_alignParentBottom="true"
+		        android:layout_width="match_parent"
+		        android:layout_height="100dp">
+		        <RelativeLayout 
+		            android:id="@+id/rl01"
+		            android:layout_width="match_parent"
+		            android:layout_alignParentBottom="true"
+		            android:layout_marginBottom="25dp"
+		            android:layout_height="wrap_content"
+		            android:layout_centerInParent="true">
+					<ImageView
+						android:id="@+id/ivLeft"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentLeft="true"
+						android:layout_centerInParent="true"
+						android:layout_marginLeft="15dp"
+						android:src="@drawable/comd1_home_icon_light" />				
+					<ImageView
+						android:id="@+id/ivRight"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+						android:layout_centerInParent="true"
+						android:layout_marginRight="15dp"
+						android:src="@drawable/comd1_home_icon_brightness" />				
+					<SeekBar
+						android:id="@+id/sbBrighteness"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_toLeftOf="@id/ivRight"
+						android:layout_toRightOf="@id/ivLeft"
+						android:layout_centerInParent="true"
+						android:progress="50"                             
+						android:thumb="@drawable/comd1_light_sewen_bg2" />					            
+		        </RelativeLayout>
+		        	        
+		        <TextView 
+		            android:id="@+id/tv_brightness"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentTop="true"
+		            android:layout_marginLeft="15dp"
+		            android:textSize="18sp"
+		            android:text="@string/brightness"/>
+		         <View 
+			        android:id="@+id/view"
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:layout_alignBottom="@id/tv_brightness"
+					android:layout_marginLeft="5dp"
+					android:layout_marginRight="5dp"
+					android:background="#a5b1b6"/>	        
+		    </RelativeLayout>
+		    <!-- 亮度布局结束 -->
+		     
+		    <!-- 环形布局开始 -->
+		    <RelativeLayout 
+		        android:id="@+id/circleSeekBar"
+		        android:layout_above="@id/rl_brightness"
+		        android:layout_alignParentTop="true"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content">
+		         
+		        <!-- 环形进度条布局开始 -->
+		        <RelativeLayout
+                     android:id="@+id/rl_seekbar"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_centerVertical="true">
+
+                     <com.gizwits.opensource.devicecontrol.ui.view.ColorTempCircularSeekBar
+                         android:id="@+id/csbSeekbar"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_centerHorizontal="true"
+                         android:layout_margin="5dp"/>
+                   
+                     <com.gizwits.opensource.devicecontrol.ui.view.ColorCircularSeekBar
+                         android:id="@+id/csbSeekbar2"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_centerHorizontal="true"
+                         android:layout_margin="5dp"/>
+                    
+                     <Button
+                         android:id="@+id/btnmode"
+                         android:layout_width="50dp"
+                         android:layout_height="50dp"
+                         android:layout_alignParentTop="true"
+                         android:layout_alignParentRight="true"
+                         android:layout_marginTop="30dp"
+                         android:layout_marginRight="20dp"
+                         android:background="@drawable/selector_mode"/>   
+                                                                
+                    <Button
+                         android:layout_width="30dp"
+                         android:layout_height="20dp"
+                         android:layout_marginTop="55dp"
+                         android:layout_toLeftOf="@id/btnmode"
+                         android:background="@drawable/comd1_home_icon_tab"/>                                                   
+                 </RelativeLayout>
+	        
+		       	<RelativeLayout 
+		       	    android:id="@+id/rlDelay"
+		       	    android:layout_width="match_parent"
+		       	    android:layout_height="wrap_content"
+		       	    android:layout_marginTop="100dp"
+		       	    android:layout_alignBottom="@id/rl_seekbar">
+		       	    <TextView 
+		       	        android:id="@+id/test_txt"
+		       	        android:layout_width="wrap_content"
+		       	        android:layout_height="wrap_content"
+		       	        android:layout_centerInParent="true"
+		       	        android:layout_alignParentBottom="true"/>
+		       	    <TextView 
+		       	        android:id="@+id/delaytxt"
+		       	        android:layout_width="wrap_content"
+		       	        android:layout_height="wrap_content"
+		       	        android:layout_toLeftOf="@id/test_txt"
+		       	        android:layout_alignParentBottom="true"
+		       	        android:text="@string/delay_turn_off"/>
+		       	    <TextView 
+		       	        android:id="@+id/tvDelay"
+		       	        android:layout_width="wrap_content"
+		       	        android:layout_height="wrap_content"
+		       	        android:layout_alignParentBottom="true"
+		       	        android:layout_toRightOf="@id/test_txt"/>
+		       	</RelativeLayout>	        
+		    </RelativeLayout>
+		    <!-- 环形布局结束 -->
+	        
+	    </RelativeLayout>
+	    <!-- 中部布局结束 -->
+	   	<ImageView 
+	   	    android:id="@+id/ivPowerOff"
+	   	    android:layout_width="match_parent"
+	   	    android:layout_height="match_parent"
+	   	    android:layout_alignBottom="@id/rl_middle"
+	   	    android:layout_alignTop="@id/rl_middle"
+	   	    android:layout_alignLeft="@id/rl_middle"
+	   	    android:layout_alignRight="@id/rl_middle"
+	   	    android:visibility="invisible"/>    
+	</RelativeLayout>
+	<!-- 底层UI布局结束 -->
+	
+	<!-- 中层View布局开始 -->
+	<RelativeLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent">
+		 <ImageView 
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/ivmain"
+            android:background="#808080"
+            android:alpha="0.79"
+            android:visibility="invisible"/>    
+	</RelativeLayout>
+	<!-- 中层View布局结束 -->
+	
+	<!-- 顶层View布局开始 -->
+	<RelativeLayout 
+	    android:id="@+id/rl_top"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent">
+		 
+		<!-- 顶层头部布局开始 -->
+	    <RelativeLayout 
+	        android:id="@+id/rlHeader"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentTop="true">           
+            <ImageView 
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+            	android:paddingRight="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/comd1_icon_return"/>
+            <ImageView 
+                android:id="@+id/ivSetting"
+                android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentRight="true"
+		        android:layout_centerVertical="true"
+                android:contentDescription="@string/app_name"
+	            android:paddingRight="15dp"
+	         	android:src="@drawable/comd1_btn_menu"/>
+            <TextView 
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_centerInParent="true"
+		        android:ellipsize="end"
+		        android:gravity="center"
+                android:singleLine="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="32dp"
+                android:layout_alignLeft="@id/iv_back"
+                android:layout_alignRight="@id/ivSetting"
+		        android:textColor="@color/black"
+		        android:textSize="22sp"/>	        
+	    </RelativeLayout>	  
+	    <!-- 头部布局结束 -->
+	    
+	     <!-- 底部布局开始 -->
+	    <RelativeLayout 
+	        android:id="@+id/rlPowerOn"	   
+	        android:layout_width="match_parent"
+	        android:layout_height="100dp"
+	        android:layout_centerHorizontal="true"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentBottom="true">
+            
+             <!-- 开关布局开始 -->
+	        <RelativeLayout 
+	        	android:id="@+id/rlPower"
+				android:layout_width="match_parent"
+				android:layout_height="100dp"				
+				android:layout_alignParentBottom="true">
+				                    
+				<Button
+					android:id="@+id/btnPower"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerHorizontal="true"
+					android:layout_centerVertical="true"
+					android:layout_marginTop="10dp"
+					android:gravity="center"
+					android:background="@drawable/selector_power"/>
+						                
+				<TextView 
+				    android:id="@+id/tvPower"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerHorizontal="true"
+					android:layout_centerVertical="true"
+					android:layout_marginTop="30dp"/>
+		                
+			</RelativeLayout>
+	        <!-- 开关布局结束 -->    
+	            
+	    </RelativeLayout>
+	    <!-- 底部布局结束 -->
+	    
+	</RelativeLayout>
+	<!-- 顶层view布局结束 -->
+    
+</RelativeLayout>

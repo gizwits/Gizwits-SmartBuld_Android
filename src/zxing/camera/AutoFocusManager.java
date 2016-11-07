@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.concurrent.RejectedExecutionException;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.hardware.Camera;
+import android.hardware.*;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
