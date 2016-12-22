@@ -44,4 +44,6 @@
     您可以给机智云的技术支持人员发送邮件，反馈您在使用过程中遇到的任何问题。
     邮箱：club@gizwits.com
 
+## App效果图
 
+![](https://github.com/gizwits/Gizwits-SmartBuld_Android/blob/master/effect.png) 
